@@ -421,83 +421,29 @@
         }
 
         /* ===== SCREENSHOTS ===== */
-        .screenshots-container {
-            position: relative;
-            overflow: hidden;
-            border-radius: 16px;
-        }
-
-        .screenshots-track {
-            display: flex;
-            gap: 1rem;
-            transition: transform 0.5s ease;
+        .screenshots-grid {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 1.5rem;
         }
 
         .screenshot-item {
-            min-width: calc(50% - 0.5rem);
             border-radius: 12px;
             overflow: hidden;
             border: 1px solid rgba(245, 166, 35, 0.1);
             cursor: pointer;
-            transition: border-color 0.3s;
-            flex-shrink: 0;
+            transition: all 0.3s;
         }
 
         .screenshot-item:hover {
             border-color: rgba(74, 230, 138, 0.4);
+            transform: translateY(-4px);
+            box-shadow: 0 8px 30px rgba(74, 230, 138, 0.1);
         }
 
         .screenshot-item img {
             width: 100%;
             display: block;
-        }
-
-        .carousel-controls {
-            display: flex;
-            justify-content: center;
-            gap: 1rem;
-            margin-top: 1.5rem;
-        }
-
-        .carousel-btn {
-            width: 48px;
-            height: 48px;
-            border-radius: 50%;
-            border: 2px solid rgba(245, 166, 35, 0.3);
-            background: var(--bg-card);
-            color: var(--amber);
-            font-size: 1.2rem;
-            cursor: pointer;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            transition: all 0.3s;
-        }
-
-        .carousel-btn:hover {
-            background: rgba(245, 166, 35, 0.15);
-            border-color: var(--amber);
-        }
-
-        .carousel-dots {
-            display: flex;
-            align-items: center;
-            gap: 0.5rem;
-        }
-
-        .carousel-dot {
-            width: 10px;
-            height: 10px;
-            border-radius: 50%;
-            background: rgba(255, 255, 255, 0.15);
-            border: none;
-            cursor: pointer;
-            transition: all 0.3s;
-        }
-
-        .carousel-dot.active {
-            background: var(--amber);
-            box-shadow: 0 0 8px rgba(245, 166, 35, 0.4);
         }
 
         /* ===== LIGHTBOX ===== */
@@ -697,7 +643,7 @@
             .modes-grid { grid-template-columns: repeat(2, 1fr); }
             .features-grid { grid-template-columns: repeat(2, 1fr); }
             .about-content { grid-template-columns: 1fr; }
-            .screenshot-item { min-width: calc(100% - 0.5rem); }
+            .screenshots-grid { grid-template-columns: 1fr; }
         }
 
         @media (max-width: 600px) {
@@ -885,32 +831,25 @@
         <h2 class="section-title reveal">Screenshots</h2>
         <p class="section-subtitle reveal">A glimpse into the magical world of Baqla.</p>
         <div class="section-divider"></div>
-        <div class="screenshots-container reveal">
-            <div class="screenshots-track" id="screenshotsTrack">
-                <div class="screenshot-item" onclick="openLightbox(this)">
-                    <img src="images/screenshot-Full House.png" alt="Full House Gameplay" loading="lazy">
-                </div>
-                <div class="screenshot-item" onclick="openLightbox(this)">
-                    <img src="images/screenshot-Flag Rush.png" alt="Flag Rush Gameplay" loading="lazy">
-                </div>
-                <div class="screenshot-item" onclick="openLightbox(this)">
-                    <img src="images/screenshot-SPIN AND WIN.png" alt="Spin and Win Gameplay" loading="lazy">
-                </div>
-                <div class="screenshot-item" onclick="openLightbox(this)">
-                    <img src="images/screenshot-TICK TOCK BOOM.png" alt="Tick Tock Boom Gameplay" loading="lazy">
-                </div>
-                <div class="screenshot-item" onclick="openLightbox(this)">
-                    <img src="images/screenshot-Pattern.png" alt="Pattern Gameplay" loading="lazy">
-                </div>
-                <div class="screenshot-item" onclick="openLightbox(this)">
-                    <img src="images/screenshot-MEMORY MATCH.png" alt="Memory Match Gameplay" loading="lazy">
-                </div>
+        <div class="screenshots-grid reveal">
+            <div class="screenshot-item" onclick="openLightbox(this)">
+                <img src="images/screenshot-Full House.png" alt="Full House Gameplay" loading="lazy">
             </div>
-        </div>
-        <div class="carousel-controls">
-            <button class="carousel-btn" onclick="slideCarousel(-1)" aria-label="Previous">&#10094;</button>
-            <div class="carousel-dots" id="carouselDots"></div>
-            <button class="carousel-btn" onclick="slideCarousel(1)" aria-label="Next">&#10095;</button>
+            <div class="screenshot-item" onclick="openLightbox(this)">
+                <img src="images/screenshot-Flag Rush.png" alt="Flag Rush Gameplay" loading="lazy">
+            </div>
+            <div class="screenshot-item" onclick="openLightbox(this)">
+                <img src="images/screenshot-SPIN AND WIN.png" alt="Spin and Win Gameplay" loading="lazy">
+            </div>
+            <div class="screenshot-item" onclick="openLightbox(this)">
+                <img src="images/screenshot-TICK TOCK BOOM.png" alt="Tick Tock Boom Gameplay" loading="lazy">
+            </div>
+            <div class="screenshot-item" onclick="openLightbox(this)">
+                <img src="images/screenshot-Pattern.png" alt="Pattern Gameplay" loading="lazy">
+            </div>
+            <div class="screenshot-item" onclick="openLightbox(this)">
+                <img src="images/screenshot-MEMORY MATCH.png" alt="Memory Match Gameplay" loading="lazy">
+            </div>
         </div>
     </section>
 
@@ -983,48 +922,6 @@
             a.addEventListener('click', () => navLinks.classList.remove('open'));
         });
 
-        // ===== SCREENSHOT CAROUSEL =====
-        const track = document.getElementById('screenshotsTrack');
-        const dotsContainer = document.getElementById('carouselDots');
-        let currentSlide = 0;
-        let itemsPerView = 2;
-        let totalSlides = 1;
-
-        function updateCarousel() {
-            itemsPerView = window.innerWidth <= 900 ? 1 : 2;
-            const items = track.querySelectorAll('.screenshot-item');
-            totalSlides = Math.ceil(items.length / itemsPerView);
-            if (currentSlide >= totalSlides) currentSlide = totalSlides - 1;
-
-            const gap = 16;
-            const containerWidth = track.parentElement.offsetWidth;
-            const itemWidth = (containerWidth - gap * (itemsPerView - 1)) / itemsPerView;
-
-            items.forEach(item => {
-                item.style.minWidth = itemWidth + 'px';
-            });
-
-            const offset = currentSlide * (itemWidth + gap) * itemsPerView;
-            track.style.transform = `translateX(-${offset}px)`;
-
-            // Update dots
-            dotsContainer.innerHTML = '';
-            for (let i = 0; i < totalSlides; i++) {
-                const dot = document.createElement('button');
-                dot.className = 'carousel-dot' + (i === currentSlide ? ' active' : '');
-                dot.setAttribute('aria-label', `Slide ${i + 1}`);
-                dot.onclick = () => { currentSlide = i; updateCarousel(); };
-                dotsContainer.appendChild(dot);
-            }
-        }
-
-        function slideCarousel(dir) {
-            currentSlide = Math.max(0, Math.min(totalSlides - 1, currentSlide + dir));
-            updateCarousel();
-        }
-
-        window.addEventListener('resize', updateCarousel);
-        updateCarousel();
 
         // ===== LIGHTBOX =====
         const lightbox = document.getElementById('lightbox');
