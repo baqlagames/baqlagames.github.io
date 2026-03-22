@@ -381,43 +381,65 @@
             line-height: 1.5;
         }
 
-        /* ===== FEATURES ===== */
-        .features-grid {
+        /* ===== FEATURES ZIGZAG ===== */
+        .feature-row {
             display: grid;
-            grid-template-columns: repeat(3, 1fr);
-            gap: 1.5rem;
+            grid-template-columns: 1fr 1fr;
+            gap: 3rem;
+            align-items: center;
+            margin-bottom: 4rem;
         }
 
-        .feature-card {
-            background: var(--bg-card);
+        .feature-row:last-child { margin-bottom: 0; }
+
+        .feature-row.reverse .feature-image { order: 2; }
+        .feature-row.reverse .feature-text { order: 1; }
+
+        .feature-image {
             border-radius: 16px;
-            padding: 2rem 1.5rem;
-            text-align: center;
-            border: 1px solid rgba(255, 255, 255, 0.05);
-            transition: all 0.3s ease;
+            overflow: hidden;
+            border: 1px solid rgba(245, 166, 35, 0.15);
+            box-shadow: 0 8px 40px rgba(0, 0, 0, 0.4);
+            transition: all 0.3s;
         }
 
-        .feature-card:hover {
-            border-color: rgba(245, 166, 35, 0.2);
+        .feature-image:hover {
+            border-color: rgba(74, 230, 138, 0.3);
             transform: translateY(-4px);
-            background: var(--bg-card-hover);
+            box-shadow: 0 12px 50px rgba(74, 230, 138, 0.1);
         }
 
-        .feature-icon {
-            font-size: 2.5rem;
-            margin-bottom: 1rem;
+        .feature-image img {
+            width: 100%;
             display: block;
         }
 
-        .feature-card h3 {
-            font-size: 1.05rem;
-            color: var(--text-primary);
-            margin-bottom: 0.5rem;
+        .feature-text h3 {
+            font-size: 1.5rem;
+            color: var(--amber);
+            margin-bottom: 0.75rem;
+            text-transform: uppercase;
+            letter-spacing: 0.03em;
         }
 
-        .feature-card p {
-            font-size: 0.88rem;
+        .feature-text p {
             color: var(--text-secondary);
+            font-size: 1.05rem;
+            line-height: 1.7;
+        }
+
+        .feature-text .feature-tag {
+            display: inline-block;
+            background: rgba(74, 230, 138, 0.1);
+            border: 1px solid rgba(74, 230, 138, 0.2);
+            color: var(--green-glow);
+            padding: 0.3rem 0.8rem;
+            border-radius: 20px;
+            font-size: 0.8rem;
+            font-weight: 600;
+            text-transform: uppercase;
+            letter-spacing: 0.05em;
+            margin-bottom: 0.75rem;
         }
 
         /* ===== SCREENSHOTS ===== */
@@ -641,14 +663,15 @@
         /* ===== RESPONSIVE ===== */
         @media (max-width: 900px) {
             .modes-grid { grid-template-columns: repeat(2, 1fr); }
-            .features-grid { grid-template-columns: repeat(2, 1fr); }
+            .feature-row { grid-template-columns: 1fr; gap: 1.5rem; }
+            .feature-row.reverse .feature-image { order: 0; }
+            .feature-row.reverse .feature-text { order: 0; }
             .about-content { grid-template-columns: 1fr; }
             .screenshots-grid { grid-template-columns: 1fr; }
         }
 
         @media (max-width: 600px) {
             .modes-grid { grid-template-columns: 1fr; }
-            .features-grid { grid-template-columns: 1fr; }
             .nav-links { display: none; }
             .nav-links.open {
                 display: flex;
@@ -698,6 +721,7 @@
             <li><a href="#modes">Game Modes</a></li>
             <li><a href="#features">Features</a></li>
             <li><a href="#screenshots">Screenshots</a></li>
+            <li><a href="#contact">Contact</a></li>
         </ul>
         <button class="hamburger" id="hamburger" aria-label="Menu">
             <span></span><span></span><span></span>
@@ -789,39 +813,73 @@
 
     <!-- Features -->
     <section id="features">
-        <h2 class="section-title reveal">Game Features</h2>
-        <p class="section-subtitle reveal">Everything you need for an epic card game experience.</p>
+        <h2 class="section-title reveal">More Than Just Cards</h2>
+        <p class="section-subtitle reveal">A full game experience — compete, collect, customize, and conquer.</p>
         <div class="section-divider"></div>
-        <div class="features-grid">
-            <div class="feature-card reveal">
-                <span class="feature-icon" aria-hidden="true">&#127183;</span>
-                <h3>Card Customization</h3>
-                <p>Unlock and collect beautiful card skins, card backs, and backgrounds from the shop and loot boxes.</p>
+
+        <div class="feature-row reveal">
+            <div class="feature-image" onclick="openLightbox(this)">
+                <img src="images/feat-leaderboard.png" alt="Leaderboard" loading="lazy">
             </div>
-            <div class="feature-card reveal">
-                <span class="feature-icon" aria-hidden="true">&#127942;</span>
-                <h3>Weekly Leaderboards</h3>
-                <p>Compete for the top rank each week. Earn exclusive rewards and climb the seasonal leaderboard.</p>
+            <div class="feature-text">
+                <span class="feature-tag">Competitive</span>
+                <h3>Weekly Leaderboard</h3>
+                <p>Climb the ranks and compete against players worldwide. Top players earn exclusive rewards every week. Track your score, check rival rankings, and claim your prizes before the timer resets.</p>
             </div>
-            <div class="feature-card reveal">
-                <span class="feature-icon" aria-hidden="true">&#9889;</span>
-                <h3>Secret Power Cards</h3>
-                <p>Steal cards, freeze opponents, change colors, and protect yourself with powerful action cards.</p>
+        </div>
+
+        <div class="feature-row reverse reveal">
+            <div class="feature-image" onclick="openLightbox(this)">
+                <img src="images/feat-challenges.png" alt="Daily Challenges" loading="lazy">
             </div>
-            <div class="feature-card reveal">
-                <span class="feature-icon" aria-hidden="true">&#128100;</span>
-                <h3>Unique Avatars</h3>
-                <p>Choose from a roster of quirky fruit-monster characters, each with their own personality.</p>
+            <div class="feature-text">
+                <span class="feature-tag">Daily</span>
+                <h3>Missions & Challenges</h3>
+                <p>Complete daily challenges to earn coins and rare rewards. Each challenge tests a different skill — use secret cards, win specific modes, or achieve special objectives. New challenges every day.</p>
             </div>
-            <div class="feature-card reveal">
-                <span class="feature-icon" aria-hidden="true">&#127760;</span>
-                <h3>Multiplayer Rooms</h3>
-                <p>Create rooms, share Room IDs, and play with friends. Add bots to fill empty slots.</p>
+        </div>
+
+        <div class="feature-row reveal">
+            <div class="feature-image" onclick="openLightbox(this)">
+                <img src="images/feat-shop-cards.png" alt="Shop — Card Skins" loading="lazy">
             </div>
-            <div class="feature-card reveal">
-                <span class="feature-icon" aria-hidden="true">&#127873;</span>
-                <h3>Loot & Rewards</h3>
-                <p>Open loot boxes, complete missions, and earn coins. Rare and epic drops await the dedicated.</p>
+            <div class="feature-text">
+                <span class="feature-tag">Customize</span>
+                <h3>Shop & Collection</h3>
+                <p>Browse and collect stunning card skins, arena maps, hand gloves, and unique avatars. Each item transforms your gameplay experience with gorgeous hand-painted art.</p>
+            </div>
+        </div>
+
+        <div class="feature-row reverse reveal">
+            <div class="feature-image" onclick="openLightbox(this)">
+                <img src="images/feat-create-room.png" alt="Create Room" loading="lazy">
+            </div>
+            <div class="feature-text">
+                <span class="feature-tag">Multiplayer</span>
+                <h3>Play With Friends</h3>
+                <p>Create private or public rooms and choose from all 6 game modes. Share your Room ID, invite friends, add bots, and compete head-to-head in enchanted arenas.</p>
+            </div>
+        </div>
+
+        <div class="feature-row reveal">
+            <div class="feature-image" onclick="openLightbox(this)">
+                <img src="images/feat-calendar.png" alt="Monthly Calendar" loading="lazy">
+            </div>
+            <div class="feature-text">
+                <span class="feature-tag">Rewards</span>
+                <h3>Monthly Calendar</h3>
+                <p>Log in daily to claim escalating rewards. Each day brings better prizes — coins, rare items, and exclusive unlocks. The longer your streak, the bigger the reward.</p>
+            </div>
+        </div>
+
+        <div class="feature-row reverse reveal">
+            <div class="feature-image" onclick="openLightbox(this)">
+                <img src="images/feat-settings.png" alt="Settings" loading="lazy">
+            </div>
+            <div class="feature-text">
+                <span class="feature-tag">Personalize</span>
+                <h3>13 Languages & Full Settings</h3>
+                <p>Play in your language — Baqla supports 13 languages including Arabic, Japanese, Korean, and more. Customize your profile, display name, audio, and controls to your liking.</p>
             </div>
         </div>
     </section>
@@ -850,7 +908,30 @@
             <div class="screenshot-item" onclick="openLightbox(this)">
                 <img src="images/screenshot-MEMORY MATCH.png" alt="Memory Match Gameplay" loading="lazy">
             </div>
+            <div class="screenshot-item" onclick="openLightbox(this)">
+                <img src="images/feat-shop-avatars.png" alt="Avatar Collection" loading="lazy">
+            </div>
+            <div class="screenshot-item" onclick="openLightbox(this)">
+                <img src="images/feat-shop-maps.png" alt="Arena Maps" loading="lazy">
+            </div>
+            <div class="screenshot-item" onclick="openLightbox(this)">
+                <img src="images/feat-game-room.png" alt="Game Room" loading="lazy">
+            </div>
+            <div class="screenshot-item" onclick="openLightbox(this)">
+                <img src="images/feat-login.png" alt="Login Screen" loading="lazy">
+            </div>
         </div>
+    </section>
+
+    <!-- Contact -->
+    <section id="contact" style="text-align: center;">
+        <h2 class="section-title reveal">Contact Us</h2>
+        <p class="section-subtitle reveal">Have questions, feedback, or partnership inquiries? We'd love to hear from you.</p>
+        <div class="section-divider"></div>
+        <a href="mailto:baqlagame@gmail.com" class="btn btn-secondary reveal" style="font-size: 1.1rem; padding: 1rem 2.5rem;">
+            <svg viewBox="0 0 24 24" style="width:22px;height:22px;fill:currentColor"><path d="M20 4H4c-1.1 0-2 .9-2 2v12c0 1.1.9 2 2 2h16c1.1 0 2-.9 2-2V6c0-1.1-.9-2-2-2zm0 4l-8 5-8-5V6l8 5 8-5v2z"/></svg>
+            baqlagame@gmail.com
+        </a>
     </section>
 
     <!-- CTA -->
@@ -889,6 +970,7 @@
                 <a href="#about">About</a>
                 <a href="#modes">Game Modes</a>
                 <a href="#features">Features</a>
+                <a href="#contact">Contact</a>
                 <a href="https://www.termsfeed.com/live/d13df142-44f9-4ecd-8014-172b998940a9" target="_blank" rel="noopener">Privacy Policy</a>
             </div>
             <div class="social-links">
