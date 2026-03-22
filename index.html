@@ -1,0 +1,1107 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Baqla — A Magical Fruit Card Game | BaqlaGames</title>
+    <meta name="description" content="Baqla is a magical multiplayer card game featuring enchanted fruit characters, 6 unique mini-games, and competitive leaderboards. Available on iOS.">
+    <meta property="og:title" content="Baqla — A Magical Fruit Card Game">
+    <meta property="og:description" content="Outsmart your opponents in enchanted arenas. 6 mini-games, multiplayer rooms, card customization, and weekly leaderboards.">
+    <meta property="og:image" content="images/baqla-icon.png">
+    <meta property="og:type" content="website">
+    <link rel="icon" type="image/png" href="images/baqla-icon.png">
+    <style>
+        /* ===== RESET & BASE ===== */
+        *, *::before, *::after { margin: 0; padding: 0; box-sizing: border-box; }
+
+        :root {
+            --bg-dark: #0a0a14;
+            --bg-card: rgba(20, 18, 35, 0.85);
+            --bg-card-hover: rgba(30, 26, 55, 0.95);
+            --purple-deep: #1a1030;
+            --purple-mid: #2d1b4e;
+            --green-glow: #4ae68a;
+            --green-dim: #2a8a52;
+            --amber: #f5a623;
+            --amber-dim: #b8791a;
+            --magenta: #d94f9b;
+            --teal: #1a8a8a;
+            --text-primary: #e8e4f0;
+            --text-secondary: #a09ab0;
+            --text-muted: #6b6580;
+            --gold-border: linear-gradient(135deg, #f5a623, #d4881a, #f5c843, #d4881a);
+            --glow-green: 0 0 20px rgba(74, 230, 138, 0.3);
+            --glow-amber: 0 0 20px rgba(245, 166, 35, 0.3);
+        }
+
+        html { scroll-behavior: smooth; }
+
+        body {
+            font-family: 'Segoe UI', system-ui, -apple-system, sans-serif;
+            background: var(--bg-dark);
+            color: var(--text-primary);
+            line-height: 1.6;
+            overflow-x: hidden;
+        }
+
+        /* ===== TYPOGRAPHY ===== */
+        h1, h2, h3, h4 {
+            font-weight: 800;
+            line-height: 1.2;
+            letter-spacing: 0.02em;
+        }
+
+        .section-title {
+            font-size: clamp(1.8rem, 5vw, 3rem);
+            text-align: center;
+            margin-bottom: 0.5rem;
+            background: linear-gradient(135deg, var(--amber), #ffe066, var(--amber));
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            text-transform: uppercase;
+            filter: drop-shadow(0 2px 8px rgba(245, 166, 35, 0.4));
+        }
+
+        .section-subtitle {
+            text-align: center;
+            color: var(--text-secondary);
+            font-size: clamp(0.95rem, 2.5vw, 1.15rem);
+            margin-bottom: 3rem;
+            max-width: 600px;
+            margin-left: auto;
+            margin-right: auto;
+        }
+
+        /* ===== NAVIGATION ===== */
+        nav {
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            z-index: 1000;
+            padding: 1rem 2rem;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            background: rgba(10, 10, 20, 0.85);
+            backdrop-filter: blur(12px);
+            border-bottom: 1px solid rgba(245, 166, 35, 0.1);
+            transition: background 0.3s;
+        }
+
+        nav.scrolled {
+            background: rgba(10, 10, 20, 0.95);
+            box-shadow: 0 4px 30px rgba(0, 0, 0, 0.5);
+        }
+
+        .nav-logo {
+            display: flex;
+            align-items: center;
+            gap: 0.75rem;
+            text-decoration: none;
+        }
+
+        .nav-logo img {
+            width: 40px;
+            height: 40px;
+            border-radius: 10px;
+        }
+
+        .nav-logo span {
+            font-size: 1.3rem;
+            font-weight: 800;
+            color: var(--amber);
+            letter-spacing: 0.05em;
+            text-transform: uppercase;
+        }
+
+        .nav-links {
+            display: flex;
+            gap: 2rem;
+            list-style: none;
+            align-items: center;
+        }
+
+        .nav-links a {
+            color: var(--text-secondary);
+            text-decoration: none;
+            font-weight: 600;
+            font-size: 0.9rem;
+            text-transform: uppercase;
+            letter-spacing: 0.05em;
+            transition: color 0.3s;
+            position: relative;
+        }
+
+        .nav-links a:hover { color: var(--green-glow); }
+
+        .nav-links a::after {
+            content: '';
+            position: absolute;
+            bottom: -4px;
+            left: 0;
+            width: 0;
+            height: 2px;
+            background: var(--green-glow);
+            transition: width 0.3s;
+        }
+
+        .nav-links a:hover::after { width: 100%; }
+
+        .hamburger {
+            display: none;
+            flex-direction: column;
+            gap: 5px;
+            cursor: pointer;
+            background: none;
+            border: none;
+            padding: 4px;
+        }
+
+        .hamburger span {
+            display: block;
+            width: 24px;
+            height: 2px;
+            background: var(--text-primary);
+            transition: 0.3s;
+        }
+
+        /* ===== HERO ===== */
+        .hero {
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            text-align: center;
+            padding: 8rem 2rem 4rem;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .hero::before {
+            content: '';
+            position: absolute;
+            inset: 0;
+            background:
+                radial-gradient(ellipse at 20% 50%, rgba(42, 138, 82, 0.12) 0%, transparent 60%),
+                radial-gradient(ellipse at 80% 30%, rgba(93, 40, 130, 0.15) 0%, transparent 60%),
+                radial-gradient(ellipse at 50% 80%, rgba(245, 166, 35, 0.08) 0%, transparent 50%);
+            z-index: 0;
+        }
+
+        .hero > * { position: relative; z-index: 1; }
+
+        .hero-icon {
+            width: clamp(140px, 25vw, 220px);
+            height: clamp(140px, 25vw, 220px);
+            border-radius: 28px;
+            margin-bottom: 1.5rem;
+            animation: float 4s ease-in-out infinite;
+            box-shadow:
+                0 8px 40px rgba(74, 230, 138, 0.2),
+                0 0 80px rgba(74, 230, 138, 0.08);
+        }
+
+        @keyframes float {
+            0%, 100% { transform: translateY(0); }
+            50% { transform: translateY(-12px); }
+        }
+
+        .hero h1 {
+            font-size: clamp(3rem, 10vw, 6rem);
+            text-transform: uppercase;
+            letter-spacing: 0.08em;
+            background: linear-gradient(180deg, #ffe066 0%, var(--amber) 50%, #d4881a 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            filter: drop-shadow(0 4px 12px rgba(245, 166, 35, 0.5));
+            margin-bottom: 0.5rem;
+        }
+
+        .hero-tagline {
+            font-size: clamp(1rem, 3vw, 1.4rem);
+            color: var(--text-secondary);
+            margin-bottom: 0.5rem;
+            font-weight: 400;
+        }
+
+        .hero-sub {
+            font-size: clamp(0.85rem, 2vw, 1rem);
+            color: var(--text-muted);
+            margin-bottom: 2.5rem;
+        }
+
+        .hero-buttons {
+            display: flex;
+            gap: 1rem;
+            flex-wrap: wrap;
+            justify-content: center;
+        }
+
+        .btn {
+            display: inline-flex;
+            align-items: center;
+            gap: 0.5rem;
+            padding: 0.85rem 2rem;
+            border-radius: 50px;
+            font-weight: 700;
+            font-size: 1rem;
+            text-decoration: none;
+            text-transform: uppercase;
+            letter-spacing: 0.05em;
+            transition: all 0.3s ease;
+            cursor: pointer;
+            border: none;
+        }
+
+        .btn-primary {
+            background: linear-gradient(135deg, var(--green-glow), var(--green-dim));
+            color: #0a0a14;
+            box-shadow: var(--glow-green);
+        }
+
+        .btn-primary:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 0 30px rgba(74, 230, 138, 0.5);
+        }
+
+        .btn-secondary {
+            background: transparent;
+            color: var(--amber);
+            border: 2px solid var(--amber);
+        }
+
+        .btn-secondary:hover {
+            background: rgba(245, 166, 35, 0.1);
+            transform: translateY(-2px);
+            box-shadow: var(--glow-amber);
+        }
+
+        .btn svg {
+            width: 20px;
+            height: 20px;
+            fill: currentColor;
+        }
+
+        /* ===== SECTIONS ===== */
+        section {
+            padding: 5rem 2rem;
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+
+        .section-divider {
+            width: 60px;
+            height: 3px;
+            background: linear-gradient(90deg, var(--green-glow), var(--amber));
+            margin: 0 auto 4rem;
+            border-radius: 2px;
+        }
+
+        /* ===== ABOUT ===== */
+        .about-content {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 3rem;
+            align-items: center;
+        }
+
+        .about-text p {
+            color: var(--text-secondary);
+            font-size: 1.05rem;
+            margin-bottom: 1.2rem;
+        }
+
+        .about-text p:first-child::first-letter {
+            font-size: 2.5rem;
+            font-weight: 800;
+            color: var(--amber);
+            float: left;
+            margin-right: 0.3rem;
+            line-height: 1;
+        }
+
+        .about-image {
+            border-radius: 16px;
+            overflow: hidden;
+            box-shadow: 0 8px 40px rgba(0, 0, 0, 0.4);
+            border: 1px solid rgba(245, 166, 35, 0.15);
+        }
+
+        .about-image img {
+            width: 100%;
+            display: block;
+        }
+
+        /* ===== GAME MODES ===== */
+        .modes-grid {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 1.5rem;
+        }
+
+        .mode-card {
+            background: var(--bg-card);
+            border-radius: 16px;
+            overflow: hidden;
+            border: 1px solid rgba(245, 166, 35, 0.1);
+            transition: all 0.4s ease;
+            cursor: default;
+        }
+
+        .mode-card:hover {
+            transform: translateY(-6px);
+            border-color: rgba(74, 230, 138, 0.3);
+            box-shadow: 0 12px 40px rgba(74, 230, 138, 0.1);
+        }
+
+        .mode-card-img {
+            width: 100%;
+            aspect-ratio: 16/9;
+            object-fit: cover;
+            display: block;
+        }
+
+        .mode-card-body {
+            padding: 1.2rem;
+        }
+
+        .mode-card h3 {
+            font-size: 1.1rem;
+            color: var(--amber);
+            margin-bottom: 0.4rem;
+        }
+
+        .mode-card p {
+            font-size: 0.88rem;
+            color: var(--text-secondary);
+            line-height: 1.5;
+        }
+
+        /* ===== FEATURES ===== */
+        .features-grid {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 1.5rem;
+        }
+
+        .feature-card {
+            background: var(--bg-card);
+            border-radius: 16px;
+            padding: 2rem 1.5rem;
+            text-align: center;
+            border: 1px solid rgba(255, 255, 255, 0.05);
+            transition: all 0.3s ease;
+        }
+
+        .feature-card:hover {
+            border-color: rgba(245, 166, 35, 0.2);
+            transform: translateY(-4px);
+            background: var(--bg-card-hover);
+        }
+
+        .feature-icon {
+            font-size: 2.5rem;
+            margin-bottom: 1rem;
+            display: block;
+        }
+
+        .feature-card h3 {
+            font-size: 1.05rem;
+            color: var(--text-primary);
+            margin-bottom: 0.5rem;
+        }
+
+        .feature-card p {
+            font-size: 0.88rem;
+            color: var(--text-secondary);
+        }
+
+        /* ===== SCREENSHOTS ===== */
+        .screenshots-container {
+            position: relative;
+            overflow: hidden;
+            border-radius: 16px;
+        }
+
+        .screenshots-track {
+            display: flex;
+            gap: 1rem;
+            transition: transform 0.5s ease;
+        }
+
+        .screenshot-item {
+            min-width: calc(50% - 0.5rem);
+            border-radius: 12px;
+            overflow: hidden;
+            border: 1px solid rgba(245, 166, 35, 0.1);
+            cursor: pointer;
+            transition: border-color 0.3s;
+            flex-shrink: 0;
+        }
+
+        .screenshot-item:hover {
+            border-color: rgba(74, 230, 138, 0.4);
+        }
+
+        .screenshot-item img {
+            width: 100%;
+            display: block;
+        }
+
+        .carousel-controls {
+            display: flex;
+            justify-content: center;
+            gap: 1rem;
+            margin-top: 1.5rem;
+        }
+
+        .carousel-btn {
+            width: 48px;
+            height: 48px;
+            border-radius: 50%;
+            border: 2px solid rgba(245, 166, 35, 0.3);
+            background: var(--bg-card);
+            color: var(--amber);
+            font-size: 1.2rem;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            transition: all 0.3s;
+        }
+
+        .carousel-btn:hover {
+            background: rgba(245, 166, 35, 0.15);
+            border-color: var(--amber);
+        }
+
+        .carousel-dots {
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+
+        .carousel-dot {
+            width: 10px;
+            height: 10px;
+            border-radius: 50%;
+            background: rgba(255, 255, 255, 0.15);
+            border: none;
+            cursor: pointer;
+            transition: all 0.3s;
+        }
+
+        .carousel-dot.active {
+            background: var(--amber);
+            box-shadow: 0 0 8px rgba(245, 166, 35, 0.4);
+        }
+
+        /* ===== LIGHTBOX ===== */
+        .lightbox {
+            display: none;
+            position: fixed;
+            inset: 0;
+            z-index: 2000;
+            background: rgba(0, 0, 0, 0.92);
+            backdrop-filter: blur(8px);
+            align-items: center;
+            justify-content: center;
+            cursor: pointer;
+        }
+
+        .lightbox.active { display: flex; }
+
+        .lightbox img {
+            max-width: 90%;
+            max-height: 85vh;
+            border-radius: 12px;
+            box-shadow: 0 0 60px rgba(0, 0, 0, 0.8);
+        }
+
+        .lightbox-close {
+            position: absolute;
+            top: 2rem;
+            right: 2rem;
+            width: 44px;
+            height: 44px;
+            border-radius: 50%;
+            background: rgba(255, 255, 255, 0.1);
+            border: none;
+            color: white;
+            font-size: 1.5rem;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        /* ===== CTA BANNER ===== */
+        .cta-section {
+            text-align: center;
+            padding: 5rem 2rem;
+            position: relative;
+        }
+
+        .cta-section::before {
+            content: '';
+            position: absolute;
+            inset: 0;
+            background: radial-gradient(ellipse at center, rgba(42, 138, 82, 0.1) 0%, transparent 70%);
+        }
+
+        .cta-section > * { position: relative; z-index: 1; }
+
+        .cta-section h2 {
+            font-size: clamp(1.8rem, 5vw, 2.8rem);
+            background: linear-gradient(135deg, var(--green-glow), #a0f0c0);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            margin-bottom: 1rem;
+            text-transform: uppercase;
+        }
+
+        .cta-section p {
+            color: var(--text-secondary);
+            margin-bottom: 2rem;
+            font-size: 1.1rem;
+        }
+
+        /* ===== FOOTER ===== */
+        footer {
+            background: rgba(10, 10, 20, 0.6);
+            border-top: 1px solid rgba(245, 166, 35, 0.08);
+            padding: 3rem 2rem 2rem;
+        }
+
+        .footer-content {
+            max-width: 1200px;
+            margin: 0 auto;
+            display: flex;
+            justify-content: space-between;
+            align-items: flex-start;
+            flex-wrap: wrap;
+            gap: 2rem;
+        }
+
+        .footer-brand {
+            display: flex;
+            align-items: center;
+            gap: 0.75rem;
+        }
+
+        .footer-brand img {
+            width: 48px;
+            height: 48px;
+            border-radius: 12px;
+        }
+
+        .footer-brand-text h3 {
+            color: var(--amber);
+            font-size: 1.1rem;
+            text-transform: uppercase;
+            letter-spacing: 0.05em;
+        }
+
+        .footer-brand-text p {
+            color: var(--text-muted);
+            font-size: 0.8rem;
+        }
+
+        .footer-links {
+            display: flex;
+            gap: 2.5rem;
+        }
+
+        .footer-links a {
+            color: var(--text-secondary);
+            text-decoration: none;
+            font-size: 0.9rem;
+            transition: color 0.3s;
+        }
+
+        .footer-links a:hover { color: var(--green-glow); }
+
+        .social-links {
+            display: flex;
+            gap: 1rem;
+        }
+
+        .social-link {
+            width: 42px;
+            height: 42px;
+            border-radius: 50%;
+            background: rgba(255, 255, 255, 0.05);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            text-decoration: none;
+            transition: all 0.3s;
+        }
+
+        .social-link:hover {
+            background: rgba(245, 166, 35, 0.15);
+            border-color: var(--amber);
+            transform: translateY(-2px);
+        }
+
+        .social-link svg {
+            width: 20px;
+            height: 20px;
+            fill: var(--text-secondary);
+            transition: fill 0.3s;
+        }
+
+        .social-link:hover svg { fill: var(--amber); }
+
+        .footer-bottom {
+            max-width: 1200px;
+            margin: 2rem auto 0;
+            padding-top: 1.5rem;
+            border-top: 1px solid rgba(255, 255, 255, 0.05);
+            text-align: center;
+            color: var(--text-muted);
+            font-size: 0.8rem;
+        }
+
+        /* ===== PARTICLES ===== */
+        #particles {
+            position: fixed;
+            inset: 0;
+            z-index: 0;
+            pointer-events: none;
+        }
+
+        .particle {
+            position: absolute;
+            border-radius: 50%;
+            pointer-events: none;
+            animation: drift linear infinite;
+            opacity: 0;
+        }
+
+        @keyframes drift {
+            0% { transform: translateY(100vh) scale(0); opacity: 0; }
+            10% { opacity: 1; }
+            90% { opacity: 1; }
+            100% { transform: translateY(-10vh) scale(1); opacity: 0; }
+        }
+
+        /* ===== RESPONSIVE ===== */
+        @media (max-width: 900px) {
+            .modes-grid { grid-template-columns: repeat(2, 1fr); }
+            .features-grid { grid-template-columns: repeat(2, 1fr); }
+            .about-content { grid-template-columns: 1fr; }
+            .screenshot-item { min-width: calc(100% - 0.5rem); }
+        }
+
+        @media (max-width: 600px) {
+            .modes-grid { grid-template-columns: 1fr; }
+            .features-grid { grid-template-columns: 1fr; }
+            .nav-links { display: none; }
+            .nav-links.open {
+                display: flex;
+                flex-direction: column;
+                position: absolute;
+                top: 100%;
+                left: 0;
+                right: 0;
+                background: rgba(10, 10, 20, 0.98);
+                padding: 1.5rem 2rem;
+                gap: 1.2rem;
+                border-bottom: 1px solid rgba(245, 166, 35, 0.1);
+            }
+            .hamburger { display: flex; }
+            .hero { padding: 7rem 1.5rem 3rem; }
+            section { padding: 3rem 1.5rem; }
+            .footer-content { flex-direction: column; align-items: center; text-align: center; }
+            .footer-links { flex-direction: column; gap: 1rem; align-items: center; }
+        }
+
+        /* ===== SCROLL REVEAL ===== */
+        .reveal {
+            opacity: 0;
+            transform: translateY(30px);
+            transition: opacity 0.6s ease, transform 0.6s ease;
+        }
+
+        .reveal.visible {
+            opacity: 1;
+            transform: translateY(0);
+        }
+    </style>
+</head>
+<body>
+
+    <!-- Particles Background -->
+    <div id="particles"></div>
+
+    <!-- Navigation -->
+    <nav id="navbar">
+        <a href="#" class="nav-logo">
+            <img src="images/baqla-icon.png" alt="Baqla">
+            <span>BaqlaGames</span>
+        </a>
+        <ul class="nav-links" id="navLinks">
+            <li><a href="#about">About</a></li>
+            <li><a href="#modes">Game Modes</a></li>
+            <li><a href="#features">Features</a></li>
+            <li><a href="#screenshots">Screenshots</a></li>
+        </ul>
+        <button class="hamburger" id="hamburger" aria-label="Menu">
+            <span></span><span></span><span></span>
+        </button>
+    </nav>
+
+    <!-- Hero -->
+    <section class="hero" id="hero">
+        <img src="images/baqla-icon.png" alt="Baqla — Magical Fruit Card Game" class="hero-icon">
+        <h1>Baqla</h1>
+        <p class="hero-tagline">A Magical Fruit Card Game</p>
+        <p class="hero-sub">Outsmart your opponents in enchanted arenas. Collect, compete, and conquer.</p>
+        <div class="hero-buttons">
+            <a href="#screenshots" class="btn btn-primary">
+                <svg viewBox="0 0 24 24"><path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm-2 14.5v-9l6 4.5-6 4.5z"/></svg>
+                See Gameplay
+            </a>
+            <a href="#modes" class="btn btn-secondary">Explore Modes</a>
+        </div>
+    </section>
+
+    <!-- About -->
+    <section id="about">
+        <h2 class="section-title reveal">Welcome to Baqla</h2>
+        <p class="section-subtitle reveal">Step into a world where enchanted fruits battle for glory at the card table.</p>
+        <div class="section-divider"></div>
+        <div class="about-content">
+            <div class="about-text reveal">
+                <p>Welcome to the magical tavern where fruit creatures gather to play cards, wager treasures, and climb the ranks. Baqla is a multiplayer card game set in a whimsical fantasy world filled with enchanted arenas, secret power cards, and fierce competition.</p>
+                <p>Choose from 6 unique mini-games, each with its own strategy and arena. Play against friends in private rooms or challenge rivals on the weekly leaderboard. Customize your cards, unlock rare skins, and collect mystical rewards.</p>
+                <p>Whether you're matching fruit cards in the ancient ruins, racing to clear your hand in the dark caves, or stopping the timer at the perfect moment — every round is a new adventure.</p>
+            </div>
+            <div class="about-image reveal">
+                <img src="images/Gemini_Generated_Image_vmrkvzvmrkvzvmrk.png" alt="Baqla — Tavern Hub" loading="lazy">
+            </div>
+        </div>
+    </section>
+
+    <!-- Game Modes -->
+    <section id="modes">
+        <h2 class="section-title reveal">6 Unique Game Modes</h2>
+        <p class="section-subtitle reveal">Each mode has its own enchanted arena, rules, and strategy. Master them all.</p>
+        <div class="section-divider"></div>
+        <div class="modes-grid">
+            <div class="mode-card reveal">
+                <img class="mode-card-img" src="images/Gemini_Generated_Image_awnpj1awnpj1awnp.png" alt="Full House" loading="lazy">
+                <div class="mode-card-body">
+                    <h3>Full House</h3>
+                    <p>Be the first to collect 5 matching fruit cards. Grab cards, react fast, and use secret powers to steal from your rivals.</p>
+                </div>
+            </div>
+            <div class="mode-card reveal">
+                <img class="mode-card-img" src="images/Gemini_Generated_Image_6voqw66voqw66voq.png" alt="Flag Rush" loading="lazy">
+                <div class="mode-card-body">
+                    <h3>Flag Rush</h3>
+                    <p>Match the flag color and race to reach zero cards first. Use Change Color, Freeze, Draw 2, and Protection cards strategically.</p>
+                </div>
+            </div>
+            <div class="mode-card reveal">
+                <img class="mode-card-img" src="images/Gemini_Generated_Image_n8yv0pn8yv0pn8yv.png" alt="Spin and Win" loading="lazy">
+                <div class="mode-card-body">
+                    <h3>Spin and Win</h3>
+                    <p>Spin the mystical reels and match symbols before time runs out. Use Slow Down and Freeze powers to gain the edge.</p>
+                </div>
+            </div>
+            <div class="mode-card reveal">
+                <img class="mode-card-img" src="images/Gemini_Generated_Image_qtfsieqtfsieqtfs.png" alt="Tick Tock Boom" loading="lazy">
+                <div class="mode-card-body">
+                    <h3>Tick Tock Boom</h3>
+                    <p>Stop the timer as close to the target as possible. Precision and nerves of steel win this mystical challenge.</p>
+                </div>
+            </div>
+            <div class="mode-card reveal">
+                <img class="mode-card-img" src="images/Gemini_Generated_Image_ign65tign65tign6.png" alt="Game Mode Selection" loading="lazy">
+                <div class="mode-card-body">
+                    <h3>Pattern & Memory Match</h3>
+                    <p>Two more brain-teasing modes — test your pattern recognition and memory skills in enchanted arenas.</p>
+                </div>
+            </div>
+            <div class="mode-card reveal">
+                <img class="mode-card-img" src="images/Gemini_Generated_Image_fq10zlfq10zlfq10.png" alt="Multiplayer" loading="lazy">
+                <div class="mode-card-body">
+                    <h3>Play With Friends</h3>
+                    <p>Create private rooms, invite friends, add bots, and compete across all game modes together.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Features -->
+    <section id="features">
+        <h2 class="section-title reveal">Game Features</h2>
+        <p class="section-subtitle reveal">Everything you need for an epic card game experience.</p>
+        <div class="section-divider"></div>
+        <div class="features-grid">
+            <div class="feature-card reveal">
+                <span class="feature-icon" aria-hidden="true">&#127183;</span>
+                <h3>Card Customization</h3>
+                <p>Unlock and collect beautiful card skins, card backs, and backgrounds from the shop and loot boxes.</p>
+            </div>
+            <div class="feature-card reveal">
+                <span class="feature-icon" aria-hidden="true">&#127942;</span>
+                <h3>Weekly Leaderboards</h3>
+                <p>Compete for the top rank each week. Earn exclusive rewards and climb the seasonal leaderboard.</p>
+            </div>
+            <div class="feature-card reveal">
+                <span class="feature-icon" aria-hidden="true">&#9889;</span>
+                <h3>Secret Power Cards</h3>
+                <p>Steal cards, freeze opponents, change colors, and protect yourself with powerful action cards.</p>
+            </div>
+            <div class="feature-card reveal">
+                <span class="feature-icon" aria-hidden="true">&#128100;</span>
+                <h3>Unique Avatars</h3>
+                <p>Choose from a roster of quirky fruit-monster characters, each with their own personality.</p>
+            </div>
+            <div class="feature-card reveal">
+                <span class="feature-icon" aria-hidden="true">&#127760;</span>
+                <h3>Multiplayer Rooms</h3>
+                <p>Create rooms, share Room IDs, and play with friends. Add bots to fill empty slots.</p>
+            </div>
+            <div class="feature-card reveal">
+                <span class="feature-icon" aria-hidden="true">&#127873;</span>
+                <h3>Loot & Rewards</h3>
+                <p>Open loot boxes, complete missions, and earn coins. Rare and epic drops await the dedicated.</p>
+            </div>
+        </div>
+    </section>
+
+    <!-- Screenshots -->
+    <section id="screenshots">
+        <h2 class="section-title reveal">Screenshots</h2>
+        <p class="section-subtitle reveal">A glimpse into the magical world of Baqla.</p>
+        <div class="section-divider"></div>
+        <div class="screenshots-container reveal">
+            <div class="screenshots-track" id="screenshotsTrack">
+                <div class="screenshot-item" onclick="openLightbox(this)">
+                    <img src="images/Gemini_Generated_Image_vmrkvzvmrkvzvmrk.png" alt="Tavern Hub" loading="lazy">
+                </div>
+                <div class="screenshot-item" onclick="openLightbox(this)">
+                    <img src="images/Gemini_Generated_Image_awnpj1awnpj1awnp.png" alt="Full House Gameplay" loading="lazy">
+                </div>
+                <div class="screenshot-item" onclick="openLightbox(this)">
+                    <img src="images/Gemini_Generated_Image_6voqw66voqw66voq.png" alt="Flag Rush Gameplay" loading="lazy">
+                </div>
+                <div class="screenshot-item" onclick="openLightbox(this)">
+                    <img src="images/Gemini_Generated_Image_n8yv0pn8yv0pn8yv.png" alt="Spin and Win" loading="lazy">
+                </div>
+                <div class="screenshot-item" onclick="openLightbox(this)">
+                    <img src="images/Gemini_Generated_Image_dv2unddv2unddv2u.png" alt="Card Customization" loading="lazy">
+                </div>
+                <div class="screenshot-item" onclick="openLightbox(this)">
+                    <img src="images/Gemini_Generated_Image_wwg6xiwwg6xiwwg6.png" alt="Leaderboard" loading="lazy">
+                </div>
+                <div class="screenshot-item" onclick="openLightbox(this)">
+                    <img src="images/Gemini_Generated_Image_4tfay04tfay04tfa.png" alt="Rewards Screen" loading="lazy">
+                </div>
+                <div class="screenshot-item" onclick="openLightbox(this)">
+                    <img src="images/Gemini_Generated_Image_fq10zlfq10zlfq10.png" alt="Multiplayer Lobby" loading="lazy">
+                </div>
+                <div class="screenshot-item" onclick="openLightbox(this)">
+                    <img src="images/Gemini_Generated_Image_qtfsieqtfsieqtfs.png" alt="Timer Game" loading="lazy">
+                </div>
+                <div class="screenshot-item" onclick="openLightbox(this)">
+                    <img src="images/Gemini_Generated_Image_ign65tign65tign6.png" alt="Mode Selection" loading="lazy">
+                </div>
+            </div>
+        </div>
+        <div class="carousel-controls">
+            <button class="carousel-btn" onclick="slideCarousel(-1)" aria-label="Previous">&#10094;</button>
+            <div class="carousel-dots" id="carouselDots"></div>
+            <button class="carousel-btn" onclick="slideCarousel(1)" aria-label="Next">&#10095;</button>
+        </div>
+    </section>
+
+    <!-- CTA -->
+    <section class="cta-section">
+        <h2 class="reveal">Ready to Play?</h2>
+        <p class="reveal">Join the enchanted card table. Coming soon to the App Store.</p>
+        <div class="hero-buttons reveal">
+            <a href="https://www.instagram.com/baqlagames/?hl=en" target="_blank" rel="noopener" class="btn btn-primary">
+                <svg viewBox="0 0 24 24"><path d="M12 2.163c3.204 0 3.584.012 4.85.07 3.252.148 4.771 1.691 4.919 4.919.058 1.265.069 1.645.069 4.849 0 3.205-.012 3.584-.069 4.849-.149 3.225-1.664 4.771-4.919 4.919-1.266.058-1.644.07-4.85.07-3.204 0-3.584-.012-4.849-.07-3.26-.149-4.771-1.699-4.919-4.92-.058-1.265-.07-1.644-.07-4.849 0-3.204.013-3.583.07-4.849.149-3.227 1.664-4.771 4.919-4.919 1.266-.057 1.645-.069 4.849-.069zM12 0C8.741 0 8.333.014 7.053.072 2.695.272.273 2.69.073 7.052.014 8.333 0 8.741 0 12c0 3.259.014 3.668.072 4.948.2 4.358 2.618 6.78 6.98 6.98C8.333 23.986 8.741 24 12 24c3.259 0 3.668-.014 4.948-.072 4.354-.2 6.782-2.618 6.979-6.98.059-1.28.073-1.689.073-4.948 0-3.259-.014-3.667-.072-4.947-.196-4.354-2.617-6.78-6.979-6.98C15.668.014 15.259 0 12 0zm0 5.838a6.162 6.162 0 100 12.324 6.162 6.162 0 000-12.324zM12 16a4 4 0 110-8 4 4 0 010 8zm6.406-11.845a1.44 1.44 0 100 2.881 1.44 1.44 0 000-2.881z"/></svg>
+                Follow on Instagram
+            </a>
+            <a href="https://www.tiktok.com/@baqlagames" target="_blank" rel="noopener" class="btn btn-secondary">
+                <svg viewBox="0 0 24 24"><path d="M19.59 6.69a4.83 4.83 0 01-3.77-4.25V2h-3.45v13.67a2.89 2.89 0 01-2.88 2.5 2.89 2.89 0 01-2.89-2.89 2.89 2.89 0 012.89-2.89c.28 0 .54.04.79.1v-3.5a6.37 6.37 0 00-.79-.05A6.34 6.34 0 003.15 15.2a6.34 6.34 0 0010.86 4.48 6.3 6.3 0 001.86-4.49V8.74a8.26 8.26 0 004.84 1.56V6.84a4.84 4.84 0 01-1.12-.15z"/></svg>
+                Follow on TikTok
+            </a>
+        </div>
+    </section>
+
+    <!-- Lightbox -->
+    <div class="lightbox" id="lightbox" onclick="closeLightbox()">
+        <button class="lightbox-close" aria-label="Close">&times;</button>
+        <img id="lightboxImg" src="" alt="Screenshot">
+    </div>
+
+    <!-- Footer -->
+    <footer>
+        <div class="footer-content">
+            <div class="footer-brand">
+                <img src="images/baqla-icon.png" alt="Baqla">
+                <div class="footer-brand-text">
+                    <h3>BaqlaGames</h3>
+                    <p>Enchanted card games</p>
+                </div>
+            </div>
+            <div class="footer-links">
+                <a href="#about">About</a>
+                <a href="#modes">Game Modes</a>
+                <a href="#features">Features</a>
+                <a href="https://www.termsfeed.com/live/d13df142-44f9-4ecd-8014-172b998940a9" target="_blank" rel="noopener">Privacy Policy</a>
+            </div>
+            <div class="social-links">
+                <a href="https://www.instagram.com/baqlagames/?hl=en" target="_blank" rel="noopener" class="social-link" aria-label="Instagram">
+                    <svg viewBox="0 0 24 24"><path d="M12 2.163c3.204 0 3.584.012 4.85.07 3.252.148 4.771 1.691 4.919 4.919.058 1.265.069 1.645.069 4.849 0 3.205-.012 3.584-.069 4.849-.149 3.225-1.664 4.771-4.919 4.919-1.266.058-1.644.07-4.85.07-3.204 0-3.584-.012-4.849-.07-3.26-.149-4.771-1.699-4.919-4.92-.058-1.265-.07-1.644-.07-4.849 0-3.204.013-3.583.07-4.849.149-3.227 1.664-4.771 4.919-4.919 1.266-.057 1.645-.069 4.849-.069zM12 0C8.741 0 8.333.014 7.053.072 2.695.272.273 2.69.073 7.052.014 8.333 0 8.741 0 12c0 3.259.014 3.668.072 4.948.2 4.358 2.618 6.78 6.98 6.98C8.333 23.986 8.741 24 12 24c3.259 0 3.668-.014 4.948-.072 4.354-.2 6.782-2.618 6.979-6.98.059-1.28.073-1.689.073-4.948 0-3.259-.014-3.667-.072-4.947-.196-4.354-2.617-6.78-6.979-6.98C15.668.014 15.259 0 12 0zm0 5.838a6.162 6.162 0 100 12.324 6.162 6.162 0 000-12.324zM12 16a4 4 0 110-8 4 4 0 010 8zm6.406-11.845a1.44 1.44 0 100 2.881 1.44 1.44 0 000-2.881z"/></svg>
+                </a>
+                <a href="https://www.tiktok.com/@baqlagames" target="_blank" rel="noopener" class="social-link" aria-label="TikTok">
+                    <svg viewBox="0 0 24 24"><path d="M19.59 6.69a4.83 4.83 0 01-3.77-4.25V2h-3.45v13.67a2.89 2.89 0 01-2.88 2.5 2.89 2.89 0 01-2.89-2.89 2.89 2.89 0 012.89-2.89c.28 0 .54.04.79.1v-3.5a6.37 6.37 0 00-.79-.05A6.34 6.34 0 003.15 15.2a6.34 6.34 0 0010.86 4.48 6.3 6.3 0 001.86-4.49V8.74a8.26 8.26 0 004.84 1.56V6.84a4.84 4.84 0 01-1.12-.15z"/></svg>
+                </a>
+            </div>
+        </div>
+        <div class="footer-bottom">
+            &copy; 2026 BaqlaGames. All rights reserved.
+        </div>
+    </footer>
+
+    <script>
+        // ===== NAV SCROLL =====
+        const navbar = document.getElementById('navbar');
+        window.addEventListener('scroll', () => {
+            navbar.classList.toggle('scrolled', window.scrollY > 50);
+        });
+
+        // ===== HAMBURGER =====
+        const hamburger = document.getElementById('hamburger');
+        const navLinks = document.getElementById('navLinks');
+        hamburger.addEventListener('click', () => {
+            navLinks.classList.toggle('open');
+        });
+        navLinks.querySelectorAll('a').forEach(a => {
+            a.addEventListener('click', () => navLinks.classList.remove('open'));
+        });
+
+        // ===== SCREENSHOT CAROUSEL =====
+        const track = document.getElementById('screenshotsTrack');
+        const dotsContainer = document.getElementById('carouselDots');
+        let currentSlide = 0;
+        let itemsPerView = 2;
+        let totalSlides = 1;
+
+        function updateCarousel() {
+            itemsPerView = window.innerWidth <= 900 ? 1 : 2;
+            const items = track.querySelectorAll('.screenshot-item');
+            totalSlides = Math.ceil(items.length / itemsPerView);
+            if (currentSlide >= totalSlides) currentSlide = totalSlides - 1;
+
+            const gap = 16;
+            const containerWidth = track.parentElement.offsetWidth;
+            const itemWidth = (containerWidth - gap * (itemsPerView - 1)) / itemsPerView;
+
+            items.forEach(item => {
+                item.style.minWidth = itemWidth + 'px';
+            });
+
+            const offset = currentSlide * (itemWidth + gap) * itemsPerView;
+            track.style.transform = `translateX(-${offset}px)`;
+
+            // Update dots
+            dotsContainer.innerHTML = '';
+            for (let i = 0; i < totalSlides; i++) {
+                const dot = document.createElement('button');
+                dot.className = 'carousel-dot' + (i === currentSlide ? ' active' : '');
+                dot.setAttribute('aria-label', `Slide ${i + 1}`);
+                dot.onclick = () => { currentSlide = i; updateCarousel(); };
+                dotsContainer.appendChild(dot);
+            }
+        }
+
+        function slideCarousel(dir) {
+            currentSlide = Math.max(0, Math.min(totalSlides - 1, currentSlide + dir));
+            updateCarousel();
+        }
+
+        window.addEventListener('resize', updateCarousel);
+        updateCarousel();
+
+        // ===== LIGHTBOX =====
+        const lightbox = document.getElementById('lightbox');
+        const lightboxImg = document.getElementById('lightboxImg');
+
+        function openLightbox(el) {
+            const img = el.querySelector('img');
+            lightboxImg.src = img.src;
+            lightboxImg.alt = img.alt;
+            lightbox.classList.add('active');
+            document.body.style.overflow = 'hidden';
+        }
+
+        function closeLightbox() {
+            lightbox.classList.remove('active');
+            document.body.style.overflow = '';
+        }
+
+        document.addEventListener('keydown', e => {
+            if (e.key === 'Escape') closeLightbox();
+        });
+
+        // ===== SCROLL REVEAL =====
+        const reveals = document.querySelectorAll('.reveal');
+        const revealObserver = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    entry.target.classList.add('visible');
+                    revealObserver.unobserve(entry.target);
+                }
+            });
+        }, { threshold: 0.1, rootMargin: '0px 0px -50px 0px' });
+
+        reveals.forEach(el => revealObserver.observe(el));
+
+        // ===== FLOATING PARTICLES =====
+        const particlesContainer = document.getElementById('particles');
+        const colors = ['rgba(74, 230, 138, 0.4)', 'rgba(245, 166, 35, 0.3)', 'rgba(217, 79, 155, 0.25)'];
+
+        function createParticle() {
+            const p = document.createElement('div');
+            p.className = 'particle';
+            const size = Math.random() * 4 + 2;
+            const color = colors[Math.floor(Math.random() * colors.length)];
+            const duration = Math.random() * 15 + 10;
+            const left = Math.random() * 100;
+
+            p.style.cssText = `
+                width: ${size}px; height: ${size}px;
+                background: ${color};
+                box-shadow: 0 0 ${size * 2}px ${color};
+                left: ${left}%;
+                animation-duration: ${duration}s;
+                animation-delay: ${Math.random() * 5}s;
+            `;
+            particlesContainer.appendChild(p);
+            setTimeout(() => p.remove(), (duration + 5) * 1000);
+        }
+
+        // Create initial particles
+        for (let i = 0; i < 15; i++) {
+            setTimeout(createParticle, i * 400);
+        }
+        // Keep spawning
+        setInterval(createParticle, 2000);
+    </script>
+</body>
+</html>
