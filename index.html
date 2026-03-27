@@ -286,6 +286,30 @@
             fill: currentColor;
         }
 
+        /* ===== GAMEPLAY VIDEO ===== */
+        .video-section {
+            padding: 4rem 2rem 5rem;
+            max-width: 900px;
+            margin: 0 auto;
+            text-align: center;
+        }
+
+        .video-wrapper {
+            position: relative;
+            border-radius: 20px;
+            overflow: hidden;
+            box-shadow:
+                0 8px 40px rgba(74, 230, 138, 0.15),
+                0 0 80px rgba(93, 40, 130, 0.1);
+            border: 1px solid rgba(245, 166, 35, 0.15);
+        }
+
+        .video-wrapper video {
+            width: 100%;
+            display: block;
+            border-radius: 20px;
+        }
+
         /* ===== SECTIONS ===== */
         section {
             padding: 5rem 2rem;
@@ -743,6 +767,17 @@
             <a href="#modes" class="btn btn-secondary">Explore Modes</a>
         </div>
     </section>
+
+    <!-- Gameplay Video -->
+    <div class="video-section reveal">
+        <h2 class="section-title">See It In Action</h2>
+        <p class="section-subtitle">Watch the magic unfold in Baqla's enchanted arenas</p>
+        <div class="video-wrapper">
+            <video autoplay muted loop playsinline>
+                <source src="images/BaqlaGameplay.mp4" type="video/mp4">
+            </video>
+        </div>
+    </div>
 
     <!-- About -->
     <section id="about">
