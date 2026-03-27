@@ -286,6 +286,73 @@
             fill: currentColor;
         }
 
+        /* ===== COUNTDOWN ===== */
+        .countdown-section {
+            padding: 3rem 2rem;
+            text-align: center;
+            position: relative;
+        }
+
+        .countdown-label {
+            font-size: clamp(0.9rem, 2.5vw, 1.1rem);
+            color: var(--text-secondary);
+            text-transform: uppercase;
+            letter-spacing: 0.15em;
+            margin-bottom: 1.5rem;
+        }
+
+        .countdown-timer {
+            display: flex;
+            justify-content: center;
+            gap: clamp(0.8rem, 3vw, 2rem);
+            flex-wrap: wrap;
+        }
+
+        .countdown-unit {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            min-width: 80px;
+        }
+
+        .countdown-number {
+            font-size: clamp(2.5rem, 8vw, 4.5rem);
+            font-weight: 800;
+            line-height: 1;
+            background: linear-gradient(180deg, #ffe066 0%, var(--amber) 50%, #d4881a 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            filter: drop-shadow(0 2px 8px rgba(245, 166, 35, 0.4));
+        }
+
+        .countdown-word {
+            font-size: clamp(0.7rem, 2vw, 0.85rem);
+            color: var(--text-muted);
+            text-transform: uppercase;
+            letter-spacing: 0.1em;
+            margin-top: 0.4rem;
+        }
+
+        .countdown-separator {
+            font-size: clamp(2rem, 6vw, 3.5rem);
+            font-weight: 800;
+            color: var(--text-muted);
+            align-self: flex-start;
+            margin-top: 0.15rem;
+            opacity: 0.4;
+        }
+
+        .countdown-launched {
+            font-size: clamp(1.5rem, 5vw, 2.5rem);
+            font-weight: 800;
+            background: linear-gradient(135deg, var(--green-glow), #ffe066);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            filter: drop-shadow(0 2px 12px rgba(74, 230, 138, 0.5));
+        }
+
         /* ===== GAMEPLAY VIDEO ===== */
         .video-section {
             padding: 4rem 2rem 5rem;
@@ -768,6 +835,32 @@
         </div>
     </section>
 
+    <!-- Countdown -->
+    <section class="countdown-section" id="countdown">
+        <p class="countdown-label">Global Launch In</p>
+        <div class="countdown-timer" id="countdownTimer">
+            <div class="countdown-unit">
+                <span class="countdown-number" id="cd-days">00</span>
+                <span class="countdown-word">Days</span>
+            </div>
+            <span class="countdown-separator">:</span>
+            <div class="countdown-unit">
+                <span class="countdown-number" id="cd-hours">00</span>
+                <span class="countdown-word">Hours</span>
+            </div>
+            <span class="countdown-separator">:</span>
+            <div class="countdown-unit">
+                <span class="countdown-number" id="cd-minutes">00</span>
+                <span class="countdown-word">Minutes</span>
+            </div>
+            <span class="countdown-separator">:</span>
+            <div class="countdown-unit">
+                <span class="countdown-number" id="cd-seconds">00</span>
+                <span class="countdown-word">Seconds</span>
+            </div>
+        </div>
+    </section>
+
     <!-- Gameplay Video -->
     <div class="video-section">
         <h2 class="section-title">See It In Action</h2>
@@ -1045,6 +1138,39 @@
             a.addEventListener('click', () => navLinks.classList.remove('open'));
         });
 
+
+        // ===== COUNTDOWN =====
+        (function() {
+            const launchDate = new Date('2026-04-01T00:00:00').getTime();
+            const timerEl = document.getElementById('countdownTimer');
+            const daysEl = document.getElementById('cd-days');
+            const hoursEl = document.getElementById('cd-hours');
+            const minsEl = document.getElementById('cd-minutes');
+            const secsEl = document.getElementById('cd-seconds');
+
+            function update() {
+                const now = Date.now();
+                const diff = launchDate - now;
+
+                if (diff <= 0) {
+                    timerEl.innerHTML = '<span class="countdown-launched">We Are Live Worldwide!</span>';
+                    return;
+                }
+
+                const d = Math.floor(diff / 86400000);
+                const h = Math.floor((diff % 86400000) / 3600000);
+                const m = Math.floor((diff % 3600000) / 60000);
+                const s = Math.floor((diff % 60000) / 1000);
+
+                daysEl.textContent = String(d).padStart(2, '0');
+                hoursEl.textContent = String(h).padStart(2, '0');
+                minsEl.textContent = String(m).padStart(2, '0');
+                secsEl.textContent = String(s).padStart(2, '0');
+            }
+
+            update();
+            setInterval(update, 1000);
+        })();
 
         // ===== LIGHTBOX =====
         const lightbox = document.getElementById('lightbox');
