@@ -1,0 +1,11 @@
+# Baqla (iOS) - App-Ads.txt
+# App Store ID: 6448760057
+
+# Google AdMob
+google.com, pub-9724082568918713, DIRECT, f08c47fec0942fa0
+
+# Unity Ads / ironSource (LevelPlay)
+unity.com, 257583f85, DIRECT
+
+# Liftoff (Vungle)
+vungle.com, 69d0ff5a0b5654c3f8d4b0f5, DIRECT, c107d686becd2d77
