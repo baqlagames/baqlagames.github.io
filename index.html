@@ -7,13 +7,14 @@
     <meta name="description" content="Baqla is a magical multiplayer mini-game arena featuring enchanted fruit characters, 6 unique games, and competitive leaderboards. Free on iOS worldwide.">
     <meta property="og:title" content="Baqla — Magical Mini-Game Arena">
     <meta property="og:description" content="6 enchanted mini-games, multiplayer rooms, customization, and weekly leaderboards. Free on iOS worldwide.">
-    <meta property="og:image" content="images/baqla-icon.png">
+    <meta property="og:image" content="https://baqlagames.com/images/baqla-icon.png">
     <meta property="og:type" content="website">
     <meta property="og:url" content="https://baqlagames.com">
     <link rel="icon" type="image/png" sizes="192x192" href="images/baqla-icon.png">
     <link rel="apple-touch-icon" href="images/baqla-icon.png">
     <link rel="manifest" href="site.webmanifest">
     <link rel="preload" as="image" href="images/baqla-icon.png">
+    <link rel="canonical" href="https://baqlagames.com/">
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@700;900&family=Outfit:wght@300;400;500;600;700&display=swap" rel="stylesheet">
@@ -256,7 +257,7 @@
                 0 12px 50px rgba(52, 216, 122, 0.15),
                 0 0 120px rgba(52, 216, 122, 0.06);
             opacity: 0;
-            animation: heroFloat 5s ease-in-out infinite, heroEnter 1s 0.2s cubic-bezier(0.22, 1, 0.36, 1) forwards;
+            animation: heroFloat 5s ease-in-out infinite, heroEnter 1s 0.1s cubic-bezier(0.22, 1, 0.36, 1) forwards;
         }
 
         @keyframes heroFloat {
@@ -281,7 +282,7 @@
             filter: drop-shadow(0 4px 20px rgba(232, 169, 37, 0.4));
             margin-bottom: 0.3rem;
             opacity: 0;
-            animation: heroEnter 1s 0.4s cubic-bezier(0.22, 1, 0.36, 1) forwards;
+            animation: heroEnter 1s 0.25s cubic-bezier(0.22, 1, 0.36, 1) forwards;
         }
 
         .hero-tagline {
@@ -293,7 +294,7 @@
             letter-spacing: 0.15em;
             text-transform: uppercase;
             opacity: 0;
-            animation: heroEnter 1s 0.6s cubic-bezier(0.22, 1, 0.36, 1) forwards;
+            animation: heroEnter 1s 0.4s cubic-bezier(0.22, 1, 0.36, 1) forwards;
         }
 
         .hero-sub {
@@ -302,7 +303,7 @@
             margin-bottom: 2.5rem;
             font-weight: 300;
             opacity: 0;
-            animation: heroEnter 1s 0.7s cubic-bezier(0.22, 1, 0.36, 1) forwards;
+            animation: heroEnter 1s 0.5s cubic-bezier(0.22, 1, 0.36, 1) forwards;
         }
 
         .hero-buttons {
@@ -311,7 +312,7 @@
             flex-wrap: wrap;
             justify-content: center;
             opacity: 0;
-            animation: heroEnter 1s 0.85s cubic-bezier(0.22, 1, 0.36, 1) forwards;
+            animation: heroEnter 1s 0.6s cubic-bezier(0.22, 1, 0.36, 1) forwards;
         }
 
         .btn {
@@ -384,6 +385,7 @@
             position: relative;
             border-radius: var(--radius-lg);
             overflow: hidden;
+            aspect-ratio: 16 / 9;
             box-shadow: 0 12px 50px rgba(52, 216, 122, 0.1), 0 0 80px rgba(45, 27, 78, 0.1);
             border: 1px solid rgba(232, 169, 37, 0.1);
             transition: all 0.5s cubic-bezier(0.22, 1, 0.36, 1);
@@ -499,7 +501,7 @@
 
         .mode-card-body { padding: 1.3rem 1.4rem; position: relative; z-index: 2; }
 
-        .mode-card h3 { font-size: 1rem; color: var(--gold); margin-bottom: 0.4rem; letter-spacing: 0.04em; }
+        .mode-card h3 { font-size: 1rem; color: var(--gold); margin-bottom: 0.4rem; letter-spacing: 0.04em; text-transform: uppercase; }
         .mode-card p { font-size: 0.85rem; color: var(--text-secondary); line-height: 1.6; font-weight: 300; }
 
         .feature-row {
@@ -570,7 +572,7 @@
             content: '';
             position: absolute;
             inset: 0;
-            background: linear-gradient(180deg, transparent 60%, rgba(6, 6, 16, 0.4) 100%);
+            background: linear-gradient(180deg, transparent 60%, rgba(6, 6, 16, 0.2) 100%);
             opacity: 0;
             transition: opacity 0.4s;
             pointer-events: none;
@@ -962,9 +964,55 @@
             .lightbox-next { right: 0.75rem; }
             .lightbox-nav { width: 40px; height: 40px; font-size: 1.2rem; }
         }
+
+        .nav-download { color: var(--emerald) !important; }
+        .btn-lg { font-size: 1.05rem; padding: 1rem 2.5rem; }
+        #contact { text-align: center; }
+
+        :focus-visible {
+            outline: 2px solid var(--gold);
+            outline-offset: 3px;
+        }
+        .nav-links a:focus-visible { color: var(--gold-light); }
+        .nav-links a:focus-visible::after { width: 100%; }
+        .btn:focus-visible { box-shadow: 0 0 0 3px rgba(232, 169, 37, 0.4); outline: none; }
+        .screenshot-item:focus-visible,
+        .feature-image:focus-visible,
+        .mode-card:focus-visible { border-color: rgba(232, 169, 37, 0.3); }
+
+        @media (max-width: 768px) {
+            .about-text p:first-child::first-letter {
+                font-size: inherit;
+                float: none;
+                margin-right: 0;
+                filter: none;
+                font-family: inherit;
+                font-weight: inherit;
+                color: inherit;
+            }
+        }
+
+        @media (prefers-reduced-motion: reduce) {
+            *, *::before, *::after {
+                animation-duration: 0.01ms !important;
+                animation-iteration-count: 1 !important;
+                transition-duration: 0.01ms !important;
+            }
+            html { scroll-behavior: auto; }
+            .hero-icon, .hero h1, .hero-tagline, .hero-sub, .hero-buttons { animation: none; opacity: 1; }
+            .reveal { opacity: 1; transform: none; }
+            .page-loader { display: none; }
+        }
     </style>
 </head>
 <body>
+
+    <svg style="display:none" xmlns="http://www.w3.org/2000/svg">
+        <symbol id="icon-apple" viewBox="0 0 24 24"><path d="M18.71 19.5c-.83 1.24-1.71 2.45-3.05 2.47-1.34.03-1.77-.79-3.29-.79-1.53 0-2 .77-3.27.82-1.31.05-2.3-1.32-3.14-2.53C4.25 17 2.94 12.45 4.7 9.39c.87-1.52 2.43-2.48 4.12-2.51 1.28-.02 2.5.87 3.29.87.78 0 2.26-1.07 3.8-.91.65.03 2.47.26 3.64 1.98-.09.06-2.17 1.28-2.15 3.81.03 3.02 2.65 4.03 2.68 4.04-.03.07-.42 1.44-1.38 2.83M13 3.5c.73-.83 1.94-1.46 2.94-1.5.13 1.17-.34 2.35-1.04 3.19-.69.85-1.83 1.51-2.95 1.42-.15-1.15.41-2.35 1.05-3.11z"/></symbol>
+        <symbol id="icon-instagram" viewBox="0 0 24 24"><path d="M12 2.163c3.204 0 3.584.012 4.85.07 3.252.148 4.771 1.691 4.919 4.919.058 1.265.069 1.645.069 4.849 0 3.205-.012 3.584-.069 4.849-.149 3.225-1.664 4.771-4.919 4.919-1.266.058-1.644.07-4.85.07-3.204 0-3.584-.012-4.849-.07-3.26-.149-4.771-1.699-4.919-4.92-.058-1.265-.07-1.644-.07-4.849 0-3.204.013-3.583.07-4.849.149-3.227 1.664-4.771 4.919-4.919 1.266-.057 1.645-.069 4.849-.069zM12 0C8.741 0 8.333.014 7.053.072 2.695.272.273 2.69.073 7.052.014 8.333 0 8.741 0 12c0 3.259.014 3.668.072 4.948.2 4.358 2.618 6.78 6.98 6.98C8.333 23.986 8.741 24 12 24c3.259 0 3.668-.014 4.948-.072 4.354-.2 6.782-2.618 6.979-6.98.059-1.28.073-1.689.073-4.948 0-3.259-.014-3.667-.072-4.947-.196-4.354-2.617-6.78-6.979-6.98C15.668.014 15.259 0 12 0zm0 5.838a6.162 6.162 0 100 12.324 6.162 6.162 0 000-12.324zM12 16a4 4 0 110-8 4 4 0 010 8zm6.406-11.845a1.44 1.44 0 100 2.881 1.44 1.44 0 000-2.881z"/></symbol>
+        <symbol id="icon-tiktok" viewBox="0 0 24 24"><path d="M19.59 6.69a4.83 4.83 0 01-3.77-4.25V2h-3.45v13.67a2.89 2.89 0 01-2.88 2.5 2.89 2.89 0 01-2.89-2.89 2.89 2.89 0 012.89-2.89c.28 0 .54.04.79.1v-3.5a6.37 6.37 0 00-.79-.05A6.34 6.34 0 003.15 15.2a6.34 6.34 0 0010.86 4.48 6.3 6.3 0 001.86-4.49V8.74a8.26 8.26 0 004.84 1.56V6.84a4.84 4.84 0 01-1.12-.15z"/></symbol>
+        <symbol id="icon-email" viewBox="0 0 24 24"><path d="M20 4H4c-1.1 0-2 .9-2 2v12c0 1.1.9 2 2 2h16c1.1 0 2-.9 2-2V6c0-1.1-.9-2-2-2zm0 4l-8 5-8-5V6l8 5 8-5v2z"/></symbol>
+    </svg>
 
     <div class="page-loader" id="pageLoader">
         <img src="images/baqla-icon.png" alt="Loading Baqla...">
@@ -985,9 +1033,9 @@
             <li><a href="#features">Features</a></li>
             <li><a href="#screenshots">Screenshots</a></li>
             <li><a href="#contact">Contact</a></li>
-            <li><a href="https://apps.apple.com/app/baqla/id6448760057" target="_blank" rel="noopener" style="color: var(--emerald);">Download</a></li>
+            <li><a href="https://apps.apple.com/app/baqla/id6448760057" target="_blank" rel="noopener" class="nav-download">Download</a></li>
         </ul>
-        <button class="hamburger" id="hamburger" aria-label="Menu">
+        <button class="hamburger" id="hamburger" aria-label="Menu" aria-expanded="false">
             <span></span><span></span><span></span>
         </button>
     </nav>
@@ -999,7 +1047,7 @@
         <p class="hero-sub">6 enchanted games. One magical world. Now available worldwide.</p>
         <div class="hero-buttons">
             <a href="https://apps.apple.com/app/baqla/id6448760057" target="_blank" rel="noopener" class="btn btn-primary">
-                <svg viewBox="0 0 24 24"><path d="M18.71 19.5c-.83 1.24-1.71 2.45-3.05 2.47-1.34.03-1.77-.79-3.29-.79-1.53 0-2 .77-3.27.82-1.31.05-2.3-1.32-3.14-2.53C4.25 17 2.94 12.45 4.7 9.39c.87-1.52 2.43-2.48 4.12-2.51 1.28-.02 2.5.87 3.29.87.78 0 2.26-1.07 3.8-.91.65.03 2.47.26 3.64 1.98-.09.06-2.17 1.28-2.15 3.81.03 3.02 2.65 4.03 2.68 4.04-.03.07-.42 1.44-1.38 2.83M13 3.5c.73-.83 1.94-1.46 2.94-1.5.13 1.17-.34 2.35-1.04 3.19-.69.85-1.83 1.51-2.95 1.42-.15-1.15.41-2.35 1.05-3.11z"/></svg>
+                <svg><use href="#icon-apple"/></svg>
                 <span>Download on App Store</span>
             </a>
             <a href="#modes" class="btn btn-secondary"><span>Explore Modes</span></a>
@@ -1010,7 +1058,7 @@
         <h2 class="section-title">See It In Action</h2>
         <p class="section-subtitle">Watch the magic unfold in Baqla's enchanted arenas</p>
         <div class="video-wrapper">
-            <video autoplay muted loop playsinline>
+            <video autoplay muted loop playsinline preload="metadata">
                 <source src="images/BaqlaGameplay.mp4" type="video/mp4">
             </video>
         </div>
@@ -1027,7 +1075,7 @@
                 <p>Whether you're matching fruit cards in the ancient ruins, racing to clear your hand in the dark caves, or stopping the timer at the perfect moment — every round is a new adventure.</p>
             </div>
             <div class="about-image reveal">
-                <img src="images/screenshot-Full House.png" alt="Baqla — Full House Gameplay" loading="lazy">
+                <img src="images/screenshot-full-house.webp" alt="Baqla — Full House Gameplay" loading="lazy">
             </div>
         </div>
     </section>
@@ -1037,12 +1085,12 @@
         <p class="section-subtitle reveal">Each mode has its own enchanted arena, rules, and strategy. Master them all.</p>
         <div class="section-divider"></div>
         <div class="modes-grid">
-            <div class="mode-card reveal"><img class="mode-card-img" src="images/mode-full-house.png" alt="Full House" loading="lazy"><div class="mode-card-body"><h3>Full House</h3><p>Be the first to collect 5 matching fruit cards. Grab cards, react fast, and use secret powers to steal from your rivals.</p></div></div>
-            <div class="mode-card reveal"><img class="mode-card-img" src="images/mode-flag-rush.png" alt="Flag Rush" loading="lazy"><div class="mode-card-body"><h3>Flag Rush</h3><p>Match the flag color and race to reach zero cards first. Use Change Color, Freeze, Draw 2, and Protection cards strategically.</p></div></div>
-            <div class="mode-card reveal"><img class="mode-card-img" src="images/mode-spin-and-win.png" alt="Spin and Win" loading="lazy"><div class="mode-card-body"><h3>Spin and Win</h3><p>Spin the mystical reels and match symbols before time runs out. Use Slow Down and Freeze powers to gain the edge.</p></div></div>
-            <div class="mode-card reveal"><img class="mode-card-img" src="images/mode-tick-tock-boom.png" alt="Tick Tock Boom" loading="lazy"><div class="mode-card-body"><h3>Tick Tock Boom</h3><p>Stop the timer as close to the target as possible. Precision and nerves of steel win this mystical challenge.</p></div></div>
-            <div class="mode-card reveal"><img class="mode-card-img" src="images/mode-pattern.png" alt="Pattern" loading="lazy"><div class="mode-card-body"><h3>Pattern</h3><p>Memorize and repeat the pattern sequence. Test your focus in an enchanted underwater arena.</p></div></div>
-            <div class="mode-card reveal"><img class="mode-card-img" src="images/mode-memory-match.png" alt="Memory Match" loading="lazy"><div class="mode-card-body"><h3>Memory Match</h3><p>Find matching pairs of cards before your opponents. Speed and memory are your greatest weapons.</p></div></div>
+            <div class="mode-card reveal"><img class="mode-card-img" src="images/mode-full-house.webp" alt="Full House" loading="lazy"><div class="mode-card-body"><h3>Full House</h3><p>Be the first to collect 5 matching fruit cards. Grab cards, react fast, and use secret powers to steal from your rivals.</p></div></div>
+            <div class="mode-card reveal"><img class="mode-card-img" src="images/mode-flag-rush.webp" alt="Flag Rush" loading="lazy"><div class="mode-card-body"><h3>Flag Rush</h3><p>Match the flag color and race to reach zero cards first. Use Change Color, Freeze, Draw 2, and Protection cards strategically.</p></div></div>
+            <div class="mode-card reveal"><img class="mode-card-img" src="images/mode-spin-and-win.webp" alt="Spin and Win" loading="lazy"><div class="mode-card-body"><h3>Spin and Win</h3><p>Spin the mystical reels and match symbols before time runs out. Use Slow Down and Freeze powers to gain the edge.</p></div></div>
+            <div class="mode-card reveal"><img class="mode-card-img" src="images/mode-tick-tock-boom.webp" alt="Tick Tock Boom" loading="lazy"><div class="mode-card-body"><h3>Tick Tock Boom</h3><p>Stop the timer as close to the target as possible. Precision and nerves of steel win this mystical challenge.</p></div></div>
+            <div class="mode-card reveal"><img class="mode-card-img" src="images/mode-pattern.webp" alt="Pattern" loading="lazy"><div class="mode-card-body"><h3>Pattern</h3><p>Memorize and repeat the pattern sequence. Test your focus in an enchanted underwater arena.</p></div></div>
+            <div class="mode-card reveal"><img class="mode-card-img" src="images/mode-memory-match.webp" alt="Memory Match" loading="lazy"><div class="mode-card-body"><h3>Memory Match</h3><p>Find matching pairs of cards before your opponents. Speed and memory are your greatest weapons.</p></div></div>
         </div>
     </section>
 
@@ -1052,32 +1100,32 @@
         <div class="section-divider"></div>
 
         <div class="feature-row reveal">
-            <div class="feature-image" onclick="openLightbox(this)"><img src="images/feat-leaderboard.png" alt="Leaderboard" loading="lazy"></div>
+            <div class="feature-image" onclick="openLightbox(this)"><img src="images/feat-leaderboard.webp" alt="Leaderboard" loading="lazy"></div>
             <div class="feature-text"><span class="feature-tag">Competitive</span><h3>Weekly Leaderboard</h3><p>Climb the ranks and compete against players worldwide. Top players earn exclusive rewards every week. Track your score, check rival rankings, and claim your prizes before the timer resets.</p></div>
         </div>
 
         <div class="feature-row reverse reveal">
-            <div class="feature-image" onclick="openLightbox(this)"><img src="images/feat-challenges.png" alt="Daily Challenges" loading="lazy"></div>
+            <div class="feature-image" onclick="openLightbox(this)"><img src="images/feat-challenges.webp" alt="Daily Challenges" loading="lazy"></div>
             <div class="feature-text"><span class="feature-tag">Daily</span><h3>Missions & Challenges</h3><p>Complete daily challenges to earn coins and rare rewards. Each challenge tests a different skill — use secret cards, win specific modes, or achieve special objectives. New challenges every day.</p></div>
         </div>
 
         <div class="feature-row reveal">
-            <div class="feature-image" onclick="openLightbox(this)"><img src="images/feat-shop-cards.png" alt="Shop — Card Skins" loading="lazy"></div>
+            <div class="feature-image" onclick="openLightbox(this)"><img src="images/feat-shop-cards.webp" alt="Shop — Card Skins" loading="lazy"></div>
             <div class="feature-text"><span class="feature-tag">Customize</span><h3>Shop & Collection</h3><p>Browse and collect stunning card skins, arena maps, hand gloves, and unique avatars. Each item transforms your gameplay experience with gorgeous hand-painted art.</p></div>
         </div>
 
         <div class="feature-row reverse reveal">
-            <div class="feature-image" onclick="openLightbox(this)"><img src="images/feat-game-room.png" alt="Game Room" loading="lazy"></div>
+            <div class="feature-image" onclick="openLightbox(this)"><img src="images/feat-game-room.webp" alt="Game Room" loading="lazy"></div>
             <div class="feature-text"><span class="feature-tag">Multiplayer</span><h3>Play With Friends</h3><p>Create private or public rooms and choose from all 6 game modes. Share your Room ID, invite friends, add bots, and compete head-to-head in enchanted arenas.</p></div>
         </div>
 
         <div class="feature-row reveal">
-            <div class="feature-image" onclick="openLightbox(this)"><img src="images/feat-calendar.png" alt="Monthly Calendar" loading="lazy"></div>
+            <div class="feature-image" onclick="openLightbox(this)"><img src="images/feat-calendar.webp" alt="Monthly Calendar" loading="lazy"></div>
             <div class="feature-text"><span class="feature-tag">Rewards</span><h3>Monthly Calendar</h3><p>Log in daily to claim escalating rewards. Each day brings better prizes — coins, rare items, and exclusive unlocks. The longer your streak, the bigger the reward.</p></div>
         </div>
 
         <div class="feature-row reverse reveal">
-            <div class="feature-image" onclick="openLightbox(this)"><img src="images/feat-settings.png" alt="Settings" loading="lazy"></div>
+            <div class="feature-image" onclick="openLightbox(this)"><img src="images/feat-settings.webp" alt="Settings" loading="lazy"></div>
             <div class="feature-text"><span class="feature-tag">Personalize</span><h3>13 Languages & Full Settings</h3><p>Play in your language — Baqla supports 13 languages including Arabic, Japanese, Korean, and more. Customize your profile, display name, audio, and controls to your liking.</p></div>
         </div>
     </section>
@@ -1104,7 +1152,7 @@
                 <div class="stat-label">On the App Store</div>
             </div>
         </div>
-        <div class="proof-stars reveal">&#9733;&#9733;&#9733;&#9733;&#9733;</div>
+        <div class="proof-stars reveal" role="img" aria-label="5 out of 5 stars">&#9733;&#9733;&#9733;&#9733;&#9733;</div>
         <p class="proof-quote reveal">"The art style is incredible and every mini-game feels completely different. My kids and I play it together every evening."</p>
     </section>
 
@@ -1113,25 +1161,25 @@
         <p class="section-subtitle reveal">A glimpse into the magical world of Baqla.</p>
         <div class="section-divider"></div>
         <div class="screenshots-grid reveal">
-            <div class="screenshot-item" onclick="openLightbox(this)"><img src="images/screenshot-Full House.png" alt="Full House Gameplay" loading="lazy"></div>
-            <div class="screenshot-item" onclick="openLightbox(this)"><img src="images/screenshot-Flag Rush.png" alt="Flag Rush Gameplay" loading="lazy"></div>
-            <div class="screenshot-item" onclick="openLightbox(this)"><img src="images/screenshot-SPIN AND WIN.png" alt="Spin and Win Gameplay" loading="lazy"></div>
-            <div class="screenshot-item" onclick="openLightbox(this)"><img src="images/screenshot-TICK TOCK BOOM.png" alt="Tick Tock Boom Gameplay" loading="lazy"></div>
-            <div class="screenshot-item" onclick="openLightbox(this)"><img src="images/screenshot-Pattern.png" alt="Pattern Gameplay" loading="lazy"></div>
-            <div class="screenshot-item" onclick="openLightbox(this)"><img src="images/screenshot-MEMORY MATCH.png" alt="Memory Match Gameplay" loading="lazy"></div>
-            <div class="screenshot-item" onclick="openLightbox(this)"><img src="images/feat-shop-avatars.png" alt="Avatar Collection" loading="lazy"></div>
-            <div class="screenshot-item" onclick="openLightbox(this)"><img src="images/feat-shop-maps.png" alt="Arena Maps" loading="lazy"></div>
-            <div class="screenshot-item" onclick="openLightbox(this)"><img src="images/feat-game-room.png" alt="Game Room" loading="lazy"></div>
-            <div class="screenshot-item" onclick="openLightbox(this)"><img src="images/feat-login.png" alt="Login Screen" loading="lazy"></div>
+            <div class="screenshot-item" onclick="openLightbox(this)"><img src="images/screenshot-full-house.webp" alt="Full House Gameplay" loading="lazy"></div>
+            <div class="screenshot-item" onclick="openLightbox(this)"><img src="images/screenshot-flag-rush.webp" alt="Flag Rush Gameplay" loading="lazy"></div>
+            <div class="screenshot-item" onclick="openLightbox(this)"><img src="images/screenshot-spin-and-win.webp" alt="Spin and Win Gameplay" loading="lazy"></div>
+            <div class="screenshot-item" onclick="openLightbox(this)"><img src="images/screenshot-tick-tock-boom.webp" alt="Tick Tock Boom Gameplay" loading="lazy"></div>
+            <div class="screenshot-item" onclick="openLightbox(this)"><img src="images/screenshot-pattern.webp" alt="Pattern Gameplay" loading="lazy"></div>
+            <div class="screenshot-item" onclick="openLightbox(this)"><img src="images/screenshot-memory-match.webp" alt="Memory Match Gameplay" loading="lazy"></div>
+            <div class="screenshot-item" onclick="openLightbox(this)"><img src="images/feat-shop-avatars.webp" alt="Avatar Collection" loading="lazy"></div>
+            <div class="screenshot-item" onclick="openLightbox(this)"><img src="images/feat-shop-maps.webp" alt="Arena Maps" loading="lazy"></div>
+            <div class="screenshot-item" onclick="openLightbox(this)"><img src="images/feat-game-room.webp" alt="Game Room" loading="lazy"></div>
+            <div class="screenshot-item" onclick="openLightbox(this)"><img src="images/feat-login.webp" alt="Login Screen" loading="lazy"></div>
         </div>
     </section>
 
-    <section id="contact" style="text-align: center;">
+    <section id="contact">
         <h2 class="section-title reveal">Contact Us</h2>
         <p class="section-subtitle reveal">Have questions, feedback, or partnership inquiries? We'd love to hear from you.</p>
         <div class="section-divider"></div>
-        <a href="mailto:baqlagame@gmail.com" class="btn btn-secondary reveal" style="font-size: 1.05rem; padding: 1rem 2.5rem;">
-            <svg viewBox="0 0 24 24" style="width:20px;height:20px;fill:currentColor"><path d="M20 4H4c-1.1 0-2 .9-2 2v12c0 1.1.9 2 2 2h16c1.1 0 2-.9 2-2V6c0-1.1-.9-2-2-2zm0 4l-8 5-8-5V6l8 5 8-5v2z"/></svg>
+        <a href="mailto:baqlagame@gmail.com" class="btn btn-secondary btn-lg reveal">
+            <svg><use href="#icon-email"/></svg>
             <span>baqlagame@gmail.com</span>
         </a>
     </section>
@@ -1141,15 +1189,15 @@
         <p class="reveal">Join the enchanted card table. Free on the App Store worldwide.</p>
         <div class="hero-buttons reveal">
             <a href="https://apps.apple.com/app/baqla/id6448760057" target="_blank" rel="noopener" class="btn btn-primary">
-                <svg viewBox="0 0 24 24"><path d="M18.71 19.5c-.83 1.24-1.71 2.45-3.05 2.47-1.34.03-1.77-.79-3.29-.79-1.53 0-2 .77-3.27.82-1.31.05-2.3-1.32-3.14-2.53C4.25 17 2.94 12.45 4.7 9.39c.87-1.52 2.43-2.48 4.12-2.51 1.28-.02 2.5.87 3.29.87.78 0 2.26-1.07 3.8-.91.65.03 2.47.26 3.64 1.98-.09.06-2.17 1.28-2.15 3.81.03 3.02 2.65 4.03 2.68 4.04-.03.07-.42 1.44-1.38 2.83M13 3.5c.73-.83 1.94-1.46 2.94-1.5.13 1.17-.34 2.35-1.04 3.19-.69.85-1.83 1.51-2.95 1.42-.15-1.15.41-2.35 1.05-3.11z"/></svg>
+                <svg><use href="#icon-apple"/></svg>
                 <span>Download on App Store</span>
             </a>
             <a href="https://www.instagram.com/baqlagames/?hl=en" target="_blank" rel="noopener" class="btn btn-secondary">
-                <svg viewBox="0 0 24 24"><path d="M12 2.163c3.204 0 3.584.012 4.85.07 3.252.148 4.771 1.691 4.919 4.919.058 1.265.069 1.645.069 4.849 0 3.205-.012 3.584-.069 4.849-.149 3.225-1.664 4.771-4.919 4.919-1.266.058-1.644.07-4.85.07-3.204 0-3.584-.012-4.849-.07-3.26-.149-4.771-1.699-4.919-4.92-.058-1.265-.07-1.644-.07-4.849 0-3.204.013-3.583.07-4.849.149-3.227 1.664-4.771 4.919-4.919 1.266-.057 1.645-.069 4.849-.069zM12 0C8.741 0 8.333.014 7.053.072 2.695.272.273 2.69.073 7.052.014 8.333 0 8.741 0 12c0 3.259.014 3.668.072 4.948.2 4.358 2.618 6.78 6.98 6.98C8.333 23.986 8.741 24 12 24c3.259 0 3.668-.014 4.948-.072 4.354-.2 6.782-2.618 6.979-6.98.059-1.28.073-1.689.073-4.948 0-3.259-.014-3.667-.072-4.947-.196-4.354-2.617-6.78-6.979-6.98C15.668.014 15.259 0 12 0zm0 5.838a6.162 6.162 0 100 12.324 6.162 6.162 0 000-12.324zM12 16a4 4 0 110-8 4 4 0 010 8zm6.406-11.845a1.44 1.44 0 100 2.881 1.44 1.44 0 000-2.881z"/></svg>
+                <svg><use href="#icon-instagram"/></svg>
                 <span>Instagram</span>
             </a>
             <a href="https://www.tiktok.com/@baqlagames" target="_blank" rel="noopener" class="btn btn-secondary">
-                <svg viewBox="0 0 24 24"><path d="M19.59 6.69a4.83 4.83 0 01-3.77-4.25V2h-3.45v13.67a2.89 2.89 0 01-2.88 2.5 2.89 2.89 0 01-2.89-2.89 2.89 2.89 0 012.89-2.89c.28 0 .54.04.79.1v-3.5a6.37 6.37 0 00-.79-.05A6.34 6.34 0 003.15 15.2a6.34 6.34 0 0010.86 4.48 6.3 6.3 0 001.86-4.49V8.74a8.26 8.26 0 004.84 1.56V6.84a4.84 4.84 0 01-1.12-.15z"/></svg>
+                <svg><use href="#icon-tiktok"/></svg>
                 <span>TikTok</span>
             </a>
         </div>
@@ -1183,14 +1231,14 @@
             </div>
             <div class="social-links">
                 <a href="https://www.instagram.com/baqlagames/?hl=en" target="_blank" rel="noopener" class="social-link" aria-label="Instagram">
-                    <svg viewBox="0 0 24 24"><path d="M12 2.163c3.204 0 3.584.012 4.85.07 3.252.148 4.771 1.691 4.919 4.919.058 1.265.069 1.645.069 4.849 0 3.205-.012 3.584-.069 4.849-.149 3.225-1.664 4.771-4.919 4.919-1.266.058-1.644.07-4.85.07-3.204 0-3.584-.012-4.849-.07-3.26-.149-4.771-1.699-4.919-4.92-.058-1.265-.07-1.644-.07-4.849 0-3.204.013-3.583.07-4.849.149-3.227 1.664-4.771 4.919-4.919 1.266-.057 1.645-.069 4.849-.069zM12 0C8.741 0 8.333.014 7.053.072 2.695.272.273 2.69.073 7.052.014 8.333 0 8.741 0 12c0 3.259.014 3.668.072 4.948.2 4.358 2.618 6.78 6.98 6.98C8.333 23.986 8.741 24 12 24c3.259 0 3.668-.014 4.948-.072 4.354-.2 6.782-2.618 6.979-6.98.059-1.28.073-1.689.073-4.948 0-3.259-.014-3.667-.072-4.947-.196-4.354-2.617-6.78-6.979-6.98C15.668.014 15.259 0 12 0zm0 5.838a6.162 6.162 0 100 12.324 6.162 6.162 0 000-12.324zM12 16a4 4 0 110-8 4 4 0 010 8zm6.406-11.845a1.44 1.44 0 100 2.881 1.44 1.44 0 000-2.881z"/></svg>
+                    <svg><use href="#icon-instagram"/></svg>
                 </a>
                 <a href="https://www.tiktok.com/@baqlagames" target="_blank" rel="noopener" class="social-link" aria-label="TikTok">
-                    <svg viewBox="0 0 24 24"><path d="M19.59 6.69a4.83 4.83 0 01-3.77-4.25V2h-3.45v13.67a2.89 2.89 0 01-2.88 2.5 2.89 2.89 0 01-2.89-2.89 2.89 2.89 0 012.89-2.89c.28 0 .54.04.79.1v-3.5a6.37 6.37 0 00-.79-.05A6.34 6.34 0 003.15 15.2a6.34 6.34 0 0010.86 4.48 6.3 6.3 0 001.86-4.49V8.74a8.26 8.26 0 004.84 1.56V6.84a4.84 4.84 0 01-1.12-.15z"/></svg>
+                    <svg><use href="#icon-tiktok"/></svg>
                 </a>
             </div>
         </div>
-        <div class="footer-bottom">&copy; 2026 BaqlaGames. All rights reserved.</div>
+        <div class="footer-bottom">&copy; <span id="copyrightYear"></span> BaqlaGames. All rights reserved.</div>
     </footer>
 
     <script>
@@ -1210,11 +1258,13 @@
         hamburger.addEventListener('click', () => {
             navLinks.classList.toggle('open');
             hamburger.classList.toggle('active');
+            hamburger.setAttribute('aria-expanded', navLinks.classList.contains('open'));
         });
         navLinks.querySelectorAll('a').forEach(a => {
             a.addEventListener('click', () => {
                 navLinks.classList.remove('open');
                 hamburger.classList.remove('active');
+                hamburger.setAttribute('aria-expanded', 'false');
             });
         });
 
@@ -1277,6 +1327,7 @@
         const colors = ['rgba(52, 216, 122, 0.3)', 'rgba(232, 169, 37, 0.25)', 'rgba(217, 79, 155, 0.18)'];
 
         function createParticle() {
+            if (particlesContainer.children.length >= 30) return;
             const p = document.createElement('div');
             p.className = 'particle';
             const size = Math.random() * 3.5 + 1.5;
@@ -1300,6 +1351,16 @@
             setTimeout(createParticle, i * 500);
         }
         setInterval(createParticle, 2500);
+
+        document.getElementById('copyrightYear').textContent = new Date().getFullYear();
+
+        document.querySelectorAll('.screenshot-item, .feature-image').forEach(el => {
+            el.setAttribute('tabindex', '0');
+            el.setAttribute('role', 'button');
+            el.addEventListener('keydown', e => {
+                if (e.key === 'Enter' || e.key === ' ') { e.preventDefault(); openLightbox(el); }
+            });
+        });
     </script>
 </body>
 </html>

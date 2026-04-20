@@ -3,6 +3,7 @@
     "short_name": "Baqla",
     "description": "6 enchanted mini-games, multiplayer rooms, customization, and weekly leaderboards.",
     "start_url": "/",
+    "scope": "/",
     "display": "browser",
     "background_color": "#060610",
     "theme_color": "#e8a925",

@@ -1,0 +1,3 @@
+User-agent: *
+Allow: /
+Sitemap: https://baqlagames.com/sitemap.xml
