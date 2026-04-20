@@ -355,79 +355,6 @@
         .btn svg { width: 20px; height: 20px; fill: currentColor; position: relative; z-index: 1; }
         .btn span { position: relative; z-index: 1; }
 
-        .countdown-section {
-            padding: 3rem 2rem;
-            text-align: center;
-            position: relative;
-        }
-
-        .countdown-label {
-            font-family: 'Outfit', sans-serif;
-            font-size: clamp(0.9rem, 2.5vw, 1.1rem);
-            color: var(--text-secondary);
-            text-transform: uppercase;
-            letter-spacing: 0.15em;
-            font-weight: 300;
-            margin-bottom: 1.5rem;
-        }
-
-        .countdown-timer {
-            display: flex;
-            justify-content: center;
-            gap: clamp(0.8rem, 3vw, 2rem);
-            flex-wrap: wrap;
-        }
-
-        .countdown-unit {
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-            min-width: 80px;
-        }
-
-        .countdown-number {
-            font-family: 'Cinzel', serif;
-            font-size: clamp(2.5rem, 8vw, 4.5rem);
-            font-weight: 900;
-            line-height: 1;
-            background: linear-gradient(180deg, var(--gold-light) 0%, var(--gold) 50%, var(--gold-dark) 100%);
-            -webkit-background-clip: text;
-            -webkit-text-fill-color: transparent;
-            background-clip: text;
-            filter: drop-shadow(0 2px 8px rgba(232, 169, 37, 0.4));
-        }
-
-        .countdown-word {
-            font-family: 'Outfit', sans-serif;
-            font-size: clamp(0.7rem, 2vw, 0.85rem);
-            color: var(--text-muted);
-            text-transform: uppercase;
-            letter-spacing: 0.1em;
-            font-weight: 400;
-            margin-top: 0.4rem;
-        }
-
-        .countdown-separator {
-            font-family: 'Cinzel', serif;
-            font-size: clamp(2rem, 6vw, 3.5rem);
-            font-weight: 900;
-            color: var(--text-muted);
-            align-self: flex-start;
-            margin-top: 0.15rem;
-            opacity: 0.4;
-        }
-
-        .countdown-launched {
-            font-family: 'Cinzel', serif;
-            font-size: clamp(1.5rem, 5vw, 2.5rem);
-            font-weight: 900;
-            background: linear-gradient(135deg, var(--emerald), var(--gold-light));
-            -webkit-background-clip: text;
-            -webkit-text-fill-color: transparent;
-            background-clip: text;
-            filter: drop-shadow(0 2px 12px rgba(52, 216, 122, 0.5));
-        }
-
         .video-section {
             padding: 4rem 2rem 5rem;
             max-width: 900px;
@@ -903,31 +830,6 @@
         </div>
     </section>
 
-    <section class="countdown-section" id="countdown">
-        <p class="countdown-label">Global Launch In</p>
-        <div class="countdown-timer" id="countdownTimer">
-            <div class="countdown-unit">
-                <span class="countdown-number" id="cd-days">00</span>
-                <span class="countdown-word">Days</span>
-            </div>
-            <span class="countdown-separator">:</span>
-            <div class="countdown-unit">
-                <span class="countdown-number" id="cd-hours">00</span>
-                <span class="countdown-word">Hours</span>
-            </div>
-            <span class="countdown-separator">:</span>
-            <div class="countdown-unit">
-                <span class="countdown-number" id="cd-minutes">00</span>
-                <span class="countdown-word">Minutes</span>
-            </div>
-            <span class="countdown-separator">:</span>
-            <div class="countdown-unit">
-                <span class="countdown-number" id="cd-seconds">00</span>
-                <span class="countdown-word">Seconds</span>
-            </div>
-        </div>
-    </section>
-
     <div class="video-section">
         <h2 class="section-title">See It In Action</h2>
         <p class="section-subtitle">Watch the magic unfold in Baqla's enchanted arenas</p>
@@ -1103,38 +1005,6 @@
                 hamburger.classList.remove('active');
             });
         });
-
-        (function() {
-            const launchDate = new Date('2026-04-01T00:00:00').getTime();
-            const timerEl = document.getElementById('countdownTimer');
-            const daysEl = document.getElementById('cd-days');
-            const hoursEl = document.getElementById('cd-hours');
-            const minsEl = document.getElementById('cd-minutes');
-            const secsEl = document.getElementById('cd-seconds');
-
-            function update() {
-                const now = Date.now();
-                const diff = launchDate - now;
-
-                if (diff <= 0) {
-                    timerEl.innerHTML = '<span class="countdown-launched">We Are Live Worldwide!</span>';
-                    return;
-                }
-
-                const d = Math.floor(diff / 86400000);
-                const h = Math.floor((diff % 86400000) / 3600000);
-                const m = Math.floor((diff % 3600000) / 60000);
-                const s = Math.floor((diff % 60000) / 1000);
-
-                daysEl.textContent = String(d).padStart(2, '0');
-                hoursEl.textContent = String(h).padStart(2, '0');
-                minsEl.textContent = String(m).padStart(2, '0');
-                secsEl.textContent = String(s).padStart(2, '0');
-            }
-
-            update();
-            setInterval(update, 1000);
-        })();
 
         const lightbox = document.getElementById('lightbox');
         const lightboxImg = document.getElementById('lightboxImg');
