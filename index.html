@@ -10,109 +10,138 @@
     <meta property="og:image" content="images/baqla-icon.png">
     <meta property="og:type" content="website">
     <link rel="icon" type="image/png" href="images/baqla-icon.png">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@700;900&family=Outfit:wght@300;400;500;600;700&display=swap" rel="stylesheet">
     <style>
-        /* ===== RESET & BASE ===== */
         *, *::before, *::after { margin: 0; padding: 0; box-sizing: border-box; }
 
         :root {
-            --bg-dark: #0a0a14;
-            --bg-card: rgba(20, 18, 35, 0.85);
-            --bg-card-hover: rgba(30, 26, 55, 0.95);
-            --purple-deep: #1a1030;
+            --bg-deep: #060610;
+            --bg-card: rgba(16, 14, 28, 0.8);
+            --bg-card-hover: rgba(24, 20, 44, 0.95);
+            --purple-deep: #12091e;
             --purple-mid: #2d1b4e;
-            --green-glow: #4ae68a;
-            --green-dim: #2a8a52;
-            --amber: #f5a623;
-            --amber-dim: #b8791a;
+            --gold: #e8a925;
+            --gold-light: #ffd666;
+            --gold-dark: #b8791a;
+            --emerald: #34d87a;
+            --emerald-dim: #1e8c4a;
             --magenta: #d94f9b;
-            --teal: #1a8a8a;
-            --text-primary: #e8e4f0;
-            --text-secondary: #a09ab0;
-            --text-muted: #6b6580;
-            --gold-border: linear-gradient(135deg, #f5a623, #d4881a, #f5c843, #d4881a);
-            --glow-green: 0 0 20px rgba(74, 230, 138, 0.3);
-            --glow-amber: 0 0 20px rgba(245, 166, 35, 0.3);
+            --teal: #1a9a9a;
+            --text-primary: #ede8f5;
+            --text-secondary: #9e96b0;
+            --text-muted: #5c5470;
+            --radius-lg: 20px;
+            --radius-md: 14px;
         }
 
         html { scroll-behavior: smooth; }
 
         body {
-            font-family: 'Segoe UI', system-ui, -apple-system, sans-serif;
-            background: var(--bg-dark);
+            font-family: 'Outfit', sans-serif;
+            background: var(--bg-deep);
             color: var(--text-primary);
             line-height: 1.6;
             overflow-x: hidden;
         }
 
-        /* ===== TYPOGRAPHY ===== */
-        h1, h2, h3, h4 {
-            font-weight: 800;
-            line-height: 1.2;
-            letter-spacing: 0.02em;
+        ::-webkit-scrollbar { width: 8px; }
+        ::-webkit-scrollbar-track { background: var(--bg-deep); }
+        ::-webkit-scrollbar-thumb { background: rgba(232, 169, 37, 0.3); border-radius: 4px; }
+        ::-webkit-scrollbar-thumb:hover { background: rgba(232, 169, 37, 0.5); }
+
+        body::after {
+            content: '';
+            position: fixed;
+            inset: 0;
+            z-index: 9999;
+            pointer-events: none;
+            opacity: 0.035;
+            background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noise'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noise)'/%3E%3C/svg%3E");
+            background-repeat: repeat;
+            background-size: 256px 256px;
+        }
+
+        h1, h2, h3 {
+            font-family: 'Cinzel', serif;
+            font-weight: 900;
+            line-height: 1.15;
+        }
+
+        h4, h5, h6 {
+            font-family: 'Outfit', sans-serif;
+            font-weight: 700;
         }
 
         .section-title {
-            font-size: clamp(1.8rem, 5vw, 3rem);
+            font-size: clamp(2rem, 5vw, 3.2rem);
             text-align: center;
-            margin-bottom: 0.5rem;
-            background: linear-gradient(135deg, var(--amber), #ffe066, var(--amber));
+            margin-bottom: 0.6rem;
+            background: linear-gradient(170deg, var(--gold-light) 0%, var(--gold) 40%, var(--gold-dark) 100%);
             -webkit-background-clip: text;
             -webkit-text-fill-color: transparent;
             background-clip: text;
             text-transform: uppercase;
-            filter: drop-shadow(0 2px 8px rgba(245, 166, 35, 0.4));
+            letter-spacing: 0.06em;
+            filter: drop-shadow(0 2px 12px rgba(232, 169, 37, 0.35));
         }
 
         .section-subtitle {
             text-align: center;
             color: var(--text-secondary);
-            font-size: clamp(0.95rem, 2.5vw, 1.15rem);
+            font-size: clamp(0.95rem, 2.5vw, 1.1rem);
+            font-weight: 300;
             margin-bottom: 3rem;
-            max-width: 600px;
+            max-width: 560px;
             margin-left: auto;
             margin-right: auto;
+            letter-spacing: 0.01em;
         }
 
-        /* ===== NAVIGATION ===== */
         nav {
             position: fixed;
             top: 0;
             left: 0;
             right: 0;
             z-index: 1000;
-            padding: 1rem 2rem;
+            padding: 0.9rem 2rem;
             display: flex;
             justify-content: space-between;
             align-items: center;
-            background: rgba(10, 10, 20, 0.85);
-            backdrop-filter: blur(12px);
-            border-bottom: 1px solid rgba(245, 166, 35, 0.1);
-            transition: background 0.3s;
+            background: rgba(6, 6, 16, 0.7);
+            backdrop-filter: blur(20px);
+            -webkit-backdrop-filter: blur(20px);
+            border-bottom: 1px solid rgba(232, 169, 37, 0.06);
+            transition: all 0.4s cubic-bezier(0.22, 1, 0.36, 1);
         }
 
         nav.scrolled {
-            background: rgba(10, 10, 20, 0.95);
-            box-shadow: 0 4px 30px rgba(0, 0, 0, 0.5);
+            background: rgba(6, 6, 16, 0.92);
+            border-bottom-color: rgba(232, 169, 37, 0.12);
+            box-shadow: 0 8px 40px rgba(0, 0, 0, 0.6);
         }
 
         .nav-logo {
             display: flex;
             align-items: center;
-            gap: 0.75rem;
+            gap: 0.7rem;
             text-decoration: none;
         }
 
         .nav-logo img {
-            width: 40px;
-            height: 40px;
+            width: 38px;
+            height: 38px;
             border-radius: 10px;
+            box-shadow: 0 0 16px rgba(232, 169, 37, 0.15);
         }
 
         .nav-logo span {
-            font-size: 1.3rem;
-            font-weight: 800;
-            color: var(--amber);
-            letter-spacing: 0.05em;
+            font-family: 'Cinzel', serif;
+            font-size: 1.15rem;
+            font-weight: 900;
+            color: var(--gold);
+            letter-spacing: 0.08em;
             text-transform: uppercase;
         }
 
@@ -126,25 +155,26 @@
         .nav-links a {
             color: var(--text-secondary);
             text-decoration: none;
-            font-weight: 600;
-            font-size: 0.9rem;
+            font-weight: 500;
+            font-size: 0.85rem;
             text-transform: uppercase;
-            letter-spacing: 0.05em;
+            letter-spacing: 0.08em;
             transition: color 0.3s;
             position: relative;
         }
 
-        .nav-links a:hover { color: var(--green-glow); }
+        .nav-links a:hover { color: var(--gold-light); }
 
         .nav-links a::after {
             content: '';
             position: absolute;
             bottom: -4px;
-            left: 0;
+            left: 50%;
             width: 0;
             height: 2px;
-            background: var(--green-glow);
-            transition: width 0.3s;
+            background: var(--gold);
+            transition: all 0.3s cubic-bezier(0.22, 1, 0.36, 1);
+            transform: translateX(-50%);
         }
 
         .nav-links a:hover::after { width: 100%; }
@@ -161,13 +191,17 @@
 
         .hamburger span {
             display: block;
-            width: 24px;
+            width: 22px;
             height: 2px;
             background: var(--text-primary);
-            transition: 0.3s;
+            transition: 0.4s cubic-bezier(0.22, 1, 0.36, 1);
+            transform-origin: center;
         }
 
-        /* ===== HERO ===== */
+        .hamburger.active span:nth-child(1) { transform: rotate(45deg) translate(5px, 5px); }
+        .hamburger.active span:nth-child(2) { opacity: 0; transform: scaleX(0); }
+        .hamburger.active span:nth-child(3) { transform: rotate(-45deg) translate(5px, -5px); }
+
         .hero {
             min-height: 100vh;
             display: flex;
@@ -185,53 +219,72 @@
             position: absolute;
             inset: 0;
             background:
-                radial-gradient(ellipse at 20% 50%, rgba(42, 138, 82, 0.12) 0%, transparent 60%),
-                radial-gradient(ellipse at 80% 30%, rgba(93, 40, 130, 0.15) 0%, transparent 60%),
-                radial-gradient(ellipse at 50% 80%, rgba(245, 166, 35, 0.08) 0%, transparent 50%);
+                radial-gradient(ellipse 80% 60% at 25% 40%, rgba(52, 216, 122, 0.08) 0%, transparent 70%),
+                radial-gradient(ellipse 70% 50% at 75% 25%, rgba(45, 27, 78, 0.2) 0%, transparent 60%),
+                radial-gradient(ellipse 60% 40% at 50% 90%, rgba(232, 169, 37, 0.06) 0%, transparent 50%),
+                radial-gradient(circle at 50% 50%, rgba(6, 6, 16, 0) 0%, var(--bg-deep) 100%);
             z-index: 0;
         }
 
         .hero > * { position: relative; z-index: 1; }
 
         .hero-icon {
-            width: clamp(140px, 25vw, 220px);
-            height: clamp(140px, 25vw, 220px);
-            border-radius: 28px;
-            margin-bottom: 1.5rem;
-            animation: float 4s ease-in-out infinite;
+            width: clamp(130px, 22vw, 200px);
+            height: clamp(130px, 22vw, 200px);
+            border-radius: 32px;
+            margin-bottom: 2rem;
             box-shadow:
-                0 8px 40px rgba(74, 230, 138, 0.2),
-                0 0 80px rgba(74, 230, 138, 0.08);
+                0 0 0 1px rgba(232, 169, 37, 0.15),
+                0 12px 50px rgba(52, 216, 122, 0.15),
+                0 0 120px rgba(52, 216, 122, 0.06);
+            opacity: 0;
+            animation: heroFloat 5s ease-in-out infinite, heroEnter 1s 0.2s cubic-bezier(0.22, 1, 0.36, 1) forwards;
         }
 
-        @keyframes float {
-            0%, 100% { transform: translateY(0); }
-            50% { transform: translateY(-12px); }
+        @keyframes heroFloat {
+            0%, 100% { transform: translateY(0) rotate(0deg); }
+            33% { transform: translateY(-10px) rotate(1deg); }
+            66% { transform: translateY(-6px) rotate(-0.5deg); }
+        }
+
+        @keyframes heroEnter {
+            from { opacity: 0; transform: translateY(40px) scale(0.9); }
+            to { opacity: 1; transform: translateY(0) scale(1); }
         }
 
         .hero h1 {
-            font-size: clamp(3rem, 10vw, 6rem);
+            font-size: clamp(3.5rem, 12vw, 7rem);
             text-transform: uppercase;
-            letter-spacing: 0.08em;
-            background: linear-gradient(180deg, #ffe066 0%, var(--amber) 50%, #d4881a 100%);
+            letter-spacing: 0.12em;
+            background: linear-gradient(175deg, #fff5d4 0%, var(--gold-light) 25%, var(--gold) 50%, var(--gold-dark) 80%, #8a5a0a 100%);
             -webkit-background-clip: text;
             -webkit-text-fill-color: transparent;
             background-clip: text;
-            filter: drop-shadow(0 4px 12px rgba(245, 166, 35, 0.5));
-            margin-bottom: 0.5rem;
+            filter: drop-shadow(0 4px 20px rgba(232, 169, 37, 0.4));
+            margin-bottom: 0.3rem;
+            opacity: 0;
+            animation: heroEnter 1s 0.4s cubic-bezier(0.22, 1, 0.36, 1) forwards;
         }
 
         .hero-tagline {
-            font-size: clamp(1rem, 3vw, 1.4rem);
+            font-family: 'Outfit', sans-serif;
+            font-size: clamp(1rem, 3vw, 1.35rem);
             color: var(--text-secondary);
-            margin-bottom: 0.5rem;
-            font-weight: 400;
+            margin-bottom: 0.4rem;
+            font-weight: 300;
+            letter-spacing: 0.15em;
+            text-transform: uppercase;
+            opacity: 0;
+            animation: heroEnter 1s 0.6s cubic-bezier(0.22, 1, 0.36, 1) forwards;
         }
 
         .hero-sub {
             font-size: clamp(0.85rem, 2vw, 1rem);
             color: var(--text-muted);
             margin-bottom: 2.5rem;
+            font-weight: 300;
+            opacity: 0;
+            animation: heroEnter 1s 0.7s cubic-bezier(0.22, 1, 0.36, 1) forwards;
         }
 
         .hero-buttons {
@@ -239,6 +292,8 @@
             gap: 1rem;
             flex-wrap: wrap;
             justify-content: center;
+            opacity: 0;
+            animation: heroEnter 1s 0.85s cubic-bezier(0.22, 1, 0.36, 1) forwards;
         }
 
         .btn {
@@ -247,46 +302,59 @@
             gap: 0.5rem;
             padding: 0.85rem 2rem;
             border-radius: 50px;
-            font-weight: 700;
-            font-size: 1rem;
+            font-family: 'Outfit', sans-serif;
+            font-weight: 600;
+            font-size: 0.95rem;
             text-decoration: none;
             text-transform: uppercase;
-            letter-spacing: 0.05em;
-            transition: all 0.3s ease;
+            letter-spacing: 0.06em;
+            transition: all 0.4s cubic-bezier(0.22, 1, 0.36, 1);
             cursor: pointer;
             border: none;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .btn::before {
+            content: '';
+            position: absolute;
+            inset: 0;
+            border-radius: inherit;
+            opacity: 0;
+            transition: opacity 0.4s;
         }
 
         .btn-primary {
-            background: linear-gradient(135deg, var(--green-glow), var(--green-dim));
-            color: #0a0a14;
-            box-shadow: var(--glow-green);
+            background: linear-gradient(135deg, var(--emerald), var(--emerald-dim));
+            color: #060610;
+            box-shadow: 0 0 24px rgba(52, 216, 122, 0.25), inset 0 1px 0 rgba(255, 255, 255, 0.15);
         }
 
+        .btn-primary::before { background: linear-gradient(135deg, #5ef09a, var(--emerald)); }
+
         .btn-primary:hover {
-            transform: translateY(-2px);
-            box-shadow: 0 0 30px rgba(74, 230, 138, 0.5);
+            transform: translateY(-3px);
+            box-shadow: 0 0 40px rgba(52, 216, 122, 0.4), 0 8px 30px rgba(52, 216, 122, 0.2);
         }
+
+        .btn-primary:hover::before { opacity: 1; }
 
         .btn-secondary {
             background: transparent;
-            color: var(--amber);
-            border: 2px solid var(--amber);
+            color: var(--gold);
+            border: 1.5px solid rgba(232, 169, 37, 0.4);
         }
 
         .btn-secondary:hover {
-            background: rgba(245, 166, 35, 0.1);
-            transform: translateY(-2px);
-            box-shadow: var(--glow-amber);
+            background: rgba(232, 169, 37, 0.08);
+            border-color: var(--gold);
+            transform: translateY(-3px);
+            box-shadow: 0 0 30px rgba(232, 169, 37, 0.15);
         }
 
-        .btn svg {
-            width: 20px;
-            height: 20px;
-            fill: currentColor;
-        }
+        .btn svg { width: 20px; height: 20px; fill: currentColor; position: relative; z-index: 1; }
+        .btn span { position: relative; z-index: 1; }
 
-        /* ===== COUNTDOWN ===== */
         .countdown-section {
             padding: 3rem 2rem;
             text-align: center;
@@ -294,10 +362,12 @@
         }
 
         .countdown-label {
+            font-family: 'Outfit', sans-serif;
             font-size: clamp(0.9rem, 2.5vw, 1.1rem);
             color: var(--text-secondary);
             text-transform: uppercase;
             letter-spacing: 0.15em;
+            font-weight: 300;
             margin-bottom: 1.5rem;
         }
 
@@ -316,27 +386,31 @@
         }
 
         .countdown-number {
+            font-family: 'Cinzel', serif;
             font-size: clamp(2.5rem, 8vw, 4.5rem);
-            font-weight: 800;
+            font-weight: 900;
             line-height: 1;
-            background: linear-gradient(180deg, #ffe066 0%, var(--amber) 50%, #d4881a 100%);
+            background: linear-gradient(180deg, var(--gold-light) 0%, var(--gold) 50%, var(--gold-dark) 100%);
             -webkit-background-clip: text;
             -webkit-text-fill-color: transparent;
             background-clip: text;
-            filter: drop-shadow(0 2px 8px rgba(245, 166, 35, 0.4));
+            filter: drop-shadow(0 2px 8px rgba(232, 169, 37, 0.4));
         }
 
         .countdown-word {
+            font-family: 'Outfit', sans-serif;
             font-size: clamp(0.7rem, 2vw, 0.85rem);
             color: var(--text-muted);
             text-transform: uppercase;
             letter-spacing: 0.1em;
+            font-weight: 400;
             margin-top: 0.4rem;
         }
 
         .countdown-separator {
+            font-family: 'Cinzel', serif;
             font-size: clamp(2rem, 6vw, 3.5rem);
-            font-weight: 800;
+            font-weight: 900;
             color: var(--text-muted);
             align-self: flex-start;
             margin-top: 0.15rem;
@@ -344,16 +418,16 @@
         }
 
         .countdown-launched {
+            font-family: 'Cinzel', serif;
             font-size: clamp(1.5rem, 5vw, 2.5rem);
-            font-weight: 800;
-            background: linear-gradient(135deg, var(--green-glow), #ffe066);
+            font-weight: 900;
+            background: linear-gradient(135deg, var(--emerald), var(--gold-light));
             -webkit-background-clip: text;
             -webkit-text-fill-color: transparent;
             background-clip: text;
-            filter: drop-shadow(0 2px 12px rgba(74, 230, 138, 0.5));
+            filter: drop-shadow(0 2px 12px rgba(52, 216, 122, 0.5));
         }
 
-        /* ===== GAMEPLAY VIDEO ===== */
         .video-section {
             padding: 4rem 2rem 5rem;
             max-width: 900px;
@@ -363,71 +437,75 @@
 
         .video-wrapper {
             position: relative;
-            border-radius: 20px;
+            border-radius: var(--radius-lg);
             overflow: hidden;
-            box-shadow:
-                0 8px 40px rgba(74, 230, 138, 0.15),
-                0 0 80px rgba(93, 40, 130, 0.1);
-            border: 1px solid rgba(245, 166, 35, 0.15);
+            box-shadow: 0 12px 50px rgba(52, 216, 122, 0.1), 0 0 80px rgba(45, 27, 78, 0.1);
+            border: 1px solid rgba(232, 169, 37, 0.1);
+            transition: all 0.5s cubic-bezier(0.22, 1, 0.36, 1);
         }
 
-        .video-wrapper video {
-            width: 100%;
-            display: block;
-            border-radius: 20px;
+        .video-wrapper:hover {
+            box-shadow: 0 16px 60px rgba(52, 216, 122, 0.15), 0 0 100px rgba(45, 27, 78, 0.12);
+            border-color: rgba(232, 169, 37, 0.2);
         }
 
-        /* ===== SECTIONS ===== */
+        .video-wrapper video { width: 100%; display: block; border-radius: var(--radius-lg); }
+
         section {
-            padding: 5rem 2rem;
+            padding: 6rem 2rem;
             max-width: 1200px;
             margin: 0 auto;
         }
 
         .section-divider {
-            width: 60px;
-            height: 3px;
-            background: linear-gradient(90deg, var(--green-glow), var(--amber));
+            width: 50px;
+            height: 2px;
+            background: linear-gradient(90deg, transparent, var(--gold), transparent);
             margin: 0 auto 4rem;
             border-radius: 2px;
         }
 
-        /* ===== ABOUT ===== */
         .about-content {
             display: grid;
             grid-template-columns: 1fr 1fr;
-            gap: 3rem;
+            gap: 4rem;
             align-items: center;
         }
 
         .about-text p {
             color: var(--text-secondary);
             font-size: 1.05rem;
-            margin-bottom: 1.2rem;
+            font-weight: 300;
+            margin-bottom: 1.3rem;
+            line-height: 1.8;
         }
 
         .about-text p:first-child::first-letter {
-            font-size: 2.5rem;
-            font-weight: 800;
-            color: var(--amber);
+            font-family: 'Cinzel', serif;
+            font-size: 3rem;
+            font-weight: 900;
+            color: var(--gold);
             float: left;
-            margin-right: 0.3rem;
+            margin-right: 0.4rem;
             line-height: 1;
+            filter: drop-shadow(0 2px 6px rgba(232, 169, 37, 0.3));
         }
 
         .about-image {
-            border-radius: 16px;
+            border-radius: var(--radius-lg);
             overflow: hidden;
-            box-shadow: 0 8px 40px rgba(0, 0, 0, 0.4);
-            border: 1px solid rgba(245, 166, 35, 0.15);
+            box-shadow: 0 16px 60px rgba(0, 0, 0, 0.5);
+            border: 1px solid rgba(232, 169, 37, 0.1);
+            transition: all 0.5s cubic-bezier(0.22, 1, 0.36, 1);
         }
 
-        .about-image img {
-            width: 100%;
-            display: block;
+        .about-image:hover {
+            transform: translateY(-6px) rotate(-0.5deg);
+            box-shadow: 0 24px 80px rgba(52, 216, 122, 0.1), 0 0 0 1px rgba(52, 216, 122, 0.15);
         }
 
-        /* ===== GAME MODES ===== */
+        .about-image img { width: 100%; display: block; }
+
         .modes-grid {
             display: grid;
             grid-template-columns: repeat(3, 1fr);
@@ -436,137 +514,140 @@
 
         .mode-card {
             background: var(--bg-card);
-            border-radius: 16px;
+            border-radius: var(--radius-lg);
             overflow: hidden;
-            border: 1px solid rgba(245, 166, 35, 0.1);
-            transition: all 0.4s ease;
+            border: 1px solid rgba(232, 169, 37, 0.06);
+            transition: all 0.5s cubic-bezier(0.22, 1, 0.36, 1);
             cursor: default;
+            position: relative;
+        }
+
+        .mode-card::before {
+            content: '';
+            position: absolute;
+            inset: 0;
+            border-radius: inherit;
+            background: linear-gradient(180deg, rgba(52, 216, 122, 0.04) 0%, transparent 50%);
+            opacity: 0;
+            transition: opacity 0.5s;
+            z-index: 1;
+            pointer-events: none;
         }
 
         .mode-card:hover {
-            transform: translateY(-6px);
-            border-color: rgba(74, 230, 138, 0.3);
-            box-shadow: 0 12px 40px rgba(74, 230, 138, 0.1);
+            transform: translateY(-8px);
+            border-color: rgba(52, 216, 122, 0.2);
+            box-shadow: 0 20px 60px rgba(52, 216, 122, 0.08), 0 0 0 1px rgba(52, 216, 122, 0.1);
         }
+
+        .mode-card:hover::before { opacity: 1; }
 
         .mode-card-img {
             width: 100%;
             aspect-ratio: 16/9;
             object-fit: cover;
             display: block;
+            transition: transform 0.6s cubic-bezier(0.22, 1, 0.36, 1);
         }
 
-        .mode-card-body {
-            padding: 1.2rem;
-        }
+        .mode-card:hover .mode-card-img { transform: scale(1.04); }
 
-        .mode-card h3 {
-            font-size: 1.1rem;
-            color: var(--amber);
-            margin-bottom: 0.4rem;
-        }
+        .mode-card-body { padding: 1.3rem 1.4rem; position: relative; z-index: 2; }
 
-        .mode-card p {
-            font-size: 0.88rem;
-            color: var(--text-secondary);
-            line-height: 1.5;
-        }
+        .mode-card h3 { font-size: 1rem; color: var(--gold); margin-bottom: 0.4rem; letter-spacing: 0.04em; }
+        .mode-card p { font-size: 0.85rem; color: var(--text-secondary); line-height: 1.6; font-weight: 300; }
 
-        /* ===== FEATURES ZIGZAG ===== */
         .feature-row {
             display: grid;
             grid-template-columns: 1fr 1fr;
-            gap: 3rem;
+            gap: 4rem;
             align-items: center;
-            margin-bottom: 4rem;
+            margin-bottom: 5rem;
         }
 
         .feature-row:last-child { margin-bottom: 0; }
-
         .feature-row.reverse .feature-image { order: 2; }
         .feature-row.reverse .feature-text { order: 1; }
 
         .feature-image {
-            border-radius: 16px;
+            border-radius: var(--radius-lg);
             overflow: hidden;
-            border: 1px solid rgba(245, 166, 35, 0.15);
-            box-shadow: 0 8px 40px rgba(0, 0, 0, 0.4);
-            transition: all 0.3s;
+            border: 1px solid rgba(232, 169, 37, 0.08);
+            box-shadow: 0 12px 50px rgba(0, 0, 0, 0.4);
+            transition: all 0.5s cubic-bezier(0.22, 1, 0.36, 1);
+            cursor: pointer;
         }
 
         .feature-image:hover {
-            border-color: rgba(74, 230, 138, 0.3);
-            transform: translateY(-4px);
-            box-shadow: 0 12px 50px rgba(74, 230, 138, 0.1);
+            border-color: rgba(52, 216, 122, 0.2);
+            transform: translateY(-6px) scale(1.01);
+            box-shadow: 0 20px 60px rgba(52, 216, 122, 0.08);
         }
 
-        .feature-image img {
-            width: 100%;
-            display: block;
-        }
+        .feature-image img { width: 100%; display: block; }
 
         .feature-text h3 {
-            font-size: 1.5rem;
-            color: var(--amber);
+            font-size: 1.4rem;
+            color: var(--gold);
             margin-bottom: 0.75rem;
-            text-transform: uppercase;
-            letter-spacing: 0.03em;
-        }
-
-        .feature-text p {
-            color: var(--text-secondary);
-            font-size: 1.05rem;
-            line-height: 1.7;
-        }
-
-        .feature-text .feature-tag {
-            display: inline-block;
-            background: rgba(74, 230, 138, 0.1);
-            border: 1px solid rgba(74, 230, 138, 0.2);
-            color: var(--green-glow);
-            padding: 0.3rem 0.8rem;
-            border-radius: 20px;
-            font-size: 0.8rem;
-            font-weight: 600;
             text-transform: uppercase;
             letter-spacing: 0.05em;
-            margin-bottom: 0.75rem;
         }
 
-        /* ===== SCREENSHOTS ===== */
-        .screenshots-grid {
-            display: grid;
-            grid-template-columns: repeat(2, 1fr);
-            gap: 1.5rem;
+        .feature-text p { color: var(--text-secondary); font-size: 1rem; line-height: 1.8; font-weight: 300; }
+
+        .feature-tag {
+            display: inline-block;
+            background: rgba(52, 216, 122, 0.06);
+            border: 1px solid rgba(52, 216, 122, 0.15);
+            color: var(--emerald);
+            padding: 0.25rem 0.75rem;
+            border-radius: 20px;
+            font-size: 0.75rem;
+            font-weight: 600;
+            text-transform: uppercase;
+            letter-spacing: 0.08em;
+            margin-bottom: 0.8rem;
         }
+
+        .screenshots-grid { display: grid; grid-template-columns: repeat(2, 1fr); gap: 1.2rem; }
 
         .screenshot-item {
-            border-radius: 12px;
+            border-radius: var(--radius-md);
             overflow: hidden;
-            border: 1px solid rgba(245, 166, 35, 0.1);
+            border: 1px solid rgba(232, 169, 37, 0.06);
             cursor: pointer;
-            transition: all 0.3s;
+            transition: all 0.5s cubic-bezier(0.22, 1, 0.36, 1);
+            position: relative;
+        }
+
+        .screenshot-item::after {
+            content: '';
+            position: absolute;
+            inset: 0;
+            background: linear-gradient(180deg, transparent 60%, rgba(6, 6, 16, 0.4) 100%);
+            opacity: 0;
+            transition: opacity 0.4s;
+            pointer-events: none;
         }
 
         .screenshot-item:hover {
-            border-color: rgba(74, 230, 138, 0.4);
+            border-color: rgba(232, 169, 37, 0.2);
             transform: translateY(-4px);
-            box-shadow: 0 8px 30px rgba(74, 230, 138, 0.1);
+            box-shadow: 0 16px 50px rgba(0, 0, 0, 0.4);
         }
 
-        .screenshot-item img {
-            width: 100%;
-            display: block;
-        }
+        .screenshot-item:hover::after { opacity: 1; }
+        .screenshot-item img { width: 100%; display: block; }
 
-        /* ===== LIGHTBOX ===== */
         .lightbox {
             display: none;
             position: fixed;
             inset: 0;
             z-index: 2000;
-            background: rgba(0, 0, 0, 0.92);
-            backdrop-filter: blur(8px);
+            background: rgba(6, 6, 16, 0.95);
+            backdrop-filter: blur(12px);
+            -webkit-backdrop-filter: blur(12px);
             align-items: center;
             justify-content: center;
             cursor: pointer;
@@ -577,31 +658,33 @@
         .lightbox img {
             max-width: 90%;
             max-height: 85vh;
-            border-radius: 12px;
-            box-shadow: 0 0 60px rgba(0, 0, 0, 0.8);
+            border-radius: var(--radius-lg);
+            box-shadow: 0 0 80px rgba(0, 0, 0, 0.8), 0 0 0 1px rgba(232, 169, 37, 0.1);
         }
 
         .lightbox-close {
             position: absolute;
             top: 2rem;
             right: 2rem;
-            width: 44px;
-            height: 44px;
+            width: 48px;
+            height: 48px;
             border-radius: 50%;
-            background: rgba(255, 255, 255, 0.1);
-            border: none;
+            background: rgba(255, 255, 255, 0.06);
+            border: 1px solid rgba(255, 255, 255, 0.08);
             color: white;
             font-size: 1.5rem;
             cursor: pointer;
             display: flex;
             align-items: center;
             justify-content: center;
+            transition: all 0.3s;
         }
 
-        /* ===== CTA BANNER ===== */
+        .lightbox-close:hover { background: rgba(255, 255, 255, 0.12); transform: rotate(90deg); }
+
         .cta-section {
             text-align: center;
-            padding: 5rem 2rem;
+            padding: 6rem 2rem;
             position: relative;
         }
 
@@ -609,14 +692,16 @@
             content: '';
             position: absolute;
             inset: 0;
-            background: radial-gradient(ellipse at center, rgba(42, 138, 82, 0.1) 0%, transparent 70%);
+            background:
+                radial-gradient(ellipse 50% 40% at center, rgba(52, 216, 122, 0.06) 0%, transparent 70%),
+                radial-gradient(ellipse 60% 30% at 30% 60%, rgba(232, 169, 37, 0.04) 0%, transparent 60%);
         }
 
         .cta-section > * { position: relative; z-index: 1; }
 
         .cta-section h2 {
-            font-size: clamp(1.8rem, 5vw, 2.8rem);
-            background: linear-gradient(135deg, var(--green-glow), #a0f0c0);
+            font-size: clamp(2rem, 5vw, 3rem);
+            background: linear-gradient(135deg, var(--emerald), #a0f0c0, var(--emerald));
             -webkit-background-clip: text;
             -webkit-text-fill-color: transparent;
             background-clip: text;
@@ -624,17 +709,12 @@
             text-transform: uppercase;
         }
 
-        .cta-section p {
-            color: var(--text-secondary);
-            margin-bottom: 2rem;
-            font-size: 1.1rem;
-        }
+        .cta-section p { color: var(--text-secondary); margin-bottom: 2.5rem; font-size: 1.1rem; font-weight: 300; }
 
-        /* ===== FOOTER ===== */
         footer {
-            background: rgba(10, 10, 20, 0.6);
-            border-top: 1px solid rgba(245, 166, 35, 0.08);
-            padding: 3rem 2rem 2rem;
+            background: rgba(6, 6, 16, 0.8);
+            border-top: 1px solid rgba(232, 169, 37, 0.05);
+            padding: 3.5rem 2rem 2rem;
         }
 
         .footer-content {
@@ -647,94 +727,76 @@
             gap: 2rem;
         }
 
-        .footer-brand {
-            display: flex;
-            align-items: center;
-            gap: 0.75rem;
-        }
+        .footer-brand { display: flex; align-items: center; gap: 0.75rem; }
 
         .footer-brand img {
-            width: 48px;
-            height: 48px;
+            width: 44px;
+            height: 44px;
             border-radius: 12px;
+            box-shadow: 0 0 20px rgba(232, 169, 37, 0.1);
         }
 
         .footer-brand-text h3 {
-            color: var(--amber);
-            font-size: 1.1rem;
+            font-family: 'Cinzel', serif;
+            color: var(--gold);
+            font-size: 1rem;
             text-transform: uppercase;
-            letter-spacing: 0.05em;
+            letter-spacing: 0.06em;
         }
 
-        .footer-brand-text p {
-            color: var(--text-muted);
-            font-size: 0.8rem;
-        }
+        .footer-brand-text p { color: var(--text-muted); font-size: 0.8rem; font-weight: 300; }
 
-        .footer-links {
-            display: flex;
-            gap: 2.5rem;
-        }
+        .footer-links { display: flex; gap: 2rem; }
 
         .footer-links a {
             color: var(--text-secondary);
             text-decoration: none;
-            font-size: 0.9rem;
+            font-size: 0.85rem;
+            font-weight: 400;
             transition: color 0.3s;
+            letter-spacing: 0.02em;
         }
 
-        .footer-links a:hover { color: var(--green-glow); }
+        .footer-links a:hover { color: var(--gold-light); }
 
-        .social-links {
-            display: flex;
-            gap: 1rem;
-        }
+        .social-links { display: flex; gap: 0.8rem; }
 
         .social-link {
-            width: 42px;
-            height: 42px;
+            width: 40px;
+            height: 40px;
             border-radius: 50%;
-            background: rgba(255, 255, 255, 0.05);
-            border: 1px solid rgba(255, 255, 255, 0.1);
+            background: rgba(255, 255, 255, 0.03);
+            border: 1px solid rgba(255, 255, 255, 0.06);
             display: flex;
             align-items: center;
             justify-content: center;
             text-decoration: none;
-            transition: all 0.3s;
+            transition: all 0.4s cubic-bezier(0.22, 1, 0.36, 1);
         }
 
         .social-link:hover {
-            background: rgba(245, 166, 35, 0.15);
-            border-color: var(--amber);
-            transform: translateY(-2px);
+            background: rgba(232, 169, 37, 0.1);
+            border-color: rgba(232, 169, 37, 0.3);
+            transform: translateY(-3px);
+            box-shadow: 0 8px 24px rgba(232, 169, 37, 0.1);
         }
 
-        .social-link svg {
-            width: 20px;
-            height: 20px;
-            fill: var(--text-secondary);
-            transition: fill 0.3s;
-        }
-
-        .social-link:hover svg { fill: var(--amber); }
+        .social-link svg { width: 18px; height: 18px; fill: var(--text-muted); transition: fill 0.3s; }
+        .social-link:hover svg { fill: var(--gold); }
 
         .footer-bottom {
             max-width: 1200px;
-            margin: 2rem auto 0;
+            margin: 2.5rem auto 0;
             padding-top: 1.5rem;
-            border-top: 1px solid rgba(255, 255, 255, 0.05);
+            border-top: 1px solid rgba(255, 255, 255, 0.04);
             text-align: center;
             color: var(--text-muted);
-            font-size: 0.8rem;
+            font-size: 0.78rem;
+            font-weight: 300;
+            letter-spacing: 0.03em;
         }
 
-        /* ===== PARTICLES ===== */
-        #particles {
-            position: fixed;
-            inset: 0;
-            z-index: 0;
-            pointer-events: none;
-        }
+        #particles { position: fixed; inset: 0; z-index: 0; pointer-events: none; }
 
         .particle {
             position: absolute;
@@ -751,13 +813,12 @@
             100% { transform: translateY(-10vh) scale(1); opacity: 0; }
         }
 
-        /* ===== RESPONSIVE ===== */
         @media (max-width: 900px) {
             .modes-grid { grid-template-columns: repeat(2, 1fr); }
-            .feature-row { grid-template-columns: 1fr; gap: 1.5rem; }
+            .feature-row { grid-template-columns: 1fr; gap: 2rem; }
             .feature-row.reverse .feature-image { order: 0; }
             .feature-row.reverse .feature-text { order: 0; }
-            .about-content { grid-template-columns: 1fr; }
+            .about-content { grid-template-columns: 1fr; gap: 2rem; }
             .screenshots-grid { grid-template-columns: 1fr; }
         }
 
@@ -771,37 +832,45 @@
                 top: 100%;
                 left: 0;
                 right: 0;
-                background: rgba(10, 10, 20, 0.98);
-                padding: 1.5rem 2rem;
+                background: rgba(6, 6, 16, 0.98);
+                backdrop-filter: blur(20px);
+                -webkit-backdrop-filter: blur(20px);
+                padding: 1.5rem 2rem 2rem;
                 gap: 1.2rem;
-                border-bottom: 1px solid rgba(245, 166, 35, 0.1);
+                border-bottom: 1px solid rgba(232, 169, 37, 0.08);
+                animation: navSlide 0.4s cubic-bezier(0.22, 1, 0.36, 1);
+            }
+            @keyframes navSlide {
+                from { opacity: 0; transform: translateY(-8px); }
+                to { opacity: 1; transform: translateY(0); }
             }
             .hamburger { display: flex; }
             .hero { padding: 7rem 1.5rem 3rem; }
-            section { padding: 3rem 1.5rem; }
+            section { padding: 4rem 1.5rem; }
             .footer-content { flex-direction: column; align-items: center; text-align: center; }
-            .footer-links { flex-direction: column; gap: 1rem; align-items: center; }
+            .footer-links { flex-direction: column; gap: 0.8rem; align-items: center; }
         }
 
-        /* ===== SCROLL REVEAL ===== */
         .reveal {
             opacity: 0;
-            transform: translateY(30px);
-            transition: opacity 0.6s ease, transform 0.6s ease;
+            transform: translateY(35px);
+            transition: opacity 0.8s cubic-bezier(0.22, 1, 0.36, 1), transform 0.8s cubic-bezier(0.22, 1, 0.36, 1);
         }
 
-        .reveal.visible {
-            opacity: 1;
-            transform: translateY(0);
-        }
+        .reveal.visible { opacity: 1; transform: translateY(0); }
+
+        .mode-card.reveal:nth-child(1) { transition-delay: 0s; }
+        .mode-card.reveal:nth-child(2) { transition-delay: 0.1s; }
+        .mode-card.reveal:nth-child(3) { transition-delay: 0.2s; }
+        .mode-card.reveal:nth-child(4) { transition-delay: 0.3s; }
+        .mode-card.reveal:nth-child(5) { transition-delay: 0.4s; }
+        .mode-card.reveal:nth-child(6) { transition-delay: 0.5s; }
     </style>
 </head>
 <body>
 
-    <!-- Particles Background -->
     <div id="particles"></div>
 
-    <!-- Navigation -->
     <nav id="navbar">
         <a href="#" class="nav-logo">
             <img src="images/baqla-icon.png" alt="Baqla">
@@ -813,14 +882,13 @@
             <li><a href="#features">Features</a></li>
             <li><a href="#screenshots">Screenshots</a></li>
             <li><a href="#contact">Contact</a></li>
-            <li><a href="https://apps.apple.com/ae/app/baqla/id6448760057" target="_blank" rel="noopener" style="color: var(--green-glow);">Download</a></li>
+            <li><a href="https://apps.apple.com/ae/app/baqla/id6448760057" target="_blank" rel="noopener" style="color: var(--emerald);">Download</a></li>
         </ul>
         <button class="hamburger" id="hamburger" aria-label="Menu">
             <span></span><span></span><span></span>
         </button>
     </nav>
 
-    <!-- Hero -->
     <section class="hero" id="hero">
         <img src="images/baqla-icon.png" alt="Baqla — Magical Fruit Card Game" class="hero-icon">
         <h1>Baqla</h1>
@@ -829,13 +897,12 @@
         <div class="hero-buttons">
             <a href="https://apps.apple.com/ae/app/baqla/id6448760057" target="_blank" rel="noopener" class="btn btn-primary">
                 <svg viewBox="0 0 24 24"><path d="M18.71 19.5c-.83 1.24-1.71 2.45-3.05 2.47-1.34.03-1.77-.79-3.29-.79-1.53 0-2 .77-3.27.82-1.31.05-2.3-1.32-3.14-2.53C4.25 17 2.94 12.45 4.7 9.39c.87-1.52 2.43-2.48 4.12-2.51 1.28-.02 2.5.87 3.29.87.78 0 2.26-1.07 3.8-.91.65.03 2.47.26 3.64 1.98-.09.06-2.17 1.28-2.15 3.81.03 3.02 2.65 4.03 2.68 4.04-.03.07-.42 1.44-1.38 2.83M13 3.5c.73-.83 1.94-1.46 2.94-1.5.13 1.17-.34 2.35-1.04 3.19-.69.85-1.83 1.51-2.95 1.42-.15-1.15.41-2.35 1.05-3.11z"/></svg>
-                Download on App Store
+                <span>Download on App Store</span>
             </a>
-            <a href="#modes" class="btn btn-secondary">Explore Modes</a>
+            <a href="#modes" class="btn btn-secondary"><span>Explore Modes</span></a>
         </div>
     </section>
 
-    <!-- Countdown -->
     <section class="countdown-section" id="countdown">
         <p class="countdown-label">Global Launch In</p>
         <div class="countdown-timer" id="countdownTimer">
@@ -861,7 +928,6 @@
         </div>
     </section>
 
-    <!-- Gameplay Video -->
     <div class="video-section">
         <h2 class="section-title">See It In Action</h2>
         <p class="section-subtitle">Watch the magic unfold in Baqla's enchanted arenas</p>
@@ -872,7 +938,6 @@
         </div>
     </div>
 
-    <!-- About -->
     <section id="about">
         <h2 class="section-title reveal">Welcome to Baqla</h2>
         <p class="section-subtitle reveal">Step into a world where enchanted fruits battle for glory at the card table.</p>
@@ -889,207 +954,108 @@
         </div>
     </section>
 
-    <!-- Game Modes -->
     <section id="modes">
         <h2 class="section-title reveal">6 Unique Game Modes</h2>
         <p class="section-subtitle reveal">Each mode has its own enchanted arena, rules, and strategy. Master them all.</p>
         <div class="section-divider"></div>
         <div class="modes-grid">
-            <div class="mode-card reveal">
-                <img class="mode-card-img" src="images/mode-full-house.png" alt="Full House" loading="lazy">
-                <div class="mode-card-body">
-                    <h3>Full House</h3>
-                    <p>Be the first to collect 5 matching fruit cards. Grab cards, react fast, and use secret powers to steal from your rivals.</p>
-                </div>
-            </div>
-            <div class="mode-card reveal">
-                <img class="mode-card-img" src="images/mode-flag-rush.png" alt="Flag Rush" loading="lazy">
-                <div class="mode-card-body">
-                    <h3>Flag Rush</h3>
-                    <p>Match the flag color and race to reach zero cards first. Use Change Color, Freeze, Draw 2, and Protection cards strategically.</p>
-                </div>
-            </div>
-            <div class="mode-card reveal">
-                <img class="mode-card-img" src="images/mode-spin-and-win.png" alt="Spin and Win" loading="lazy">
-                <div class="mode-card-body">
-                    <h3>Spin and Win</h3>
-                    <p>Spin the mystical reels and match symbols before time runs out. Use Slow Down and Freeze powers to gain the edge.</p>
-                </div>
-            </div>
-            <div class="mode-card reveal">
-                <img class="mode-card-img" src="images/mode-tick-tock-boom.png" alt="Tick Tock Boom" loading="lazy">
-                <div class="mode-card-body">
-                    <h3>Tick Tock Boom</h3>
-                    <p>Stop the timer as close to the target as possible. Precision and nerves of steel win this mystical challenge.</p>
-                </div>
-            </div>
-            <div class="mode-card reveal">
-                <img class="mode-card-img" src="images/mode-pattern.png" alt="Pattern" loading="lazy">
-                <div class="mode-card-body">
-                    <h3>Pattern</h3>
-                    <p>Memorize and repeat the pattern sequence. Test your focus in an enchanted underwater arena.</p>
-                </div>
-            </div>
-            <div class="mode-card reveal">
-                <img class="mode-card-img" src="images/mode-memory-match.png" alt="Memory Match" loading="lazy">
-                <div class="mode-card-body">
-                    <h3>Memory Match</h3>
-                    <p>Find matching pairs of cards before your opponents. Speed and memory are your greatest weapons.</p>
-                </div>
-            </div>
+            <div class="mode-card reveal"><img class="mode-card-img" src="images/mode-full-house.png" alt="Full House" loading="lazy"><div class="mode-card-body"><h3>Full House</h3><p>Be the first to collect 5 matching fruit cards. Grab cards, react fast, and use secret powers to steal from your rivals.</p></div></div>
+            <div class="mode-card reveal"><img class="mode-card-img" src="images/mode-flag-rush.png" alt="Flag Rush" loading="lazy"><div class="mode-card-body"><h3>Flag Rush</h3><p>Match the flag color and race to reach zero cards first. Use Change Color, Freeze, Draw 2, and Protection cards strategically.</p></div></div>
+            <div class="mode-card reveal"><img class="mode-card-img" src="images/mode-spin-and-win.png" alt="Spin and Win" loading="lazy"><div class="mode-card-body"><h3>Spin and Win</h3><p>Spin the mystical reels and match symbols before time runs out. Use Slow Down and Freeze powers to gain the edge.</p></div></div>
+            <div class="mode-card reveal"><img class="mode-card-img" src="images/mode-tick-tock-boom.png" alt="Tick Tock Boom" loading="lazy"><div class="mode-card-body"><h3>Tick Tock Boom</h3><p>Stop the timer as close to the target as possible. Precision and nerves of steel win this mystical challenge.</p></div></div>
+            <div class="mode-card reveal"><img class="mode-card-img" src="images/mode-pattern.png" alt="Pattern" loading="lazy"><div class="mode-card-body"><h3>Pattern</h3><p>Memorize and repeat the pattern sequence. Test your focus in an enchanted underwater arena.</p></div></div>
+            <div class="mode-card reveal"><img class="mode-card-img" src="images/mode-memory-match.png" alt="Memory Match" loading="lazy"><div class="mode-card-body"><h3>Memory Match</h3><p>Find matching pairs of cards before your opponents. Speed and memory are your greatest weapons.</p></div></div>
         </div>
     </section>
 
-    <!-- Features -->
     <section id="features">
         <h2 class="section-title reveal">More Than Just Cards</h2>
         <p class="section-subtitle reveal">A full game experience — compete, collect, customize, and conquer.</p>
         <div class="section-divider"></div>
 
         <div class="feature-row reveal">
-            <div class="feature-image" onclick="openLightbox(this)">
-                <img src="images/feat-leaderboard.png" alt="Leaderboard" loading="lazy">
-            </div>
-            <div class="feature-text">
-                <span class="feature-tag">Competitive</span>
-                <h3>Weekly Leaderboard</h3>
-                <p>Climb the ranks and compete against players worldwide. Top players earn exclusive rewards every week. Track your score, check rival rankings, and claim your prizes before the timer resets.</p>
-            </div>
+            <div class="feature-image" onclick="openLightbox(this)"><img src="images/feat-leaderboard.png" alt="Leaderboard" loading="lazy"></div>
+            <div class="feature-text"><span class="feature-tag">Competitive</span><h3>Weekly Leaderboard</h3><p>Climb the ranks and compete against players worldwide. Top players earn exclusive rewards every week. Track your score, check rival rankings, and claim your prizes before the timer resets.</p></div>
         </div>
 
         <div class="feature-row reverse reveal">
-            <div class="feature-image" onclick="openLightbox(this)">
-                <img src="images/feat-challenges.png" alt="Daily Challenges" loading="lazy">
-            </div>
-            <div class="feature-text">
-                <span class="feature-tag">Daily</span>
-                <h3>Missions & Challenges</h3>
-                <p>Complete daily challenges to earn coins and rare rewards. Each challenge tests a different skill — use secret cards, win specific modes, or achieve special objectives. New challenges every day.</p>
-            </div>
+            <div class="feature-image" onclick="openLightbox(this)"><img src="images/feat-challenges.png" alt="Daily Challenges" loading="lazy"></div>
+            <div class="feature-text"><span class="feature-tag">Daily</span><h3>Missions & Challenges</h3><p>Complete daily challenges to earn coins and rare rewards. Each challenge tests a different skill — use secret cards, win specific modes, or achieve special objectives. New challenges every day.</p></div>
         </div>
 
         <div class="feature-row reveal">
-            <div class="feature-image" onclick="openLightbox(this)">
-                <img src="images/feat-shop-cards.png" alt="Shop — Card Skins" loading="lazy">
-            </div>
-            <div class="feature-text">
-                <span class="feature-tag">Customize</span>
-                <h3>Shop & Collection</h3>
-                <p>Browse and collect stunning card skins, arena maps, hand gloves, and unique avatars. Each item transforms your gameplay experience with gorgeous hand-painted art.</p>
-            </div>
+            <div class="feature-image" onclick="openLightbox(this)"><img src="images/feat-shop-cards.png" alt="Shop — Card Skins" loading="lazy"></div>
+            <div class="feature-text"><span class="feature-tag">Customize</span><h3>Shop & Collection</h3><p>Browse and collect stunning card skins, arena maps, hand gloves, and unique avatars. Each item transforms your gameplay experience with gorgeous hand-painted art.</p></div>
         </div>
 
         <div class="feature-row reverse reveal">
-            <div class="feature-image" onclick="openLightbox(this)">
-                <img src="images/feat-game-room.png" alt="Game Room" loading="lazy">
-            </div>
-            <div class="feature-text">
-                <span class="feature-tag">Multiplayer</span>
-                <h3>Play With Friends</h3>
-                <p>Create private or public rooms and choose from all 6 game modes. Share your Room ID, invite friends, add bots, and compete head-to-head in enchanted arenas.</p>
-            </div>
+            <div class="feature-image" onclick="openLightbox(this)"><img src="images/feat-game-room.png" alt="Game Room" loading="lazy"></div>
+            <div class="feature-text"><span class="feature-tag">Multiplayer</span><h3>Play With Friends</h3><p>Create private or public rooms and choose from all 6 game modes. Share your Room ID, invite friends, add bots, and compete head-to-head in enchanted arenas.</p></div>
         </div>
 
         <div class="feature-row reveal">
-            <div class="feature-image" onclick="openLightbox(this)">
-                <img src="images/feat-calendar.png" alt="Monthly Calendar" loading="lazy">
-            </div>
-            <div class="feature-text">
-                <span class="feature-tag">Rewards</span>
-                <h3>Monthly Calendar</h3>
-                <p>Log in daily to claim escalating rewards. Each day brings better prizes — coins, rare items, and exclusive unlocks. The longer your streak, the bigger the reward.</p>
-            </div>
+            <div class="feature-image" onclick="openLightbox(this)"><img src="images/feat-calendar.png" alt="Monthly Calendar" loading="lazy"></div>
+            <div class="feature-text"><span class="feature-tag">Rewards</span><h3>Monthly Calendar</h3><p>Log in daily to claim escalating rewards. Each day brings better prizes — coins, rare items, and exclusive unlocks. The longer your streak, the bigger the reward.</p></div>
         </div>
 
         <div class="feature-row reverse reveal">
-            <div class="feature-image" onclick="openLightbox(this)">
-                <img src="images/feat-settings.png" alt="Settings" loading="lazy">
-            </div>
-            <div class="feature-text">
-                <span class="feature-tag">Personalize</span>
-                <h3>13 Languages & Full Settings</h3>
-                <p>Play in your language — Baqla supports 13 languages including Arabic, Japanese, Korean, and more. Customize your profile, display name, audio, and controls to your liking.</p>
-            </div>
+            <div class="feature-image" onclick="openLightbox(this)"><img src="images/feat-settings.png" alt="Settings" loading="lazy"></div>
+            <div class="feature-text"><span class="feature-tag">Personalize</span><h3>13 Languages & Full Settings</h3><p>Play in your language — Baqla supports 13 languages including Arabic, Japanese, Korean, and more. Customize your profile, display name, audio, and controls to your liking.</p></div>
         </div>
     </section>
 
-    <!-- Screenshots -->
     <section id="screenshots">
         <h2 class="section-title reveal">Screenshots</h2>
         <p class="section-subtitle reveal">A glimpse into the magical world of Baqla.</p>
         <div class="section-divider"></div>
         <div class="screenshots-grid reveal">
-            <div class="screenshot-item" onclick="openLightbox(this)">
-                <img src="images/screenshot-Full House.png" alt="Full House Gameplay" loading="lazy">
-            </div>
-            <div class="screenshot-item" onclick="openLightbox(this)">
-                <img src="images/screenshot-Flag Rush.png" alt="Flag Rush Gameplay" loading="lazy">
-            </div>
-            <div class="screenshot-item" onclick="openLightbox(this)">
-                <img src="images/screenshot-SPIN AND WIN.png" alt="Spin and Win Gameplay" loading="lazy">
-            </div>
-            <div class="screenshot-item" onclick="openLightbox(this)">
-                <img src="images/screenshot-TICK TOCK BOOM.png" alt="Tick Tock Boom Gameplay" loading="lazy">
-            </div>
-            <div class="screenshot-item" onclick="openLightbox(this)">
-                <img src="images/screenshot-Pattern.png" alt="Pattern Gameplay" loading="lazy">
-            </div>
-            <div class="screenshot-item" onclick="openLightbox(this)">
-                <img src="images/screenshot-MEMORY MATCH.png" alt="Memory Match Gameplay" loading="lazy">
-            </div>
-            <div class="screenshot-item" onclick="openLightbox(this)">
-                <img src="images/feat-shop-avatars.png" alt="Avatar Collection" loading="lazy">
-            </div>
-            <div class="screenshot-item" onclick="openLightbox(this)">
-                <img src="images/feat-shop-maps.png" alt="Arena Maps" loading="lazy">
-            </div>
-            <div class="screenshot-item" onclick="openLightbox(this)">
-                <img src="images/feat-game-room.png" alt="Game Room" loading="lazy">
-            </div>
-            <div class="screenshot-item" onclick="openLightbox(this)">
-                <img src="images/feat-login.png" alt="Login Screen" loading="lazy">
-            </div>
+            <div class="screenshot-item" onclick="openLightbox(this)"><img src="images/screenshot-Full House.png" alt="Full House Gameplay" loading="lazy"></div>
+            <div class="screenshot-item" onclick="openLightbox(this)"><img src="images/screenshot-Flag Rush.png" alt="Flag Rush Gameplay" loading="lazy"></div>
+            <div class="screenshot-item" onclick="openLightbox(this)"><img src="images/screenshot-SPIN AND WIN.png" alt="Spin and Win Gameplay" loading="lazy"></div>
+            <div class="screenshot-item" onclick="openLightbox(this)"><img src="images/screenshot-TICK TOCK BOOM.png" alt="Tick Tock Boom Gameplay" loading="lazy"></div>
+            <div class="screenshot-item" onclick="openLightbox(this)"><img src="images/screenshot-Pattern.png" alt="Pattern Gameplay" loading="lazy"></div>
+            <div class="screenshot-item" onclick="openLightbox(this)"><img src="images/screenshot-MEMORY MATCH.png" alt="Memory Match Gameplay" loading="lazy"></div>
+            <div class="screenshot-item" onclick="openLightbox(this)"><img src="images/feat-shop-avatars.png" alt="Avatar Collection" loading="lazy"></div>
+            <div class="screenshot-item" onclick="openLightbox(this)"><img src="images/feat-shop-maps.png" alt="Arena Maps" loading="lazy"></div>
+            <div class="screenshot-item" onclick="openLightbox(this)"><img src="images/feat-game-room.png" alt="Game Room" loading="lazy"></div>
+            <div class="screenshot-item" onclick="openLightbox(this)"><img src="images/feat-login.png" alt="Login Screen" loading="lazy"></div>
         </div>
     </section>
 
-    <!-- Contact -->
     <section id="contact" style="text-align: center;">
         <h2 class="section-title reveal">Contact Us</h2>
         <p class="section-subtitle reveal">Have questions, feedback, or partnership inquiries? We'd love to hear from you.</p>
         <div class="section-divider"></div>
-        <a href="mailto:baqlagame@gmail.com" class="btn btn-secondary reveal" style="font-size: 1.1rem; padding: 1rem 2.5rem;">
-            <svg viewBox="0 0 24 24" style="width:22px;height:22px;fill:currentColor"><path d="M20 4H4c-1.1 0-2 .9-2 2v12c0 1.1.9 2 2 2h16c1.1 0 2-.9 2-2V6c0-1.1-.9-2-2-2zm0 4l-8 5-8-5V6l8 5 8-5v2z"/></svg>
-            baqlagame@gmail.com
+        <a href="mailto:baqlagame@gmail.com" class="btn btn-secondary reveal" style="font-size: 1.05rem; padding: 1rem 2.5rem;">
+            <svg viewBox="0 0 24 24" style="width:20px;height:20px;fill:currentColor"><path d="M20 4H4c-1.1 0-2 .9-2 2v12c0 1.1.9 2 2 2h16c1.1 0 2-.9 2-2V6c0-1.1-.9-2-2-2zm0 4l-8 5-8-5V6l8 5 8-5v2z"/></svg>
+            <span>baqlagame@gmail.com</span>
         </a>
     </section>
 
-    <!-- CTA -->
     <section class="cta-section">
         <h2 class="reveal">Ready to Play?</h2>
         <p class="reveal">Join the enchanted card table. Free on the App Store worldwide.</p>
         <div class="hero-buttons reveal">
             <a href="https://apps.apple.com/ae/app/baqla/id6448760057" target="_blank" rel="noopener" class="btn btn-primary">
                 <svg viewBox="0 0 24 24"><path d="M18.71 19.5c-.83 1.24-1.71 2.45-3.05 2.47-1.34.03-1.77-.79-3.29-.79-1.53 0-2 .77-3.27.82-1.31.05-2.3-1.32-3.14-2.53C4.25 17 2.94 12.45 4.7 9.39c.87-1.52 2.43-2.48 4.12-2.51 1.28-.02 2.5.87 3.29.87.78 0 2.26-1.07 3.8-.91.65.03 2.47.26 3.64 1.98-.09.06-2.17 1.28-2.15 3.81.03 3.02 2.65 4.03 2.68 4.04-.03.07-.42 1.44-1.38 2.83M13 3.5c.73-.83 1.94-1.46 2.94-1.5.13 1.17-.34 2.35-1.04 3.19-.69.85-1.83 1.51-2.95 1.42-.15-1.15.41-2.35 1.05-3.11z"/></svg>
-                Download on App Store
+                <span>Download on App Store</span>
             </a>
             <a href="https://www.instagram.com/baqlagames/?hl=en" target="_blank" rel="noopener" class="btn btn-secondary">
                 <svg viewBox="0 0 24 24"><path d="M12 2.163c3.204 0 3.584.012 4.85.07 3.252.148 4.771 1.691 4.919 4.919.058 1.265.069 1.645.069 4.849 0 3.205-.012 3.584-.069 4.849-.149 3.225-1.664 4.771-4.919 4.919-1.266.058-1.644.07-4.85.07-3.204 0-3.584-.012-4.849-.07-3.26-.149-4.771-1.699-4.919-4.92-.058-1.265-.07-1.644-.07-4.849 0-3.204.013-3.583.07-4.849.149-3.227 1.664-4.771 4.919-4.919 1.266-.057 1.645-.069 4.849-.069zM12 0C8.741 0 8.333.014 7.053.072 2.695.272.273 2.69.073 7.052.014 8.333 0 8.741 0 12c0 3.259.014 3.668.072 4.948.2 4.358 2.618 6.78 6.98 6.98C8.333 23.986 8.741 24 12 24c3.259 0 3.668-.014 4.948-.072 4.354-.2 6.782-2.618 6.979-6.98.059-1.28.073-1.689.073-4.948 0-3.259-.014-3.667-.072-4.947-.196-4.354-2.617-6.78-6.979-6.98C15.668.014 15.259 0 12 0zm0 5.838a6.162 6.162 0 100 12.324 6.162 6.162 0 000-12.324zM12 16a4 4 0 110-8 4 4 0 010 8zm6.406-11.845a1.44 1.44 0 100 2.881 1.44 1.44 0 000-2.881z"/></svg>
-                Instagram
+                <span>Instagram</span>
             </a>
             <a href="https://www.tiktok.com/@baqlagames" target="_blank" rel="noopener" class="btn btn-secondary">
                 <svg viewBox="0 0 24 24"><path d="M19.59 6.69a4.83 4.83 0 01-3.77-4.25V2h-3.45v13.67a2.89 2.89 0 01-2.88 2.5 2.89 2.89 0 01-2.89-2.89 2.89 2.89 0 012.89-2.89c.28 0 .54.04.79.1v-3.5a6.37 6.37 0 00-.79-.05A6.34 6.34 0 003.15 15.2a6.34 6.34 0 0010.86 4.48 6.3 6.3 0 001.86-4.49V8.74a8.26 8.26 0 004.84 1.56V6.84a4.84 4.84 0 01-1.12-.15z"/></svg>
-                TikTok
+                <span>TikTok</span>
             </a>
         </div>
     </section>
 
-    <!-- Lightbox -->
     <div class="lightbox" id="lightbox" onclick="closeLightbox()">
         <button class="lightbox-close" aria-label="Close">&times;</button>
         <img id="lightboxImg" src="" alt="Screenshot">
     </div>
 
-    <!-- Footer -->
     <footer>
         <div class="footer-content">
             <div class="footer-brand">
@@ -1105,7 +1071,7 @@
                 <a href="#features">Features</a>
                 <a href="#contact">Contact</a>
                 <a href="https://apps.apple.com/ae/app/baqla/id6448760057" target="_blank" rel="noopener">Download</a>
-                <a href="https://www.termsfeed.com/live/d13df142-44f9-4ecd-8014-172b998940a9" target="_blank" rel="noopener">Privacy Policy</a>
+                <a href="privacy/">Privacy Policy</a>
             </div>
             <div class="social-links">
                 <a href="https://www.instagram.com/baqlagames/?hl=en" target="_blank" rel="noopener" class="social-link" aria-label="Instagram">
@@ -1116,30 +1082,28 @@
                 </a>
             </div>
         </div>
-        <div class="footer-bottom">
-            &copy; 2026 BaqlaGames. All rights reserved.
-        </div>
+        <div class="footer-bottom">&copy; 2026 BaqlaGames. All rights reserved.</div>
     </footer>
 
     <script>
-        // ===== NAV SCROLL =====
         const navbar = document.getElementById('navbar');
         window.addEventListener('scroll', () => {
             navbar.classList.toggle('scrolled', window.scrollY > 50);
         });
 
-        // ===== HAMBURGER =====
         const hamburger = document.getElementById('hamburger');
         const navLinks = document.getElementById('navLinks');
         hamburger.addEventListener('click', () => {
             navLinks.classList.toggle('open');
+            hamburger.classList.toggle('active');
         });
         navLinks.querySelectorAll('a').forEach(a => {
-            a.addEventListener('click', () => navLinks.classList.remove('open'));
+            a.addEventListener('click', () => {
+                navLinks.classList.remove('open');
+                hamburger.classList.remove('active');
+            });
         });
 
-
-        // ===== COUNTDOWN =====
         (function() {
             const launchDate = new Date('2026-04-01T00:00:00').getTime();
             const timerEl = document.getElementById('countdownTimer');
@@ -1172,12 +1136,11 @@
             setInterval(update, 1000);
         })();
 
-        // ===== LIGHTBOX =====
         const lightbox = document.getElementById('lightbox');
         const lightboxImg = document.getElementById('lightboxImg');
 
         function openLightbox(el) {
-            const img = el.querySelector('img');
+            const img = el.querySelector('img') || el;
             lightboxImg.src = img.src;
             lightboxImg.alt = img.alt;
             lightbox.classList.add('active');
@@ -1193,7 +1156,6 @@
             if (e.key === 'Escape') closeLightbox();
         });
 
-        // ===== SCROLL REVEAL =====
         const reveals = document.querySelectorAll('.reveal');
         const revealObserver = new IntersectionObserver((entries) => {
             entries.forEach(entry => {
@@ -1202,26 +1164,25 @@
                     revealObserver.unobserve(entry.target);
                 }
             });
-        }, { threshold: 0.1, rootMargin: '0px 0px -50px 0px' });
+        }, { threshold: 0.08, rootMargin: '0px 0px -60px 0px' });
 
         reveals.forEach(el => revealObserver.observe(el));
 
-        // ===== FLOATING PARTICLES =====
         const particlesContainer = document.getElementById('particles');
-        const colors = ['rgba(74, 230, 138, 0.4)', 'rgba(245, 166, 35, 0.3)', 'rgba(217, 79, 155, 0.25)'];
+        const colors = ['rgba(52, 216, 122, 0.3)', 'rgba(232, 169, 37, 0.25)', 'rgba(217, 79, 155, 0.18)'];
 
         function createParticle() {
             const p = document.createElement('div');
             p.className = 'particle';
-            const size = Math.random() * 4 + 2;
+            const size = Math.random() * 3.5 + 1.5;
             const color = colors[Math.floor(Math.random() * colors.length)];
-            const duration = Math.random() * 15 + 10;
+            const duration = Math.random() * 18 + 12;
             const left = Math.random() * 100;
 
             p.style.cssText = `
                 width: ${size}px; height: ${size}px;
                 background: ${color};
-                box-shadow: 0 0 ${size * 2}px ${color};
+                box-shadow: 0 0 ${size * 3}px ${color};
                 left: ${left}%;
                 animation-duration: ${duration}s;
                 animation-delay: ${Math.random() * 5}s;
@@ -1230,12 +1191,10 @@
             setTimeout(() => p.remove(), (duration + 5) * 1000);
         }
 
-        // Create initial particles
-        for (let i = 0; i < 15; i++) {
-            setTimeout(createParticle, i * 400);
+        for (let i = 0; i < 12; i++) {
+            setTimeout(createParticle, i * 500);
         }
-        // Keep spawning
-        setInterval(createParticle, 2000);
+        setInterval(createParticle, 2500);
     </script>
 </body>
 </html>
