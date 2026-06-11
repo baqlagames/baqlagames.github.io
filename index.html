@@ -4,9 +4,9 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Baqla — Magical Mini-Game Arena | BaqlaGames</title>
-    <meta name="description" content="Baqla is a magical multiplayer mini-game arena featuring enchanted fruit characters, 6 unique games, and competitive leaderboards. Free on iOS worldwide.">
+    <meta name="description" content="Baqla is temporarily unavailable while the current store release is paused. Explore the magical mini-game arena and follow BaqlaGames for return updates.">
     <meta property="og:title" content="Baqla — Magical Mini-Game Arena">
-    <meta property="og:description" content="6 enchanted mini-games, multiplayer rooms, customization, and weekly leaderboards. Free on iOS worldwide.">
+    <meta property="og:description" content="Baqla is temporarily unavailable while the store release is paused. Follow BaqlaGames for return updates.">
     <meta property="og:image" content="https://baqlagames.com/images/baqla-icon.png">
     <meta property="og:type" content="website">
     <meta property="og:url" content="https://baqlagames.com">
@@ -25,8 +25,8 @@
         "name": "Baqla",
         "operatingSystem": "iOS",
         "applicationCategory": "GameApplication",
-        "offers": { "@type": "Offer", "price": "0", "priceCurrency": "USD" },
-        "description": "Magical multiplayer mini-game arena featuring enchanted fruit characters, 6 unique games, and competitive leaderboards.",
+        "offers": { "@type": "Offer", "price": "0", "priceCurrency": "USD", "availability": "https://schema.org/OutOfStock" },
+        "description": "Magical multiplayer mini-game arena featuring enchanted fruit characters, 6 unique games, and competitive leaderboards. Temporarily unavailable while the store release is paused.",
         "url": "https://baqlagames.com",
         "image": "https://baqlagames.com/images/baqla-icon.png",
         "author": { "@type": "Organization", "name": "BaqlaGames", "url": "https://baqlagames.com" }
@@ -315,6 +315,44 @@
             animation: heroEnter 1s 0.6s cubic-bezier(0.22, 1, 0.36, 1) forwards;
         }
 
+        .hero-proof {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: center;
+            gap: 0.7rem;
+            margin-top: 1.4rem;
+            opacity: 0;
+            animation: heroEnter 1s 0.72s cubic-bezier(0.22, 1, 0.36, 1) forwards;
+        }
+
+        .proof-chip {
+            display: inline-flex;
+            align-items: center;
+            gap: 0.45rem;
+            min-height: 34px;
+            padding: 0.4rem 0.78rem;
+            border-radius: 999px;
+            background: rgba(255, 255, 255, 0.035);
+            border: 1px solid rgba(232, 169, 37, 0.12);
+            color: var(--text-secondary);
+            font-size: 0.76rem;
+            font-weight: 600;
+            letter-spacing: 0.05em;
+            text-transform: uppercase;
+            backdrop-filter: blur(14px);
+            -webkit-backdrop-filter: blur(14px);
+        }
+
+        .proof-chip::before {
+            content: '';
+            width: 7px;
+            height: 7px;
+            border-radius: 50%;
+            background: var(--emerald);
+            box-shadow: 0 0 14px rgba(52, 216, 122, 0.65);
+            flex: 0 0 auto;
+        }
+
         .btn {
             display: inline-flex;
             align-items: center;
@@ -357,7 +395,31 @@
         }
 
         .btn-primary:hover::before { opacity: 1; }
+        .btn-unavailable {
+            background: rgba(255, 255, 255, 0.07);
+            color: var(--text-secondary);
+            border: 1.5px solid rgba(255, 255, 255, 0.14);
+            box-shadow: none;
+        }
 
+        .btn-unavailable::before { display: none; }
+
+        .btn-unavailable:hover {
+            transform: none;
+            box-shadow: none;
+            border-color: rgba(232, 169, 37, 0.34);
+        }
+
+        .status-note {
+            max-width: 640px;
+            margin: 1.15rem auto 0;
+            color: var(--text-muted);
+            font-size: 0.95rem;
+            font-weight: 300;
+            line-height: 1.65;
+            opacity: 0;
+            animation: heroEnter 1s 0.66s cubic-bezier(0.22, 1, 0.36, 1) forwards;
+        }
         .btn-secondary {
             background: transparent;
             color: var(--gold);
@@ -793,6 +855,24 @@
             }
             .hamburger { display: flex; }
             .hero { padding: 7rem 1.5rem 3rem; }
+            .hero-buttons {
+                flex-direction: column;
+                width: 100%;
+                max-width: 320px;
+                margin-left: auto;
+                margin-right: auto;
+            }
+            .hero-proof,
+            .status-note {
+                max-width: 320px;
+                margin-left: auto;
+                margin-right: auto;
+            }
+            .proof-chip,
+            .btn {
+                width: 100%;
+                justify-content: center;
+            }
             section { padding: 4rem 1.5rem; }
             .footer-content { flex-direction: column; align-items: center; text-align: center; }
             .footer-links { flex-direction: column; gap: 0.8rem; align-items: center; }
@@ -999,7 +1079,7 @@
                 transition-duration: 0.01ms !important;
             }
             html { scroll-behavior: auto; }
-            .hero-icon, .hero h1, .hero-tagline, .hero-sub, .hero-buttons { animation: none; opacity: 1; }
+            .hero-icon, .hero h1, .hero-tagline, .hero-sub, .hero-buttons, .hero-proof, .status-note { animation: none; opacity: 1; }
             .reveal { opacity: 1; transform: none; }
             .page-loader { display: none; }
         }
@@ -1033,7 +1113,7 @@
             <li><a href="#features">Features</a></li>
             <li><a href="#screenshots">Screenshots</a></li>
             <li><a href="#contact">Contact</a></li>
-            <li><a href="https://apps.apple.com/app/baqla/id6448760057" target="_blank" rel="noopener" class="nav-download">Download</a></li>
+            <li><a href="#availability" class="nav-download">Status</a></li>
         </ul>
         <button class="hamburger" id="hamburger" aria-label="Menu" aria-expanded="false">
             <span></span><span></span><span></span>
@@ -1041,16 +1121,22 @@
     </nav>
 
     <section class="hero" id="hero">
-        <img src="images/baqla-icon.png" alt="Baqla — Magical Fruit Card Game" class="hero-icon">
+        <img src="images/baqla-icon.png" alt="Baqla — Magical Fruit Card Game" class="hero-icon" fetchpriority="high" decoding="async">
         <h1>Baqla</h1>
         <p class="hero-tagline">Magical Mini-Game Arena</p>
-        <p class="hero-sub">6 enchanted games. One magical world. Now available worldwide.</p>
+        <p class="hero-sub">Baqla is temporarily unavailable while the current store release is paused and prepared for its next update.</p>
         <div class="hero-buttons">
-            <a href="https://apps.apple.com/app/baqla/id6448760057" target="_blank" rel="noopener" class="btn btn-primary">
+            <a href="#availability" class="btn btn-primary btn-unavailable">
                 <svg><use href="#icon-apple"/></svg>
-                <span>Download on App Store</span>
+                <span>Store Paused</span>
             </a>
             <a href="#modes" class="btn btn-secondary"><span>Explore Modes</span></a>
+        </div>
+        <p class="status-note">We are keeping the world, screenshots, and game information online while downloads are paused. Follow BaqlaGames for relaunch news.</p>
+        <div class="hero-proof" aria-label="Baqla highlights">
+            <span class="proof-chip">Store Paused</span>
+            <span class="proof-chip">6 Game Modes</span>
+            <span class="proof-chip">Updates on Socials</span>
         </div>
     </section>
 
@@ -1058,7 +1144,7 @@
         <h2 class="section-title">See It In Action</h2>
         <p class="section-subtitle">Watch the magic unfold in Baqla's enchanted arenas</p>
         <div class="video-wrapper">
-            <video autoplay muted loop playsinline preload="metadata">
+            <video autoplay muted loop playsinline preload="metadata" poster="images/screenshot-full-house.webp" aria-label="Baqla gameplay trailer">
                 <source src="images/BaqlaGameplay.mp4" type="video/mp4">
             </video>
         </div>
@@ -1131,8 +1217,8 @@
     </section>
 
     <section class="social-proof">
-        <h2 class="section-title reveal">Loved by Players</h2>
-        <p class="section-subtitle reveal">Join thousands of players in the enchanted arena.</p>
+        <h2 class="section-title reveal">A World Worth Returning To</h2>
+        <p class="section-subtitle reveal">Baqla is paused on the store while we prepare the next step for the game.</p>
         <div class="section-divider"></div>
         <div class="proof-stats reveal">
             <div class="proof-stat">
@@ -1148,12 +1234,12 @@
                 <div class="stat-label">Collectible Items</div>
             </div>
             <div class="proof-stat">
-                <div class="stat-value">Free</div>
-                <div class="stat-label">On the App Store</div>
+                <div class="stat-value">Paused</div>
+                <div class="stat-label">Store Status</div>
             </div>
         </div>
         <div class="proof-stars reveal" role="img" aria-label="5 out of 5 stars">&#9733;&#9733;&#9733;&#9733;&#9733;</div>
-        <p class="proof-quote reveal">"The art style is incredible and every mini-game feels completely different. My kids and I play it together every evening."</p>
+        <p class="proof-quote reveal">Baqla is not available to download right now. We will share return updates on Instagram and TikTok.</p>
     </section>
 
     <section id="screenshots">
@@ -1184,15 +1270,11 @@
         </a>
     </section>
 
-    <section class="cta-section">
-        <h2 class="reveal">Ready to Play?</h2>
-        <p class="reveal">Join the enchanted card table. Free on the App Store worldwide.</p>
+    <section class="cta-section" id="availability">
+        <h2 class="reveal">Temporarily Unavailable</h2>
+        <p class="reveal">The current store release is paused. Follow BaqlaGames for relaunch news, updates, and behind-the-scenes progress.</p>
         <div class="hero-buttons reveal">
-            <a href="https://apps.apple.com/app/baqla/id6448760057" target="_blank" rel="noopener" class="btn btn-primary">
-                <svg><use href="#icon-apple"/></svg>
-                <span>Download on App Store</span>
-            </a>
-            <a href="https://www.instagram.com/baqlagames/?hl=en" target="_blank" rel="noopener" class="btn btn-secondary">
+            <a href="https://www.instagram.com/baqlagames/?hl=en" target="_blank" rel="noopener" class="btn btn-primary">
                 <svg><use href="#icon-instagram"/></svg>
                 <span>Instagram</span>
             </a>
@@ -1226,7 +1308,7 @@
                 <a href="#modes">Game Modes</a>
                 <a href="#features">Features</a>
                 <a href="#contact">Contact</a>
-                <a href="https://apps.apple.com/app/baqla/id6448760057" target="_blank" rel="noopener">Download</a>
+                <a href="#availability">Status</a>
                 <a href="privacy/">Privacy Policy</a>
             </div>
             <div class="social-links">
