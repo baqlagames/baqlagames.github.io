@@ -20,3 +20,14 @@
 @media(max-width:800px){.mode-art{aspect-ratio:900/1067;width:min(100%,396px);max-height:470px}.mode-tabs{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));overflow:visible;margin-right:0}.mode-tab{font-size:14px;min-height:65px;padding:16px 10px;gap:10px;line-height:1.4}.mode-tab:nth-child(odd){padding-left:0}.mode-tab span{font-size:11px}}
 @media(prefers-reduced-motion:reduce){html{scroll-behavior:auto}*,*::before,*::after{animation-duration:.01ms!important;animation-iteration-count:1!important;transition-duration:.01ms!important}.mode-art:hover img{transform:none}.button:hover{transform:none}}
 .trailer-feature{margin:0 0 58px;border:1px solid rgba(24,39,48,.18);background:var(--navy-deep);color:var(--cream)}.trailer-feature video{display:block;width:100%;height:auto;aspect-ratio:16/9;object-fit:contain;background:#07101f}.trailer-feature figcaption{display:flex;align-items:center;justify-content:space-between;gap:24px;padding:26px 30px}.trailer-feature .eyebrow{color:var(--gold);margin-bottom:7px}.trailer-feature h3{font-family:var(--serif);font-size:30px;line-height:1.2}.trailer-feature figcaption>span{font-size:12px;color:#b8c2ce}@media(max-width:480px){.trailer-feature{margin-bottom:38px}.trailer-feature figcaption{padding:20px;align-items:flex-start;flex-direction:column;gap:12px}.trailer-feature h3{font-size:25px}}
+
+/* Carry the fantasy navy and gold palette through the full page. */
+.section-light{--ink:#f3efdf;--muted:#b8c3d1;--line:rgba(243,239,223,.2);--paper:#1a2b47;background:linear-gradient(180deg,#0d1a30,#101d35);color:var(--ink)}
+.section-light h2 em{color:#dec79e}
+.section-light .section-heading .eyebrow,.section-light .mode-kicker,.section-light .play-option .line-icon{color:var(--gold)}
+.section-light .mode-tab::after{background:var(--gold)}
+.section-light .mode-art::before{background:var(--navy-soft)}
+.section-light .mode-art img{filter:drop-shadow(0 18px 24px rgba(0,0,0,.3))}
+.section-light .gallery-filters button[aria-pressed=true]{border-color:var(--gold);color:var(--cream);background:rgba(215,179,110,.08)}
+.section-light .gallery-thumb[aria-pressed=true]>img{outline-color:var(--gold)}
+.section-light .trailer-feature{border-color:var(--line)}
