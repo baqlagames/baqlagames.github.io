@@ -1,5 +1,20 @@
 'use strict';
 
+const trailerVideo = document.querySelector('.trailer-player video');
+const trailerPlay = document.querySelector('.trailer-play');
+trailerPlay.hidden = false;
+trailerPlay.addEventListener('click', async () => {
+  trailerPlay.hidden = true;
+  try {
+    await trailerVideo.play();
+    trailerVideo.focus();
+  } catch {
+    trailerPlay.hidden = false;
+  }
+});
+trailerVideo.addEventListener('play', () => { trailerPlay.hidden = true; });
+trailerVideo.addEventListener('ended', () => { trailerPlay.hidden = false; });
+
 // Small, local interactions. The website has no accounts, forms, or tracking.
 const menuButton = document.querySelector('.menu-toggle');
 const navigation = document.querySelector('.main-nav');
@@ -22,7 +37,7 @@ document.addEventListener('keydown', event => {
 document.addEventListener('click', event => {
   if (!event.target.closest('.site-header')) closeMenu();
 });
-window.matchMedia('(min-width: 801px)').addEventListener('change', event => {
+window.matchMedia('(min-width: 901px)').addEventListener('change', event => {
   if (event.matches) closeMenu();
 });
 

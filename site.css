@@ -31,3 +31,34 @@
 .section-light .gallery-filters button[aria-pressed=true]{border-color:var(--gold);color:var(--cream);background:rgba(215,179,110,.08)}
 .section-light .gallery-thumb[aria-pressed=true]>img{outline-color:var(--gold)}
 .section-light .trailer-feature{border-color:var(--line)}
+
+/* Readable copy and controls across desktop and phone layouts. */
+:root{--copy-size:18px;--ui-size:16px;--meta-size:14px}
+body{font-size:var(--copy-size)}
+.hero-description,.section-heading>p,.section-heading>div:last-child:not(:first-child),.mode-copy>p:not(.mode-kicker),.play-option p,.world-figure p,.world-details p,.updates-copy>p:not(.eyebrow){font-size:var(--copy-size);line-height:1.65}
+.hero-description{max-width:430px}
+.main-nav,.menu-label,.button,.hero .button,.social-buttons .button,.text-link,.mode-tab,.gallery-filters button,.gallery-thumb>span{font-size:var(--ui-size)}
+.eyebrow,.hero .eyebrow,.section-heading .eyebrow,.play-intro .eyebrow,.mode-kicker{font-size:var(--meta-size);letter-spacing:.12em;line-height:1.5}
+.brand-small{font-size:11px;letter-spacing:.28em}
+.hero-availability,.character-caption,.hero-bottom,.mode-tab span,.art-label,.world-figure figcaption>span,.preview-note,.gallery-count,.expand-label,.featured-view figcaption>div>span,.footer-brand>span,.footer-top>div>p,.footer-bottom,.footer-bottom>div,.lightbox-top>span,.lightbox-navigation>span,.trailer-feature figcaption>span{font-size:var(--meta-size);line-height:1.5}
+.hero-availability{min-height:44px;max-width:430px}
+.featured-view figcaption>p,.lightbox-bottom p{font-size:16px;line-height:1.6}
+.play-option h4,.world-details h3{font-size:18px;line-height:1.4}
+.updates-copy>p.updates-secondary{font-size:16px}
+.footer-bottom a{min-height:44px}
+.gallery-filters{flex-wrap:wrap}
+.gallery-filters button,.gallery-arrows button,.lightbox-navigation button{min-width:44px;min-height:44px}
+.gallery-thumb>span{min-height:44px;line-height:1.4}
+.hero-actions{display:flex;flex-wrap:wrap;gap:14px;margin-top:32px}
+.hero .hero-actions .button{margin-top:0;min-width:0;gap:24px}
+.main-nav{gap:25px}
+.main-nav .nav-status{margin-left:0;padding-left:24px}
+#trailer{scroll-margin-top:24px}
+.trailer-player{position:relative}
+.trailer-play{position:absolute;inset:50% auto auto 50%;transform:translate(-50%,-50%);display:flex;align-items:center;justify-content:center;gap:14px;min-height:72px;max-width:calc(100% - 32px);padding:18px 26px;border:1px solid var(--gold);border-radius:50px;background:rgba(10,21,40,.94);color:var(--cream);font-size:18px;font-weight:600;white-space:nowrap;box-shadow:0 8px 35px rgba(0,0,0,.4);transition:background .2s}
+.trailer-play:hover{background:#1a2b47}
+.trailer-play .icon{width:27px;height:27px;fill:var(--gold);stroke:var(--gold)}
+@media(max-width:1000px){.header-inner{width:calc(100% - 48px)}.main-nav{gap:18px}.main-nav .nav-status{padding-left:18px}}
+@media(max-width:900px){.header-inner{height:76px}.menu-toggle{display:flex;align-items:center;min-height:44px}.main-nav{position:absolute;left:0;right:0;top:76px;display:none;padding:20px 24px 25px;background:var(--navy-deep);border-bottom:1px solid var(--white-line);box-shadow:0 20px 30px rgba(0,0,0,.2)}.main-nav.is-open{display:flex;flex-direction:column;gap:2px;align-items:stretch}.main-nav>a{padding:12px 0;min-height:50px}.main-nav .nav-status{margin-top:10px;padding:18px 0 0;border-left:0;border-top:1px solid var(--white-line)}}
+@media(max-width:800px){:root{--copy-size:16px}.hero-character{height:40%}.hero-availability{max-width:360px}.featured-view figcaption>div:first-child{min-width:0}.footer-bottom>div{flex-wrap:wrap;gap:8px 24px}.lightbox-top>span{letter-spacing:.08em}.lightbox-image{max-height:calc(100svh - 320px)}}
+@media(max-width:480px){.hero-actions{flex-direction:column;align-items:stretch;max-width:320px;gap:12px}.hero-content{padding-bottom:300px}.hero .eyebrow{letter-spacing:.08em}.hero-availability{max-width:320px}.hero-character{height:31%;min-height:280px}.hero-bottom{font-size:14px}.trailer-feature figcaption{gap:10px}.trailer-play{min-height:60px;padding:14px 20px;font-size:16px}.expand-label{padding:10px 12px}}
