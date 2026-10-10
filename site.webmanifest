@@ -1,14 +1,14 @@
 {
-    "name": "Baqla — Magical Mini-Game Arena",
+    "name": "Baqla — Four Games. One Enchanted World.",
     "short_name": "Baqla",
-    "description": "6 enchanted mini-games, multiplayer rooms, customization, and weekly leaderboards.",
+    "description": "Texas Hold’em, Color Clash, Rummy and Dutch in one enchanted world. Single player, multiplayer rooms, collections and a monthly leaderboard.",
     "start_url": "/",
     "scope": "/",
     "display": "browser",
-    "background_color": "#060610",
-    "theme_color": "#e8a925",
+    "background_color": "#071c2b",
+    "theme_color": "#071c2b",
     "icons": [
-        { "src": "images/baqla-icon.png", "sizes": "192x192", "type": "image/png" },
-        { "src": "images/baqla-icon.png", "sizes": "512x512", "type": "image/png" }
+        { "src": "images/current/icon-192.png", "sizes": "192x192", "type": "image/png" },
+        { "src": "images/current/icon-512.png", "sizes": "512x512", "type": "image/png" }
     ]
 }
