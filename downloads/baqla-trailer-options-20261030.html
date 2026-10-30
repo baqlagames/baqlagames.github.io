@@ -1,0 +1,57 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="robots" content="noindex">
+  <meta name="theme-color" content="#07152b">
+  <title>Baqla — Compare trailer options</title>
+  <style>
+    * { box-sizing: border-box; }
+    body { margin: 0; background: #07152b; color: #f7f4ec; font: 17px/1.6 system-ui, sans-serif; }
+    main { max-width: 860px; margin: 0 auto; padding: 36px 20px 56px; }
+    h1 { font-size: clamp(26px, 6vw, 38px); line-height: 1.2; margin: 0 0 12px; }
+    h2 { font-size: 25px; line-height: 1.3; margin: 0 0 8px; }
+    p { color: #cbd5e1; margin: 8px 0 16px; }
+    section { margin-top: 32px; padding-top: 26px; border-top: 1px solid #334459; }
+    video { display: block; width: 100%; height: auto; aspect-ratio: 16 / 9; background: #000; border-radius: 12px; margin: 20px 0; }
+    a { color: #f2c65e; }
+    .download { display: inline-block; padding: 13px 21px; border-radius: 10px; background: #f2c65e; color: #101c30; font-weight: 700; text-decoration: none; }
+    a:focus-visible { outline: 3px solid #fff; outline-offset: 4px; }
+    .details { font-size: 15px; }
+  </style>
+</head>
+<body>
+  <main>
+    <h1>Compare the Baqla trailers</h1>
+    <p>Two separate 29.8-second versions. Play each one to choose your preferred style.</p>
+    <section aria-labelledby="option-b">
+      <h2 id="option-b">Option B — Card camera</h2>
+      <p>The card comes toward the camera, fills the view, then drops into the next scene.</p>
+      <video controls playsinline preload="metadata" poster="/videos/baqla-card-camera-option-b-20261030-poster.jpg" aria-label="Option B trailer with card-camera transitions">
+        <source src="/videos/baqla-card-camera-option-b-20261030-iphone.mp4" type="video/mp4">
+        <p><a href="/videos/baqla-card-camera-option-b-20261030-iphone.mp4" download="Baqla-Trailer-Option-B.mp4">Download Option B</a></p>
+      </video>
+      <a class="download" href="/videos/baqla-card-camera-option-b-20261030-iphone.mp4" download="Baqla-Trailer-Option-B.mp4">Download Option B</a>
+      <p class="details"><a href="/videos/baqla-card-camera-option-b-20261030-1080p.mp4" download="Baqla-Trailer-Option-B-1080p.mp4">Option B — Full quality 1080p</a></p>
+    </section>
+    <section aria-labelledby="option-a">
+      <h2 id="option-a">Option A — Live blends</h2>
+      <p>The previous version, with short live blends and a continuous four-screen reveal.</p>
+      <video controls playsinline preload="metadata" poster="/videos/baqla-action-match-v4-20261030-poster.jpg" aria-label="Option A trailer with live blends">
+        <source src="/videos/baqla-action-match-v4-20261030-iphone.mp4" type="video/mp4">
+        <p><a href="/videos/baqla-action-match-v4-20261030-iphone.mp4" download="Baqla-Trailer-Option-A.mp4">Download Option A</a></p>
+      </video>
+      <a class="download" href="/videos/baqla-action-match-v4-20261030-iphone.mp4" download="Baqla-Trailer-Option-A.mp4">Download Option A</a>
+      <p class="details"><a href="/videos/baqla-action-match-v4-20261030-1080p.mp4" download="Baqla-Trailer-Option-A-1080p.mp4">Option A — Full quality 1080p</a></p>
+    </section>
+    <p class="details">To save on iPhone, open this page in <strong>Safari</strong> and tap a download button. Open the video in <strong>Files</strong>, then choose <strong>Share → Save Video</strong>.</p>
+  </main>
+  <script>
+    const previews = document.querySelectorAll('video');
+    previews.forEach(current => current.addEventListener('play', () => {
+      previews.forEach(other => { if (other !== current) other.pause(); });
+    }));
+  </script>
+</body>
+</html>
