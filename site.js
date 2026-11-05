@@ -2,74 +2,57 @@
 
 const trailerVideo = document.querySelector('.trailer-player video');
 const trailerPlay = document.querySelector('.trailer-play');
-trailerPlay.hidden = false;
-trailerPlay.addEventListener('click', async () => {
-  trailerPlay.hidden = true;
-  try {
-    await trailerVideo.play();
-    trailerVideo.focus();
-  } catch {
-    trailerPlay.hidden = false;
-  }
-});
-trailerVideo.addEventListener('play', () => { trailerPlay.hidden = true; });
-trailerVideo.addEventListener('ended', () => { trailerPlay.hidden = false; });
+if (trailerVideo && trailerPlay) {
+  trailerPlay.hidden = false;
+  trailerPlay.addEventListener('click', async () => {
+    trailerPlay.hidden = true;
+    try { await trailerVideo.play(); trailerVideo.focus(); }
+    catch { trailerPlay.hidden = false; }
+  });
+  trailerVideo.addEventListener('play', () => { trailerPlay.hidden = true; });
+  trailerVideo.addEventListener('ended', () => { trailerPlay.hidden = false; });
+}
 
-// Small, local interactions. The website has no accounts, forms, or tracking.
 const menuButton = document.querySelector('.menu-toggle');
 const navigation = document.querySelector('.main-nav');
-function closeMenu() {
-  navigation.classList.remove('is-open');
-  menuButton.setAttribute('aria-expanded', 'false');
-}
+function closeMenu() { navigation.classList.remove('is-open'); menuButton.setAttribute('aria-expanded', 'false'); }
 menuButton.addEventListener('click', () => {
   const open = menuButton.getAttribute('aria-expanded') !== 'true';
-  menuButton.setAttribute('aria-expanded', String(open));
-  navigation.classList.toggle('is-open', open);
+  menuButton.setAttribute('aria-expanded', String(open)); navigation.classList.toggle('is-open', open);
 });
 navigation.querySelectorAll('a').forEach(link => link.addEventListener('click', closeMenu));
-document.addEventListener('keydown', event => {
-  if (event.key === 'Escape' && navigation.classList.contains('is-open')) {
-    closeMenu();
-    menuButton.focus();
-  }
-});
-document.addEventListener('click', event => {
-  if (!event.target.closest('.site-header')) closeMenu();
-});
-window.matchMedia('(min-width: 901px)').addEventListener('change', event => {
-  if (event.matches) closeMenu();
-});
+document.addEventListener('click', event => { if (!event.target.closest('.site-header')) closeMenu(); });
+document.addEventListener('keydown', event => { if (event.key === 'Escape' && navigation.classList.contains('is-open')) { closeMenu(); menuButton.focus(); } });
+window.matchMedia('(min-width: 901px)').addEventListener('change', event => { if (event.matches) closeMenu(); });
 
 const tabs = [...document.querySelectorAll('.mode-tab')];
 function selectMode(tab, focus = false) {
   tabs.forEach(item => {
     const selected = item === tab;
-    item.setAttribute('aria-selected', String(selected));
-    item.tabIndex = selected ? 0 : -1;
+    item.setAttribute('aria-selected', String(selected)); item.tabIndex = selected ? 0 : -1;
     document.getElementById(item.getAttribute('aria-controls')).hidden = !selected;
   });
   if (focus) tab.focus();
 }
-tabs.forEach((tab, index) => {
+tabs.forEach((tab,index) => {
   tab.addEventListener('click', () => selectMode(tab));
   tab.addEventListener('keydown', event => {
     let next;
-    if (event.key === 'ArrowRight') next = (index + 1) % tabs.length;
-    if (event.key === 'ArrowLeft') next = (index + tabs.length - 1) % tabs.length;
+    if (event.key === 'ArrowRight') next = (index+1)%tabs.length;
+    if (event.key === 'ArrowLeft') next = (index+tabs.length-1)%tabs.length;
     if (event.key === 'Home') next = 0;
-    if (event.key === 'End') next = tabs.length - 1;
-    if (next !== undefined) {
-      event.preventDefault();
-      selectMode(tabs[next], true);
-      tabs[next].scrollIntoView({ block: 'nearest', inline: 'nearest', behavior: 'instant' });
-    }
+    if (event.key === 'End') next = tabs.length-1;
+    if (next !== undefined) { event.preventDefault(); selectMode(tabs[next],true); }
   });
 });
+document.querySelectorAll('[data-mode-select]').forEach(link => link.addEventListener('click', () => {
+  const tab = document.getElementById(`tab-${link.dataset.modeSelect}`);
+  if (tab) selectMode(tab);
+}));
 
 const thumbnails = [...document.querySelectorAll('.gallery-thumb')];
 const filterButtons = [...document.querySelectorAll('[data-filter]')];
-const featuredImage = document.getElementById('featured-screenshot');
+const featuredImage = document.querySelector('.featured-screenshot');
 const featuredButton = document.querySelector('.featured-image');
 const featuredTitle = document.getElementById('featured-title');
 const featuredCaption = document.getElementById('featured-caption');
@@ -82,75 +65,64 @@ let currentScreenshot = thumbnails[0];
 let previousFocus;
 
 function syncLightbox() {
-  lightboxImage.src = currentScreenshot.querySelector('img').src;
-  lightboxImage.alt = `Current ${currentScreenshot.dataset.title} screen in Baqla`;
+  lightboxImage.src = currentScreenshot.dataset.fullSrc;
+  lightboxImage.alt = `${currentScreenshot.dataset.title} in Baqla`;
   document.getElementById('lightbox-title').textContent = currentScreenshot.dataset.title;
-  document.getElementById('lightbox-caption').textContent = `${currentScreenshot.dataset.caption} · Current pre-release build`;
-  document.getElementById('lightbox-count').textContent = `${visibleScreenshots.indexOf(currentScreenshot) + 1} / ${visibleScreenshots.length}`;
+  document.getElementById('lightbox-caption').textContent = currentScreenshot.dataset.caption;
+  document.getElementById('lightbox-count').textContent = `${visibleScreenshots.indexOf(currentScreenshot)+1} / ${visibleScreenshots.length}`;
 }
-
-function selectScreenshot(thumbnail, announce = true) {
+function selectScreenshot(thumbnail, announce=true) {
+  if (!thumbnail) return;
   currentScreenshot = thumbnail;
   thumbnails.forEach(item => item.setAttribute('aria-pressed', String(item === thumbnail)));
-  featuredImage.src = thumbnail.querySelector('img').src;
-  featuredImage.alt = `Current ${thumbnail.dataset.title} screen in Baqla`;
-  featuredButton.setAttribute('aria-label', `Open ${thumbnail.dataset.title} screenshot full screen`);
+  featuredImage.src = thumbnail.dataset.fullSrc;
+  featuredImage.alt = `${thumbnail.dataset.title} in Baqla`;
+  featuredButton.setAttribute('aria-label',`Open ${thumbnail.dataset.title} screenshot full screen`);
   featuredTitle.textContent = thumbnail.dataset.title;
   featuredCaption.textContent = thumbnail.dataset.caption;
-  featuredCategory.textContent = thumbnail.dataset.category === 'games' ? 'At the table' : 'Beyond the table';
-  if (announce) announcement.textContent = `${thumbnail.dataset.title}. Screenshot ${visibleScreenshots.indexOf(thumbnail) + 1} of ${visibleScreenshots.length}.`;
+  featuredCategory.textContent = thumbnail.dataset.category === 'games' ? 'The games' : 'Beyond the table';
+  if (announce) announcement.textContent = `${thumbnail.dataset.title}. Screenshot ${visibleScreenshots.indexOf(thumbnail)+1} of ${visibleScreenshots.length}.`;
   if (lightbox.open) syncLightbox();
 }
-
-function filterGallery(filter, announce = true) {
-  filterButtons.forEach(button => button.setAttribute('aria-pressed', String(button.dataset.filter === filter)));
-  thumbnails.forEach(thumbnail => { thumbnail.hidden = filter !== 'all' && thumbnail.dataset.category !== filter; });
-  visibleScreenshots = thumbnails.filter(thumbnail => !thumbnail.hidden);
+function filterGallery(filter, announce=true) {
+  filterButtons.forEach(button => button.setAttribute('aria-pressed',String(button.dataset.filter===filter)));
+  thumbnails.forEach(thumb => { thumb.hidden = filter!=='all' && thumb.dataset.category!==filter; });
+  visibleScreenshots = thumbnails.filter(thumb => !thumb.hidden);
   document.getElementById('gallery-count').textContent = `${visibleScreenshots.length} views`;
-  if (!visibleScreenshots.includes(currentScreenshot)) selectScreenshot(visibleScreenshots[0], false);
+  if (!visibleScreenshots.includes(currentScreenshot)) selectScreenshot(visibleScreenshots[0],false);
   if (announce) announcement.textContent = `${visibleScreenshots.length} screenshots. Showing ${currentScreenshot.dataset.title}.`;
 }
-
 function moveScreenshot(direction) {
   const index = visibleScreenshots.indexOf(currentScreenshot);
-  selectScreenshot(visibleScreenshots[(index + direction + visibleScreenshots.length) % visibleScreenshots.length]);
+  selectScreenshot(visibleScreenshots[(index+direction+visibleScreenshots.length)%visibleScreenshots.length]);
 }
-
-thumbnails.forEach(thumbnail => thumbnail.addEventListener('click', () => selectScreenshot(thumbnail)));
+thumbnails.forEach(thumb => thumb.addEventListener('click', () => {
+  selectScreenshot(thumb);
+  featuredButton.focus({preventScroll:true});
+  featuredButton.scrollIntoView({block:'start',behavior:window.matchMedia('(prefers-reduced-motion: reduce)').matches?'instant':'smooth'});
+}));
 filterButtons.forEach(button => button.addEventListener('click', () => filterGallery(button.dataset.filter)));
 document.getElementById('gallery-previous').addEventListener('click', () => moveScreenshot(-1));
 document.getElementById('gallery-next').addEventListener('click', () => moveScreenshot(1));
-document.querySelectorAll('[data-gallery-select]').forEach(link => {
-  link.addEventListener('click', () => {
-    filterGallery('games', false);
-    const target = thumbnails.find(thumbnail => thumbnail.dataset.id === link.dataset.gallerySelect);
-    if (target) selectScreenshot(target);
-  });
-});
-
+document.querySelectorAll('[data-gallery-select]').forEach(link => link.addEventListener('click', () => {
+  const target = thumbnails.find(thumb => thumb.dataset.id === link.dataset.gallerySelect);
+  if (target) { filterGallery(target.dataset.category,false); selectScreenshot(target); }
+}));
 featuredButton.addEventListener('click', () => {
   previousFocus = document.activeElement;
-  syncLightbox();
-  lightbox.showModal();
-  document.body.classList.add('modal-open');
+  syncLightbox(); lightbox.showModal(); document.body.classList.add('modal-open');
   document.querySelector('.lightbox-close').focus();
 });
 document.querySelector('.lightbox-close').addEventListener('click', () => lightbox.close());
 document.querySelector('.lightbox-previous').addEventListener('click', () => moveScreenshot(-1));
 document.querySelector('.lightbox-next').addEventListener('click', () => moveScreenshot(1));
-lightbox.addEventListener('close', () => {
-  document.body.classList.remove('modal-open');
-  if (previousFocus) previousFocus.focus({ preventScroll: true });
-});
+lightbox.addEventListener('close', () => { document.body.classList.remove('modal-open'); previousFocus?.focus({preventScroll:true}); });
 lightbox.addEventListener('click', event => {
   if (event.target !== lightbox) return;
-  const bounds = lightbox.getBoundingClientRect();
-  if (event.clientX < bounds.left || event.clientX > bounds.right || event.clientY < bounds.top || event.clientY > bounds.bottom) lightbox.close();
+  const r=lightbox.getBoundingClientRect();
+  if (event.clientX<r.left || event.clientX>r.right || event.clientY<r.top || event.clientY>r.bottom) lightbox.close();
 });
 lightbox.addEventListener('keydown', event => {
-  if (event.key === 'ArrowLeft' || event.key === 'ArrowRight') {
-    event.preventDefault();
-    moveScreenshot(event.key === 'ArrowRight' ? 1 : -1);
-  }
+  if (event.key==='ArrowLeft'||event.key==='ArrowRight') { event.preventDefault(); moveScreenshot(event.key==='ArrowRight'?1:-1); }
 });
 document.getElementById('year').textContent = new Date().getFullYear();
