@@ -1,31 +1,29 @@
 'use strict';
 
-if ('IntersectionObserver' in window) {
+const animatedMascot = document.querySelector('[data-mascot-gif]');
+if (animatedMascot && 'IntersectionObserver' in window) {
   const reducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)');
-  document.querySelectorAll('[data-motion-src], [data-mascot-gif]').forEach(artwork => {
-    const stillSource = artwork.src;
-    const motionSource = artwork.dataset.motionSrc || artwork.dataset.mascotGif;
-    let hasPlayed = false;
-    const observer = new IntersectionObserver(entries => {
-      if (hasPlayed || reducedMotion.matches || !entries.some(entry => entry.intersectionRatio >= 0.25)) return;
-      hasPlayed = true;
-      observer.disconnect();
-      artwork.src = motionSource;
-    }, { threshold: 0.25 });
+  const stillSource = animatedMascot.src;
+  let hasPlayed = false;
+  const mascotObserver = new IntersectionObserver(entries => {
+    if (hasPlayed || reducedMotion.matches || !entries.some(entry => entry.intersectionRatio >= 0.25)) return;
+    hasPlayed = true;
+    mascotObserver.disconnect();
+    animatedMascot.src = animatedMascot.dataset.mascotGif;
+  }, { threshold: 0.25 });
 
-    artwork.addEventListener('error', () => {
-      if (artwork.src !== stillSource) artwork.src = stillSource;
-    });
-    reducedMotion.addEventListener('change', () => {
-      if (reducedMotion.matches) {
-        observer.disconnect();
-        if (artwork.src !== stillSource) artwork.src = stillSource;
-      } else if (!hasPlayed) {
-        observer.observe(artwork);
-      }
-    });
-    if (!reducedMotion.matches) observer.observe(artwork);
+  animatedMascot.addEventListener('error', () => {
+    if (animatedMascot.src !== stillSource) animatedMascot.src = stillSource;
   });
+  reducedMotion.addEventListener('change', () => {
+    if (reducedMotion.matches) {
+      mascotObserver.disconnect();
+      if (animatedMascot.src !== stillSource) animatedMascot.src = stillSource;
+    } else if (!hasPlayed) {
+      mascotObserver.observe(animatedMascot);
+    }
+  });
+  if (!reducedMotion.matches) mascotObserver.observe(animatedMascot);
 }
 
 const trailerVideo = document.querySelector('.trailer-player video');
