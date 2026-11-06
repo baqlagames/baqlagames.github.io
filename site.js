@@ -1,5 +1,31 @@
 'use strict';
 
+const animatedMascot = document.querySelector('[data-mascot-gif]');
+if (animatedMascot && 'IntersectionObserver' in window) {
+  const reducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)');
+  const stillSource = animatedMascot.src;
+  let hasPlayed = false;
+  const mascotObserver = new IntersectionObserver(entries => {
+    if (hasPlayed || reducedMotion.matches || !entries.some(entry => entry.intersectionRatio >= 0.25)) return;
+    hasPlayed = true;
+    mascotObserver.disconnect();
+    animatedMascot.src = animatedMascot.dataset.mascotGif;
+  }, { threshold: 0.25 });
+
+  animatedMascot.addEventListener('error', () => {
+    if (animatedMascot.src !== stillSource) animatedMascot.src = stillSource;
+  });
+  reducedMotion.addEventListener('change', () => {
+    if (reducedMotion.matches) {
+      mascotObserver.disconnect();
+      if (animatedMascot.src !== stillSource) animatedMascot.src = stillSource;
+    } else if (!hasPlayed) {
+      mascotObserver.observe(animatedMascot);
+    }
+  });
+  if (!reducedMotion.matches) mascotObserver.observe(animatedMascot);
+}
+
 const trailerVideo = document.querySelector('.trailer-player video');
 const trailerPlay = document.querySelector('.trailer-play');
 if (trailerVideo && trailerPlay) {
